@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'flavor_configurations.dart';
-import 'app/application_initializer.dart';
+import 'app.dart';
+import 'core/flavor_configurations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  FlavorConfigurations.current = FlavorConfigurations.development;
+  ConfigurationProfile.current = ConfigurationProfile.development;
   initializeFlutterApp();
 }
