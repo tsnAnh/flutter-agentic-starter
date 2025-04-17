@@ -14,7 +14,7 @@ import 'package:injectable/injectable.dart' as _i526;
 
 import '../../features/home/bloc/home_bloc.dart' as _i854;
 import '../../features/home/cubit/home_cubit.dart' as _i1032;
-import '../../shared/data/datasource/remote/city_api.dart' as _i337;
+import '../../shared/data/api/city.dart' as _i737;
 import '../../shared/data/repositories/city_repository.dart' as _i288;
 import '../../shared/data/repositories/city_repository_impl.dart' as _i841;
 import '../app_bloc_observer.dart' as _i744;
@@ -48,24 +48,24 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.dioNonAuth,
       instanceName: 'NonAuthDio',
     );
-    gh.lazySingleton<_i337.ICityApi>(
-        () => _i337.CityApi(gh<_i361.Dio>(instanceName: 'NonAuthDio')));
+    gh.lazySingleton<_i737.CityApi>(
+        () => _i737.CityApiImpl(gh<_i361.Dio>(instanceName: 'NonAuthDio')));
+    gh.lazySingleton<_i288.CityRepository>(
+        () => _i841.CityRepositoryImpl(gh<_i737.CityApi>()));
+    gh.factory<_i1032.HomeCubit>(
+        () => _i1032.HomeCubit(gh<_i288.CityRepository>()));
+    gh.factory<_i854.HomeBloc>(
+        () => _i854.HomeBloc(gh<_i288.CityRepository>()));
     gh.singleton<_i512.Logger>(
       () => _i803.DebugLogger(),
       registerFor: {_development},
     );
-    gh.lazySingleton<_i288.CityRepository>(
-        () => _i841.CityRepositoryImpl(gh<_i612.ICityApi>()));
     gh.singleton<_i512.Logger>(
       () => _i67.ProductionLogger(),
       registerFor: {_production},
     );
     gh.lazySingleton<_i744.AppBlocObserver>(
         () => _i744.AppBlocObserver(logger: gh<_i512.Logger>()));
-    gh.factory<_i1032.HomeCubit>(
-        () => _i1032.HomeCubit(gh<_i288.CityRepository>()));
-    gh.factory<_i854.HomeBloc>(
-        () => _i854.HomeBloc(gh<_i288.CityRepository>()));
     return this;
   }
 }

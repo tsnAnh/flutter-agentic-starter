@@ -1,7 +1,7 @@
 import 'package:dart3z/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../core/network/remote.dart';
+import '../api/city.dart';
 import '../models/dtos/city.dart';
 import 'city_repository.dart';
 
@@ -9,8 +9,8 @@ import 'city_repository.dart';
 final class CityRepositoryImpl implements CityRepository {
   const CityRepositoryImpl(this.cityApi);
 
-  final ICityApi cityApi;
+  final CityApi cityApi;
 
   @override
-  Future<Option<List<City>>> getCities() => cityApi.getCities();
+  Future<Option<List<City>>> getCities() async => cityApi.getCities();
 }
