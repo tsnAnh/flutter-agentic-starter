@@ -1,4 +1,4 @@
-import 'package:dart3z/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
 import '../api/city.dart';

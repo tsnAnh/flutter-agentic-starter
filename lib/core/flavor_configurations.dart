@@ -13,20 +13,14 @@ enum ConfigurationProfile {
   );
 
   final String baseUrl;
-  final int connectTimeout;
-  final int receiveTimeout;
-  final int sendTimeout;
+  final int connectTimeout = _defaultConnectTimeout;
+  final int receiveTimeout = _defaultReceiveTimeout;
+  final int sendTimeout = _defaultSendTimeout;
   final String name;
 
   // Flavor things...
 
-  const ConfigurationProfile({
-    required this.baseUrl,
-    required this.name,
-    this.connectTimeout = _defaultConnectTimeout,
-    this.receiveTimeout = _defaultReceiveTimeout,
-    this.sendTimeout = _defaultSendTimeout,
-  });
+  const ConfigurationProfile({required this.baseUrl, required this.name});
 
   static const _defaultConnectTimeout = 30000;
   static const _defaultReceiveTimeout = 30000;

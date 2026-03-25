@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:dart3z/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:dio/dio.dart';
 
 import '../error.dart';
@@ -15,24 +15,30 @@ abstract base class Api {
   Future<Either<NetworkError, T>> withTimeoutRequest<T>(
       Future<T> Function() request) async {
     try {
-      final either = await catchAsync(() => request()).timeout(
+      final either = await TaskEither<Object, T>.tryCatch(
+        () => request(),
+        (err, _) => err,
+      ).run().timeout(
         Duration(milliseconds: ConfigurationProfile.current.connectTimeout),
       );
-      return either.leftMap((err) => mapErrorToNetworkError(err));
+      return either.mapLeft((err) => mapErrorToNetworkError(err));
     } on TimeoutException catch (timeoutException) {
-      return Left<NetworkError, T>(Timeout(exception: timeoutException));
+      return Either.left(Timeout(exception: timeoutException));
     }
   }
 
   Future<Option<T>> withTimeoutRequestOption<T>(
       Future<T> Function() request) async {
     try {
-      final either = await catchAsync(() => request()).timeout(
+      final either = await TaskEither<Object, T>.tryCatch(
+        () => request(),
+        (err, _) => err,
+      ).run().timeout(
         Duration(milliseconds: ConfigurationProfile.current.connectTimeout),
       );
       return either.toOption();
     } on TimeoutException {
-      return None();
+      return Option.none();
     }
   }
 
