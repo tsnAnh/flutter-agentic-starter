@@ -72,3 +72,6 @@ doc/api/
 pubspec.lock
 /.idea/
 !/packages/useful_lints/custom_lint.log
+
+.claude/
+.opencode/
