@@ -504,7 +504,7 @@
 
 ## Support & Resources
 
-- **GitHub**: [tsnAnh/flutter-bloc-base-source-code](https://github.com/tsnAnh/flutter-bloc-base-source-code)
+- **GitHub**: [tsnAnh/flutter-agentic-starter](https://github.com/tsnAnh/flutter-agentic-starter)
 - **Documentation**: See `/docs` directory
 - **Example Project**: [bit](https://github.com/tsnAnh/bit)
 - **Issues**: GitHub Issues for bugs and features

@@ -5,8 +5,8 @@
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/tsnAnh/flutter-bloc-base-source-code.git
-cd flutter-bloc-base-source-code
+git clone https://github.com/tsnAnh/flutter-agentic-starter.git
+cd flutter-agentic-starter
 flutter pub get
 dart run build_runner build
 ```
@@ -431,7 +431,7 @@ class MyRepository with CachedRepositoryMixin {
 
 | Resource | Purpose | Link |
 |----------|---------|------|
-| Repository | Source code | [GitHub](https://github.com/tsnAnh/flutter-bloc-base-source-code) |
+| Repository | Source code | [GitHub](https://github.com/tsnAnh/flutter-agentic-starter) |
 | Flutter Docs | Flutter reference | [flutter.dev](https://flutter.dev) |
 | BLoC Docs | State management | [bloclibrary.dev](https://bloclibrary.dev) |
 | Dart Docs | Language reference | [dart.dev](https://dart.dev) |

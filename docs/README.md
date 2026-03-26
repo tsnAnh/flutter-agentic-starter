@@ -134,8 +134,8 @@ The project provides 18 pre-built infrastructure modules:
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/tsnAnh/flutter-bloc-base-source-code.git
-cd flutter-bloc-base-source-code
+git clone https://github.com/tsnAnh/flutter-agentic-starter.git
+cd flutter-agentic-starter
 
 # 2. Install dependencies
 flutter pub get
@@ -316,7 +316,7 @@ Want to improve documentation?
 
 | Resource | Link |
 |----------|------|
-| **GitHub Repository** | [tsnAnh/flutter-bloc-base-source-code](https://github.com/tsnAnh/flutter-bloc-base-source-code) |
+| **GitHub Repository** | [tsnAnh/flutter-agentic-starter](https://github.com/tsnAnh/flutter-agentic-starter) |
 | **Example Project** | [bit](https://github.com/tsnAnh/bit) |
 | **Flutter Docs** | [flutter.dev](https://flutter.dev) |
 | **BLoC Library** | [bloclibrary.dev](https://bloclibrary.dev) |

@@ -495,7 +495,7 @@ When breaking changes are introduced:
 ### Communication Channels
 - GitHub Issues & Discussions
 - Example project: [bit](https://github.com/tsnAnh/bit)
-- Repository: [flutter-bloc-base-source-code](https://github.com/tsnAnh/flutter-bloc-base-source-code)
+- Repository: [flutter-agentic-starter](https://github.com/tsnAnh/flutter-agentic-starter)
 
 ### Release Cycle
 - **Patch versions**: Monthly

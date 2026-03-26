@@ -4,7 +4,7 @@
 
 Flutter BLoC Base is a production-ready, modular Flutter template implementing clean architecture with the BLoC pattern. The codebase provides reusable infrastructure for rapid feature development.
 
-**Repository**: [flutter-bloc-base-source-code](https://github.com/tsnAnh/flutter-bloc-base-source-code)
+**Repository**: [flutter-agentic-starter](https://github.com/tsnAnh/flutter-agentic-starter)
 
 ## Statistics
 
