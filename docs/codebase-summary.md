@@ -8,8 +8,8 @@ Flutter BLoC Base is a production-ready, modular Flutter template implementing c
 
 ## Statistics
 
-- **Total Files**: 143 Dart files
-- **Total Modules**: 18 core modules
+- **Total Files**: 153 Dart files
+- **Total Modules**: 17 core module groups
 - **Architecture**: Clean Architecture + BLoC Pattern
 - **Dependency Injection**: GetIt with automatic configuration
 
@@ -46,13 +46,10 @@ lib/
 │   └── widgets/                   # Reusable UI components
 │
 └── features/                      # Feature modules
-    ├── home/                      # Home feature
-    │   ├── bloc/                  # BLoC layer
-    │   ├── cubit/                 # Cubit layer (alternative)
-    │   ├── models/                # Feature-specific models
-    │   └── home_screen.dart       # UI layer
-    └── login/                     # Login feature
-        └── login_screen.dart
+    └── home/                      # Home feature
+        ├── bloc/                  # BLoC layer
+        ├── cubit/                 # Cubit layer (alternative)
+        └── home_screen.dart       # UI layer
 
 ```
 
@@ -179,7 +176,7 @@ Formz-based input validation:
 - **NumericInput**: Number input validation
 
 ### 18. Feature Layer
-Example features (Home, Login) demonstrate:
+The Home example feature demonstrates:
 - BLoC/Cubit usage patterns
 - Data repository pattern
 - Model definition (DTO and domain models)
@@ -260,8 +257,7 @@ flutter run -t lib/main_production.dart    # Production
 
 ## Current Features
 
-### Authentication
-- Login feature with form validation
+### Authentication Infrastructure
 - Secure token storage
 - Session management
 - Token auto-refresh
@@ -308,4 +304,3 @@ flutter run -t lib/main_production.dart    # Production
 2. Check code standards for implementation guidelines
 3. Read individual module documentation for specific usage
 4. Refer to project roadmap for development phases
-

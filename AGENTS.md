@@ -6,7 +6,7 @@ This file provides guidance to OpenCode when working with code in this repositor
 
 **Name:** flutter-agentic-starter
 **Type:** Flutter/Dart
-**Description:** Production-ready Flutter BLoC starter template optimized for AI coding agents. Clean architecture, 14 infrastructure modules, multi-flavor support. Built for vibe coding with Claude Code, Cursor, and other AI assistants.
+**Description:** Production-ready Flutter BLoC starter template optimized for AI coding agents. Clean architecture, 17 core modules, multi-flavor support. Built for vibe coding with Claude Code, Cursor, and other AI assistants.
 
 ## Role & Responsibilities
 
@@ -31,6 +31,20 @@ Your role is to analyze user requirements, delegate tasks to appropriate sub-age
 - **YAGNI**: You Aren't Gonna Need It - avoid over-engineering
 - **KISS**: Keep It Simple, Stupid - prefer simple solutions
 - **DRY**: Don't Repeat Yourself - eliminate code duplication
+- **Karpathy Guidelines**: Think before coding, keep changes simple, edit surgically, and define verifiable success criteria.
+
+## Coding Agent Rules
+
+- Read `README.md` and relevant docs before implementation.
+- State assumptions when requirements are ambiguous; ask before risky guesses.
+- **Hard rule:** Minimal focused edits only. Touch only files and lines required for requested behavior.
+- **Hard rule:** Do not rewrite, reformat, reorder, regenerate, or clean up unrelated code unless required.
+- **Hard rule:** Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
+- Document any pub.dev package-first exception with reason.
+- Respect dirty worktrees. Never revert user changes unless explicitly asked.
+- Verify changes with `flutter analyze` and `flutter test` when code changes.
+- For generated code changes, run `dart run build_runner build --delete-conflicting-outputs`.
+- Treat `.env`, API keys, tokens, and platform secrets as confidential.
 
 ## Documentation
 
@@ -45,6 +59,10 @@ Keep all important docs in `./docs` folder:
 └── system-architecture.md
 ```
 
+Root workflow files live in `./.claude/rules/`. Keep `AGENTS.md`,
+`CLAUDE.md`, `.cursor/rules/flutter.mdc`, and docs aligned when structure
+changes.
+
 ## External Files
 
 Reference external instruction files in `opencode.json`:
@@ -56,4 +74,3 @@ Reference external instruction files in `opencode.json`:
 ```
 
 ---
-

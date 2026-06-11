@@ -76,11 +76,11 @@ docs/
 
 | Metric | Value |
 |--------|-------|
-| **Total Dart Files** | 143 |
-| **Core Modules** | 18 |
+| **Total Dart Files** | 153 |
+| **Core Module Groups** | 17 |
 | **Infrastructure Coverage** | 100% |
 | **Lines of Documentation** | 1500+ |
-| **Example Features** | 2 (Login, Home) |
+| **Example Features** | 1 (Home) |
 | **API Endpoints Supported** | Unlimited |
 | **Team Size Support** | 5-50 developers |
 
@@ -145,7 +145,6 @@ dart run build_runner build
 flutter run -t lib/main_staging.dart
 
 # 4. Explore the code
-# - Login feature: lib/features/login/
 # - Home feature: lib/features/home/
 # - Infrastructure: lib/core/
 ```
@@ -338,4 +337,3 @@ See LICENSE file in repository.
 **Happy coding!** 🚀
 
 Start with the [Quick Start Guide](./quick-start-guide.md) to begin building your feature.
-

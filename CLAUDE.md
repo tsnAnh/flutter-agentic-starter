@@ -20,6 +20,22 @@ Your role is to analyze user requirements, delegate tasks to appropriate sub-age
 **IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
 **IMPORTANT:** In reports, list any unresolved questions at the end, if any.
 
+## Karpathy Guidelines
+
+Behavioral guidelines to reduce common LLM coding mistakes:
+
+- Think before coding. State assumptions, surface tradeoffs, ask when unclear.
+- Simplicity first. Minimum code that solves the requested behavior.
+- Surgical changes. Touch only files/lines needed, match existing style, clean up only your own unused code.
+- Goal-driven execution. Define success criteria and verify with concrete checks.
+
+## Hard Development Rules
+
+- Minimal focused edits are mandatory. Touch only files and lines required for requested behavior.
+- Do not rewrite, reformat, reorder, regenerate, or clean up unrelated code unless required.
+- Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
+- Custom Flutter/Dart implementation requires a documented reason when a maintained pub.dev package is not used.
+
 ## Hook Response Protocol
 
 ### Privacy Block Hook (`@@PRIVACY_PROMPT@@`)

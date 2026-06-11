@@ -88,9 +88,9 @@
 
 ### Example Features
 
-- [x] Login feature (authentication flow)
 - [x] Home feature (BLoC example + Cubit example)
 - [x] Shared data layer (repositories, DTOs, models)
+- [ ] Login feature (authentication flow)
 
 ### Documentation (v1.0.0 Complete)
 
@@ -529,4 +529,3 @@ Community: 100+ stars
 Performance: Benchmarked & optimized
 Security: Penetration tested
 ```
-

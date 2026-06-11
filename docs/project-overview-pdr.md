@@ -48,8 +48,7 @@
 
 ### Example Features
 
-- **Login**: Authentication flow with form validation
-- **Home**: Data fetching with pagination
+- **Home**: Data fetching with BLoC and repository wiring
 
 ## Functional Requirements
 
@@ -365,8 +364,8 @@
 - [x] Logger (debug + production)
 
 ### Phase 4: Features & Examples (In Progress)
-- [x] Login feature
 - [x] Home feature (BLoC + Cubit examples)
+- [ ] Login feature
 - [ ] Profile feature
 - [ ] Settings feature
 - [ ] Notifications center
@@ -508,4 +507,3 @@
 - **Documentation**: See `/docs` directory
 - **Example Project**: [bit](https://github.com/tsnAnh/bit)
 - **Issues**: GitHub Issues for bugs and features
-

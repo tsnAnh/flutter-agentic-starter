@@ -7,7 +7,7 @@
 ```bash
 git clone https://github.com/tsnAnh/flutter-agentic-starter.git
 cd flutter-agentic-starter
-flutter pub get
+dart run project_setup
 dart run build_runner build
 ```
 
@@ -30,10 +30,10 @@ lib/
 ### Key Files to Read
 1. **Start here**: `lib/core/base/data_state.dart` (5 min)
    - Understand sealed classes and pattern matching
-2. **Then**: `lib/features/home/cubit/home_cubit.dart` (5 min)
-   - See how to use BaseCubit
-3. **Next**: `lib/features/login/login_screen.dart` (5 min)
-   - See UI integration
+2. **Then**: `lib/features/home/home_screen.dart` (5 min)
+   - See UI integration with BLoC
+3. **Next**: `lib/features/home/bloc/home_bloc.dart` (5 min)
+   - See event-driven state management
 4. **Finally**: `lib/core/di/get_it.dart` (5 min)
    - See dependency injection setup
 
@@ -414,8 +414,7 @@ class MyRepository with CachedRepositoryMixin {
    - [ ] Module Guides (`docs/module-guides.md`)
 
 2. **Explore Examples**
-   - [ ] `lib/features/login/` - Authentication
-   - [ ] `lib/features/home/` - Data fetching
+   - [ ] `lib/features/home/` - Data fetching with BLoC
 
 3. **Implement Your Features**
    - [ ] Follow the pattern above
@@ -445,4 +444,3 @@ class MyRepository with CachedRepositoryMixin {
 ---
 
 **Estimated Time**: 1-2 hours to create and integrate your first feature.
-

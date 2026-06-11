@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../core/error.dart';
 import '../../../shared/data/models/dtos/city.dart';
 
-abstract class HomeState extends Equatable {}
+sealed class HomeState extends Equatable {}
 
 final class HomeInitial extends HomeState {
   @override

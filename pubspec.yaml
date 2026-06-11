@@ -60,7 +60,6 @@ dependencies:
   # Storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  flutter_secure_storage: ^9.2.4
 
   # UI
   infinite_scroll_pagination: ^5.1.1
@@ -120,6 +119,14 @@ dev_dependencies:
   freezed: ^3.2.5
   json_serializable: ^6.13.1
   injectable_generator: ^2.12.1
+  args: ^2.7.0
+  yaml_edit: ^2.2.4
+  package_rename: ^1.10.1
+  project_setup:
+    path: tool/project_setup
+
+executables:
+  project_setup:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

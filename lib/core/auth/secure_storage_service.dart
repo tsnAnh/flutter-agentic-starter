@@ -1,34 +1,27 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-/// Typed wrapper around [FlutterSecureStorage].
+/// Package-free key/value storage for auth state.
 ///
-/// All token and credential persistence must go through this service —
-/// raw [FlutterSecureStorage] should never be used directly in the rest of the app.
+/// Values live in memory only. Restarting the app clears all auth state.
 ///
 /// Registered via [RegisterModule] in get_it.dart (not annotated) to avoid
-/// injectable trying to inject the optional [FlutterSecureStorage] typed param.
+/// injectable trying to auto-register app storage details.
 class SecureStorageService {
-  SecureStorageService({FlutterSecureStorage? storage})
-      : _storage = storage ??
-            const FlutterSecureStorage(
-              aOptions: AndroidOptions(encryptedSharedPreferences: true),
-              iOptions: IOSOptions(
-                accessibility: KeychainAccessibility.first_unlock_this_device,
-              ),
-            );
+  final Map<String, String> _storage = <String, String>{};
 
-  final FlutterSecureStorage _storage;
-
-  /// Persists [value] under [key]. Both must be non-empty.
-  Future<void> write(String key, String value) =>
-      _storage.write(key: key, value: value);
+  /// Stores [value] under [key]. Both must be non-empty.
+  Future<void> write(String key, String value) async {
+    _storage[key] = value;
+  }
 
   /// Returns the value stored under [key], or `null` if absent.
-  Future<String?> read(String key) => _storage.read(key: key);
+  Future<String?> read(String key) async => _storage[key];
 
   /// Removes the entry for [key]. No-op if the key does not exist.
-  Future<void> delete(String key) => _storage.delete(key: key);
+  Future<void> delete(String key) async {
+    _storage.remove(key);
+  }
 
   /// Wipes all entries owned by this app.
-  Future<void> deleteAll() => _storage.deleteAll();
+  Future<void> deleteAll() async {
+    _storage.clear();
+  }
 }

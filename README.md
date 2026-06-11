@@ -11,7 +11,7 @@
 ## Why This Template?
 
 - **Built for Vibe Coding** — `CLAUDE.md`, `AGENTS.md`, clean DI patterns. AI agents scaffold features on day one. Perfect for vibe coding sessions.
-- **14 Infrastructure Modules** — Networking, auth, storage, Firebase, analytics, permissions, lifecycle — all pre-wired.
+- **17 Core Modules** — Networking, auth, storage, Firebase, analytics, permissions, lifecycle — all pre-wired.
 - **Multi-Flavor Support** — Staging + Production configs out of the box.
 - **Production Architecture** — BLoC pattern, Injectable DI, GoRouter, Freezed models, fpdart functional programming.
 
@@ -30,7 +30,7 @@ graph TD
 
     subgraph Data
         A[API Client] --> N[Network / Dio]
-        C[Cache / Hive] --> SS[Secure Storage]
+        C[Cache / Hive] --> TS[Token Store]
     end
 
     subgraph Core
@@ -51,7 +51,7 @@ graph TD
 | Module | Description | Key Packages |
 |--------|-------------|--------------|
 | **Network** | HTTP client with interceptors, error handling | Dio |
-| **Auth** | Authentication flow, token management | Secure Storage |
+| **Auth** | Authentication flow, token management | In-memory token store |
 | **Cache** | Local data persistence | Hive, Hive Flutter |
 | **DI** | Dependency injection with code generation | GetIt, Injectable |
 | **Router** | Declarative routing with deep linking | GoRouter, App Links |
@@ -73,11 +73,21 @@ graph TD
 git clone https://github.com/YOUR_USERNAME/your-app-name.git
 cd your-app-name
 
-# 3. Install dependencies
-flutter pub get
+# 3. Run first-time setup wizard
+dart run project_setup
+
+# Noninteractive setup
+dart run project_setup \
+  --app-name "Acme App" \
+  --dart-package-name acme_app \
+  --app-id com.acme.app \
+  --organization "Acme" \
+  --yes
+
+# 4. Generate code
 dart run build_runner build
 
-# 4. Run
+# 5. Run
 flutter run -t lib/main_staging.dart
 ```
 
@@ -108,8 +118,7 @@ lib/
 │   ├── theme/                  # ThemeData + colors
 │   └── utils/                  # Shared utilities
 ├── features/
-│   ├── home/                   # Home feature (BLoC + UI)
-│   └── login/                  # Login feature
+│   └── home/                   # Home feature (BLoC + UI)
 └── shared/
     ├── blocs/                  # Shared BLoCs
     ├── data/                   # API, models, repositories
@@ -126,7 +135,8 @@ lib/
 - **Clean separation** — features, core, shared layers with barrel exports
 - **Injectable DI** — add `@injectable` and it's auto-registered
 - **Consistent naming** — predictable file/class naming for AI discovery
-- **Pre-configured guidance** — `CLAUDE.md` and `AGENTS.md` for AI context
+- **Pre-configured guidance** — `CLAUDE.md`, `AGENTS.md`, `.claude/rules/`, and Cursor rules for AI context
+- **Karpathy-style guardrails** — think first, keep simple, edit surgically, verify with concrete checks
 
 ### Supported Tools
 

@@ -117,6 +117,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1052.OfflineQueueService(
         gh<_i428.TokenManager>(),
         gh<_i690.ConnectivityCubit>(),
+        gh<_i361.Dio>(instanceName: 'NonAuthDio'),
       ),
     );
     gh.lazySingleton<_i737.CityApi>(

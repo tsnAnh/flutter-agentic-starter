@@ -32,6 +32,10 @@ class PostHogAnalyticsProvider implements AnalyticsService {
     // environment configuration (e.g. FlavorConfigurations.posthogApiKey).
     // Do NOT hardcode the key here.
     const apiKey = String.fromEnvironment('POSTHOG_API_KEY', defaultValue: '');
+    const host = String.fromEnvironment(
+      'POSTHOG_HOST',
+      defaultValue: 'https://app.posthog.com',
+    );
 
     if (apiKey.isEmpty) {
       debugPrint('[PostHog] API key not set — analytics disabled');
@@ -41,6 +45,7 @@ class PostHogAnalyticsProvider implements AnalyticsService {
     try {
       final config = PostHogConfig(apiKey)
         ..debug = kDebugMode
+        ..host = host
         ..captureApplicationLifecycleEvents = false;
 
       await _posthog.setup(config);
@@ -108,10 +113,7 @@ class PostHogAnalyticsProvider implements AnalyticsService {
       } else {
         // No identified user yet — capture as an event property instead so
         // the property is not lost and no phantom user is created.
-        await _posthog.capture(
-          eventName: r'$set',
-          properties: {key: value},
-        );
+        await _posthog.capture(eventName: r'$set', properties: {key: value});
       }
     } on Exception catch (e) {
       debugPrint('[PostHog] setUserProperty "$key" failed: $e');

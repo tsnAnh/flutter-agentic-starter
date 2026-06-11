@@ -75,3 +75,4 @@ pubspec.lock
 
 .claude/
 .opencode/
+.env

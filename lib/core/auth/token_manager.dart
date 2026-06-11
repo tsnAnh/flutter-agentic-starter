@@ -7,9 +7,8 @@ const _keyAccessToken = 'auth.access_token';
 const _keyRefreshToken = 'auth.refresh_token';
 const _keyTokenExpiry = 'auth.token_expiry'; // ISO-8601 string
 
-/// Manages persistence and retrieval of auth tokens via [SecureStorageService].
+/// Manages storage and retrieval of auth tokens via [SecureStorageService].
 ///
-/// All reads/writes are async because [FlutterSecureStorage] is async.
 /// Token values are NEVER logged — callers must not log the returned strings.
 @LazySingleton()
 class TokenManager {
