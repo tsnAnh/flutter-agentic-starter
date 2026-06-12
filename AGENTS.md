@@ -41,6 +41,7 @@ Your role is to analyze user requirements, delegate tasks to appropriate sub-age
 - **Hard rule:** Do not rewrite, reformat, reorder, regenerate, or clean up unrelated code unless required.
 - **Hard rule:** Never manually edit build_runner generated files, including `*.g.dart`, `*.freezed.dart`, `*.config.dart`, or files marked `GENERATED CODE - DO NOT MODIFY BY HAND`.
 - **Hard rule:** Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
+- **Hard rule:** For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
 - Document any pub.dev package-first exception with reason.
 - Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
 - Respect dirty worktrees. Never revert user changes unless explicitly asked.

@@ -37,6 +37,7 @@ Behavioral guidelines to reduce common LLM coding mistakes:
 - For generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.
 - Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
 - Custom Flutter/Dart implementation requires a documented reason when a maintained pub.dev package is not used.
+- For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
 - Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
 
 ## Project Skills

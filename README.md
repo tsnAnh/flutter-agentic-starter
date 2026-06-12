@@ -165,6 +165,7 @@ Generated files such as `*.g.dart`, `*.freezed.dart`, and `lib/core/di/get_it.co
 - **Consistent naming** — predictable file/class naming for AI discovery
 - **Pre-configured guidance** — `CLAUDE.md`, `AGENTS.md`, `opencode.json`, `.claude/rules/`, project skills, and Cursor rules for AI context
 - **Karpathy-style guardrails** — think first, keep simple, edit surgically, verify with concrete checks
+- **Asset sourcing rules** — Flutter icons/images should come from suitable internet assets, using SVG for icons and PNG/JPG for raster or photo use cases
 
 ### Supported Tools
 

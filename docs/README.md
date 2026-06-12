@@ -97,6 +97,8 @@ Included skills: `flutter-agentic-starter`, `caveman`, and `frontend-design`.
 
 Always invoke `flutter-agentic-starter` first before working in this project. Setup renames this skill to the app-name slug and updates agent instructions.
 
+For Flutter source icons/images, agents should find suitable existing internet assets instead of creating them. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
+
 ## Core Modules Overview
 
 The project provides 18 pre-built infrastructure modules:

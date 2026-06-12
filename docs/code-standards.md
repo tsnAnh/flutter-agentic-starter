@@ -98,6 +98,12 @@ lib/
 - Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
 - Do not split generated files, docs, configs, assets, lockfiles, or build artifacts for line count alone.
 
+### Asset Sourcing
+
+- For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself.
+- Prefer SVG for icons/simple vectors and PNG/JPG for raster, photo, screenshot, or textured imagery.
+- Record source/license when adding external assets.
+
 ## Code Patterns
 
 ### 1. State Management (DataState Pattern)
