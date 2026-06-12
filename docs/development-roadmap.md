@@ -73,6 +73,7 @@
 - [x] Context extensions (media queries, theme access)
 - [x] Duration extensions
 - [x] 10+ utility modules (color, date, string, number, responsive, snackbar, url, etc.)
+- [x] Project skills and config for Claude Code, Codex, and OpenCode
 
 #### Foundation
 - [x] Clean Architecture implementation

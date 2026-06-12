@@ -84,6 +84,17 @@ docs/
 | **API Endpoints Supported** | Unlimited |
 | **Team Size Support** | 5-50 developers |
 
+## AI Agent Configuration
+
+Project-local config supports Claude Code, Codex, OpenCode, and Cursor:
+
+- Claude Code rules and skills: `.claude/rules/`, `.claude/skills/`
+- Codex skills: `.agents/skills/`
+- OpenCode config and skills: `opencode.json`, `.opencode/skills/`
+- Cursor rules: `.cursor/rules/flutter.mdc`
+
+Included skills: `flutter-agentic-starter`, `caveman`, and `frontend-design`.
+
 ## Core Modules Overview
 
 The project provides 18 pre-built infrastructure modules:

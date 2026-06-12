@@ -39,11 +39,12 @@ Your role is to analyze user requirements, delegate tasks to appropriate sub-age
 - State assumptions when requirements are ambiguous; ask before risky guesses.
 - **Hard rule:** Minimal focused edits only. Touch only files and lines required for requested behavior.
 - **Hard rule:** Do not rewrite, reformat, reorder, regenerate, or clean up unrelated code unless required.
+- **Hard rule:** Never manually edit build_runner generated files, including `*.g.dart`, `*.freezed.dart`, `*.config.dart`, or files marked `GENERATED CODE - DO NOT MODIFY BY HAND`.
 - **Hard rule:** Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
 - Document any pub.dev package-first exception with reason.
 - Respect dirty worktrees. Never revert user changes unless explicitly asked.
 - Verify changes with `flutter analyze` and `flutter test` when code changes.
-- For generated code changes, run `dart run build_runner build --delete-conflicting-outputs`.
+- For generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.
 - Treat `.env`, API keys, tokens, and platform secrets as confidential.
 
 ## Documentation
@@ -72,5 +73,19 @@ Reference external instruction files in `opencode.json`:
   "instructions": ["docs/*.md", ".opencode/agents/*.md"]
 }
 ```
+
+## Project Skills
+
+Native project skills are provided for Claude Code, Codex, and OpenCode:
+
+- Claude Code: `.claude/skills/`
+- Codex: `.agents/skills/`
+- OpenCode: `.opencode/skills/`
+
+Available skills:
+
+- `flutter-agentic-starter`: Flutter, BLoC/Cubit, Clean Architecture, DI, routing, models, tests, and design system guidance.
+- `caveman`: terse technical communication mode for concise reports.
+- `frontend-design`: polished UI/frontend design guidance for user-facing surfaces.
 
 ---

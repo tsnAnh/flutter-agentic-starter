@@ -135,12 +135,26 @@ lib/
 - **Clean separation** — features, core, shared layers with barrel exports
 - **Injectable DI** — add `@injectable` and it's auto-registered
 - **Consistent naming** — predictable file/class naming for AI discovery
-- **Pre-configured guidance** — `CLAUDE.md`, `AGENTS.md`, `.claude/rules/`, and Cursor rules for AI context
+- **Pre-configured guidance** — `CLAUDE.md`, `AGENTS.md`, `opencode.json`, `.claude/rules/`, project skills, and Cursor rules for AI context
 - **Karpathy-style guardrails** — think first, keep simple, edit surgically, verify with concrete checks
 
 ### Supported Tools
 
-Works with **Claude Code**, **Cursor**, **GitHub Copilot**, **Windsurf**, and any AI coding assistant.
+Works with **Claude Code**, **Codex**, **OpenCode**, **Cursor**, **GitHub Copilot**, **Windsurf**, and any AI coding assistant.
+
+Project skills are included for:
+
+- `flutter-agentic-starter` — Flutter/BLoC/Clean Architecture rules for this template
+- `caveman` — terse technical reporting mode
+- `frontend-design` — polished frontend/UI implementation guidance
+
+Skill locations:
+
+- Claude Code: `.claude/skills/`
+- Codex: `.agents/skills/`
+- OpenCode: `.opencode/skills/`
+
+OpenCode also reads `opencode.json`, which includes the shared rules and docs as extra instructions.
 
 ### Example Prompts
 

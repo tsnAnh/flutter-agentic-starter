@@ -33,8 +33,20 @@ Behavioral guidelines to reduce common LLM coding mistakes:
 
 - Minimal focused edits are mandatory. Touch only files and lines required for requested behavior.
 - Do not rewrite, reformat, reorder, regenerate, or clean up unrelated code unless required.
+- Never manually edit build_runner generated files, including `*.g.dart`, `*.freezed.dart`, `*.config.dart`, or files marked `GENERATED CODE - DO NOT MODIFY BY HAND`.
+- For generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.
 - Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
 - Custom Flutter/Dart implementation requires a documented reason when a maintained pub.dev package is not used.
+
+## Project Skills
+
+Claude Code project skills live in `.claude/skills/`.
+
+Available skills:
+
+- `flutter-agentic-starter`: Flutter, BLoC/Cubit, Clean Architecture, DI, routing, models, tests, and design system guidance.
+- `caveman`: terse technical communication mode for concise reports.
+- `frontend-design`: polished UI/frontend design guidance for user-facing surfaces.
 
 ## Hook Response Protocol
 

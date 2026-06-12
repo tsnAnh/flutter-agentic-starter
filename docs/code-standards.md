@@ -91,6 +91,11 @@ lib/
     └── shared.dart
 ```
 
+### Generated Code
+
+- Never manually edit build_runner generated files, including `*.g.dart`, `*.freezed.dart`, `*.config.dart`, or files marked `GENERATED CODE - DO NOT MODIFY BY HAND`.
+- For generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.
+
 ## Code Patterns
 
 ### 1. State Management (DataState Pattern)
@@ -766,4 +771,3 @@ If migrating from old patterns:
 3. **Update Cubits**: Migrate to BaseCubit
 4. **Add caching**: Mix in CachedRepositoryMixin
 5. **Improve tests**: Write tests for new layer
-

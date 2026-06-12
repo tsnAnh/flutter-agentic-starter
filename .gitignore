@@ -73,6 +73,14 @@ pubspec.lock
 /.idea/
 !/packages/useful_lints/custom_lint.log
 
-.claude/
-.opencode/
+.claude/*
+!.claude/rules/
+!.claude/rules/**
+!.claude/skills/
+!.claude/skills/**
+.claude/settings.local.json
+.opencode/*
+!.opencode/skills/
+!.opencode/skills/**
+.opencode/auth.json
 .env
