@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'project_agent_hook_files.dart';
 import 'project_files.dart';
 import 'project_skill_files.dart';
 import 'setup_options.dart';
@@ -12,18 +13,21 @@ typedef ConfirmPrompt = bool Function(String message);
 class ProjectSetupRunner {
   ProjectSetupRunner({
     required this.files,
+    ProjectAgentHookFiles? agentHookFiles,
     ProjectSkillFiles? skillFiles,
     CommandRunner? runCommand,
     CommandExists? commandExists,
     ConfirmPrompt? confirm,
     Stdout? out,
-  }) : _skillFiles = skillFiles ?? ProjectSkillFiles(files.root),
+  }) : _agentHookFiles = agentHookFiles ?? ProjectAgentHookFiles(files.root),
+       _skillFiles = skillFiles ?? ProjectSkillFiles(files.root),
        _runCommand = runCommand ?? _defaultRunCommand,
        _commandExists = commandExists ?? _defaultCommandExists,
        _confirm = confirm ?? _defaultConfirm,
        _out = out ?? stdout;
 
   final ProjectFiles files;
+  final ProjectAgentHookFiles _agentHookFiles;
   final ProjectSkillFiles _skillFiles;
   final CommandRunner _runCommand;
   final CommandExists _commandExists;
@@ -41,6 +45,14 @@ class ProjectSetupRunner {
 
     final skillName = ProjectSetupOptions.deriveSkillName(options.appName);
     final skillErrors = _skillFiles.validateRename(skillName);
+    if (!options.skipAgentHooks) {
+      try {
+        _agentHookFiles.validateExistingJson();
+      } on FormatException catch (error) {
+        _out.writeln('Error: $error');
+        return 64;
+      }
+    }
     if (skillErrors.isNotEmpty) {
       for (final error in skillErrors) {
         _out.writeln('Error: $error');
@@ -65,6 +77,9 @@ class ProjectSetupRunner {
     files.updatePubspec(options);
     files.rewriteDartPackageImports(oldPackage, options.dartPackageName);
     _skillFiles.applyAppSkill(options, skillName);
+    if (!options.skipAgentHooks) {
+      _agentHookFiles.install();
+    }
 
     if (!options.skipPosthog) {
       files.writeEnvIfMissing(options);
@@ -141,6 +156,11 @@ class ProjectSetupRunner {
       '- Project skill: ${ProjectSkillFiles.templateSkillName} -> $skillName',
     );
     _out.writeln('- Agent instructions: invoke `$skillName` first');
+    if (!options.skipAgentHooks) {
+      _out.writeln(
+        '- Agent hooks: install Claude Code and Codex 300-line source warnings',
+      );
+    }
     if (!options.skipPosthog) {
       _out.writeln('- .env: create only if missing; .gitignore: ensure .env');
     }

@@ -59,10 +59,12 @@ void main() {
         'Acme',
         '--skip-firebase',
         '--skip-posthog',
+        '--skip-agent-hooks',
         '--yes',
       ], currentPackageName: 'starter')!;
 
       expect(options.appId, 'com.acme.app');
+      expect(options.skipAgentHooks, isTrue);
       expect(options.validate(), isEmpty);
     });
 

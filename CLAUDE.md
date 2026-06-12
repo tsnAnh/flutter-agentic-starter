@@ -37,6 +37,7 @@ Behavioral guidelines to reduce common LLM coding mistakes:
 - For generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.
 - Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
 - Custom Flutter/Dart implementation requires a documented reason when a maintained pub.dev package is not used.
+- Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
 
 ## Project Skills
 
@@ -92,13 +93,13 @@ This ensures packages installed by `install.sh` (google-genai, pypdf, etc.) are 
 **IMPORTANT:** When scripts of skills failed, don't stop, try to fix them directly.
 
 ## [IMPORTANT] Consider Modularization
-- If a code file exceeds 200 lines of code, consider modularizing it
+- If a touched source code file exceeds 300 lines, consider modularizing it when it improves readability
 - Check existing modules before creating new
 - Analyze logical separation boundaries (functions, classes, concerns)
 - Use kebab-case naming with long descriptive names, it's fine if the file name is long because this ensures file names are self-documenting for LLM tools (Grep, Glob, Search)
 - Write descriptive code comments
 - After modularization, continue with main task
-- When not to modularize: Markdown files, plain text files, bash scripts, configuration files, environment variables files, etc.
+- When not to modularize: generated files, Markdown files, plain text files, bash scripts, configuration files, environment variables files, assets, lockfiles, build artifacts, etc.
 
 ## Documentation Management
 

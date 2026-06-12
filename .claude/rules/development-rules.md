@@ -21,7 +21,8 @@
 - Preserve existing structure, comments, naming, and formatting unless change requires it.
 - Do not revert user changes in dirty worktrees.
 - Do not commit secrets, `.env`, API keys, or credentials.
-- Keep Dart files focused; consider splitting code files over 200 lines.
+- Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
+- Do not split generated files, docs, configs, assets, lockfiles, or build artifacts for line count alone.
 
 ## Verification
 

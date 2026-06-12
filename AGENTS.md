@@ -42,6 +42,7 @@ Your role is to analyze user requirements, delegate tasks to appropriate sub-age
 - **Hard rule:** Never manually edit build_runner generated files, including `*.g.dart`, `*.freezed.dart`, `*.config.dart`, or files marked `GENERATED CODE - DO NOT MODIFY BY HAND`.
 - **Hard rule:** Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
 - Document any pub.dev package-first exception with reason.
+- Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
 - Respect dirty worktrees. Never revert user changes unless explicitly asked.
 - Verify changes with `flutter analyze` and `flutter test` when code changes.
 - For generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.

@@ -28,6 +28,7 @@ Always invoke `flutter-agentic-starter` first before working in this project.
 - Use existing Clean Architecture + BLoC patterns.
 - Use `injectable`/GetIt for dependencies. For DI/model generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.
 - Keep code compilable: run `flutter analyze` and `flutter test`.
+- Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
 - Never commit `.env`, tokens, API keys, or generated secret files.
 - Do not revert user changes in dirty worktrees.
 

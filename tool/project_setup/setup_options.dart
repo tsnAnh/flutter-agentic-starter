@@ -12,6 +12,7 @@ class ProjectSetupOptions {
     this.dryRun = false,
     this.skipFirebase = false,
     this.skipPosthog = false,
+    this.skipAgentHooks = false,
     this.skipPubGet = false,
     this.skipBuildRunner = false,
   });
@@ -28,6 +29,7 @@ class ProjectSetupOptions {
   final bool dryRun;
   final bool skipFirebase;
   final bool skipPosthog;
+  final bool skipAgentHooks;
   final bool skipPubGet;
   final bool skipBuildRunner;
 

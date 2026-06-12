@@ -16,6 +16,7 @@ Follow repo docs first: `README.md`, `AGENTS.md` or `CLAUDE.md`, and relevant fi
 - Keep edits minimal and focused. Do not rewrite, reformat, reorder, or clean unrelated code.
 - Prefer maintained pub.dev packages before custom reusable Flutter/Dart utilities, widgets, integrations, or helpers.
 - Document package-first exceptions in plan, report, PR, or review summary.
+- Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
 - Preserve dirty worktrees. Never revert user changes unless explicitly asked.
 - Treat `.env`, API keys, tokens, and platform secrets as confidential.
 

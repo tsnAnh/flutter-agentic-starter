@@ -90,6 +90,7 @@ ProjectSetupOptions? parseProjectSetupOptions(
     dryRun: results.flag('dry-run'),
     skipFirebase: skipFirebase,
     skipPosthog: skipPosthog,
+    skipAgentHooks: results.flag('skip-agent-hooks'),
     skipPubGet: results.flag('skip-pub-get'),
     skipBuildRunner: results.flag('skip-build-runner'),
   );
@@ -110,6 +111,7 @@ ArgParser _buildParser() {
     ..addFlag('dry-run', negatable: false)
     ..addFlag('skip-firebase', negatable: false)
     ..addFlag('skip-posthog', negatable: false)
+    ..addFlag('skip-agent-hooks', negatable: false)
     ..addFlag('skip-pub-get', negatable: false)
     ..addFlag('skip-build-runner', negatable: false);
 }

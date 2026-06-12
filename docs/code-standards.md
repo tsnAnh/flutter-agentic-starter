@@ -95,6 +95,8 @@ lib/
 
 - Never manually edit build_runner generated files, including `*.g.dart`, `*.freezed.dart`, `*.config.dart`, or files marked `GENERATED CODE - DO NOT MODIFY BY HAND`.
 - For generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.
+- Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
+- Do not split generated files, docs, configs, assets, lockfiles, or build artifacts for line count alone.
 
 ## Code Patterns
 

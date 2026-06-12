@@ -207,7 +207,7 @@ OpenCode also reads `opencode.json`, which includes the shared rules and docs as
 
 ### Environment Setup
 
-Each flavor uses `lib/core/flavor_configurations.dart` for base URL and timeout values. The setup wizard can also create `.env` for PostHog and run `flutterfire configure` when a Firebase project ID is provided.
+Each flavor uses `lib/core/flavor_configurations.dart` for base URL and timeout values. The setup wizard can also create `.env` for PostHog, run `flutterfire configure` when a Firebase project ID is provided, and install Claude Code/Codex hooks that warn when touched source files exceed 300 lines.
 
 ### Setup Wizard Options
 
@@ -223,7 +223,7 @@ Common options:
 - `--organization` — organization used for generated platform metadata
 - `--firebase-project-id` — runs FlutterFire configuration when available
 - `--posthog-api-key` and `--posthog-host` — writes `.env` if missing
-- `--skip-firebase`, `--skip-posthog`, `--skip-pub-get`, `--skip-build-runner`
+- `--skip-firebase`, `--skip-posthog`, `--skip-agent-hooks`, `--skip-pub-get`, `--skip-build-runner`
 - `--dry-run` — prints planned changes without writing files
 
 ## Development
