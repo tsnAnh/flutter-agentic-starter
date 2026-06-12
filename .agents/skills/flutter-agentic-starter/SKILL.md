@@ -2,6 +2,7 @@
 name: flutter-agentic-starter
 description: >
   Project-specific Flutter/Dart implementation guidance for flutter-agentic-starter.
+  Invoke this app-named skill first before working in this project.
   Use when working on Flutter code, BLoC/Cubit state, clean architecture features,
   DI, routing, models, tests, design system UI, or project setup in this repository.
 ---

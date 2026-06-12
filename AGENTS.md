@@ -84,6 +84,8 @@ Native project skills are provided for Claude Code, Codex, and OpenCode:
 
 Available skills:
 
+Always invoke `flutter-agentic-starter` first before working in this project.
+
 - `flutter-agentic-starter`: Flutter, BLoC/Cubit, Clean Architecture, DI, routing, models, tests, and design system guidance.
 - `caveman`: terse technical communication mode for concise reports.
 - `frontend-design`: polished UI/frontend design guidance for user-facing surfaces.

@@ -29,6 +29,21 @@ void main() {
         'com.acme.acme_app',
       );
     });
+
+    test('derives kebab-case skill name from app name', () {
+      expect(ProjectSetupOptions.deriveSkillName('Acme CRM'), 'acme-crm');
+      expect(
+        ProjectSetupOptions.deriveSkillName('Acme_App! 2026'),
+        'acme-app-2026',
+      );
+      expect(ProjectSetupOptions.deriveSkillName('!!!'), 'my-app');
+      expect(
+        ProjectSetupOptions.deriveSkillName(
+          '${'Long '.padRight(80, 'x')} App',
+        ).length,
+        lessThan(64),
+      );
+    });
   });
 
   group('ProjectSetupOptions validation', () {

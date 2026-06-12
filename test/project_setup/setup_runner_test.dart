@@ -24,6 +24,9 @@ description: Old app
   });
 
   test('dry-run performs no writes and runs no commands', () async {
+    Directory(
+      '${root.path}/.agents/skills/flutter-agentic-starter',
+    ).createSync(recursive: true);
     final runner = ProjectSetupRunner(
       files: ProjectFiles(root),
       runCommand: (executable, args) async {
@@ -50,6 +53,45 @@ description: Old app
       File('${root.path}/pubspec.yaml').readAsStringSync(),
       contains('name: old_app'),
     );
+    expect(
+      Directory(
+        '${root.path}/.agents/skills/flutter-agentic-starter',
+      ).existsSync(),
+      isTrue,
+    );
+    expect(
+      Directory('${root.path}/.agents/skills/acme-app').existsSync(),
+      isFalse,
+    );
+  });
+
+  test('project skill conflict exits before running commands', () async {
+    Directory(
+      '${root.path}/.agents/skills/flutter-agentic-starter',
+    ).createSync(recursive: true);
+    Directory(
+      '${root.path}/.agents/skills/acme-app',
+    ).createSync(recursive: true);
+    final runner = ProjectSetupRunner(
+      files: ProjectFiles(root),
+      runCommand: (executable, args) async {
+        commands.add('$executable ${args.join(' ')}');
+        return 0;
+      },
+      commandExists: (_) => true,
+    );
+
+    final exitCode = await runner.run(
+      const ProjectSetupOptions(
+        appName: 'Acme App',
+        dartPackageName: 'acme_app',
+        appId: 'com.acme.app',
+        organization: 'Acme',
+      ),
+    );
+
+    expect(exitCode, 64);
+    expect(commands, isEmpty);
   });
 
   test('non-dry-run executes expected bootstrap commands', () async {

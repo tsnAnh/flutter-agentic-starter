@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'project_files.dart';
+import 'project_skill_files.dart';
 import 'setup_options.dart';
 
 typedef CommandRunner =
@@ -11,16 +12,19 @@ typedef ConfirmPrompt = bool Function(String message);
 class ProjectSetupRunner {
   ProjectSetupRunner({
     required this.files,
+    ProjectSkillFiles? skillFiles,
     CommandRunner? runCommand,
     CommandExists? commandExists,
     ConfirmPrompt? confirm,
     Stdout? out,
-  }) : _runCommand = runCommand ?? _defaultRunCommand,
+  }) : _skillFiles = skillFiles ?? ProjectSkillFiles(files.root),
+       _runCommand = runCommand ?? _defaultRunCommand,
        _commandExists = commandExists ?? _defaultCommandExists,
        _confirm = confirm ?? _defaultConfirm,
        _out = out ?? stdout;
 
   final ProjectFiles files;
+  final ProjectSkillFiles _skillFiles;
   final CommandRunner _runCommand;
   final CommandExists _commandExists;
   final ConfirmPrompt _confirm;
@@ -35,9 +39,18 @@ class ProjectSetupRunner {
       return 64;
     }
 
+    final skillName = ProjectSetupOptions.deriveSkillName(options.appName);
+    final skillErrors = _skillFiles.validateRename(skillName);
+    if (skillErrors.isNotEmpty) {
+      for (final error in skillErrors) {
+        _out.writeln('Error: $error');
+      }
+      return 64;
+    }
+
     final oldPackage = files.readPubspecName();
     if (options.dryRun) {
-      _printDryRunPlan(options, oldPackage);
+      _printDryRunPlan(options, oldPackage, skillName);
       return 0;
     }
 
@@ -51,6 +64,7 @@ class ProjectSetupRunner {
 
     files.updatePubspec(options);
     files.rewriteDartPackageImports(oldPackage, options.dartPackageName);
+    _skillFiles.applyAppSkill(options, skillName);
 
     if (!options.skipPosthog) {
       files.writeEnvIfMissing(options);
@@ -108,7 +122,11 @@ class ProjectSetupRunner {
     return 0;
   }
 
-  void _printDryRunPlan(ProjectSetupOptions options, String oldPackage) {
+  void _printDryRunPlan(
+    ProjectSetupOptions options,
+    String oldPackage,
+    String skillName,
+  ) {
     _out.writeln('Dry run. No files written. No commands run.');
     _out.writeln(
       '- Native rename: dart run package_rename --path=.dart_tool/project_setup/package_rename_config.yaml',
@@ -119,6 +137,10 @@ class ProjectSetupRunner {
     _out.writeln(
       '- Dart package imports: package:$oldPackage/ -> package:${options.dartPackageName}/',
     );
+    _out.writeln(
+      '- Project skill: ${ProjectSkillFiles.templateSkillName} -> $skillName',
+    );
+    _out.writeln('- Agent instructions: invoke `$skillName` first');
     if (!options.skipPosthog) {
       _out.writeln('- .env: create only if missing; .gitignore: ensure .env');
     }

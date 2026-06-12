@@ -95,6 +95,8 @@ Project-local config supports Claude Code, Codex, OpenCode, and Cursor:
 
 Included skills: `flutter-agentic-starter`, `caveman`, and `frontend-design`.
 
+Always invoke `flutter-agentic-starter` first before working in this project. Setup renames this skill to the app-name slug and updates agent instructions.
+
 ## Core Modules Overview
 
 The project provides 18 pre-built infrastructure modules:

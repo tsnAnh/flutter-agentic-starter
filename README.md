@@ -11,9 +11,10 @@
 ## Why This Template?
 
 - **Built for Vibe Coding** — `CLAUDE.md`, `AGENTS.md`, clean DI patterns. AI agents scaffold features on day one. Perfect for vibe coding sessions.
-- **17 Core Modules** — Networking, auth, storage, Firebase, analytics, permissions, lifecycle — all pre-wired.
-- **Multi-Flavor Support** — Staging + Production configs out of the box.
-- **Production Architecture** — BLoC pattern, Injectable DI, GoRouter, Freezed models, fpdart functional programming.
+- **18 Infrastructure Modules** — Networking, auth, cache, offline queue, Firebase, analytics, permissions, forms, lifecycle, and more.
+- **Multi-Flavor Support** — Development, staging, and production entry points.
+- **Production Architecture** — BLoC/Cubit, Injectable + GetIt DI, GoRouter, Freezed DTOs, fpdart, Material 3, and generated localization.
+- **Template Setup Wizard** — Rename package/app IDs, configure Firebase/PostHog, refresh imports, and run codegen from one command.
 
 ## Architecture
 
@@ -50,20 +51,24 @@ graph TD
 
 | Module | Description | Key Packages |
 |--------|-------------|--------------|
-| **Network** | HTTP client with interceptors, error handling | Dio |
-| **Auth** | Authentication flow, token management | In-memory token store |
-| **Cache** | Local data persistence | Hive, Hive Flutter |
-| **DI** | Dependency injection with code generation | GetIt, Injectable |
-| **Router** | Declarative routing with deep linking | GoRouter, App Links |
-| **State** | Reactive state management | BLoC, HydratedBloc |
-| **Models** | Immutable data classes with serialization | Freezed, JSON |
-| **Theme** | Design system, responsive scaling | ScreenUtil |
+| **DataState** | Type-safe async state lifecycle | Dart sealed classes |
+| **Base** | Base cubits, repositories, pagination, use cases | BLoC, fpdart |
+| **Network** | HTTP client with auth, cache, retry, connectivity, logging interceptors | Dio |
+| **Cache** | Memory and disk cache with repository mixins | Hive, Hive Flutter |
+| **Connectivity** | Network monitoring and offline request queue | Connectivity Plus, Hive |
+| **Auth** | Session and token management | In-memory token store |
 | **Firebase** | Analytics, Crashlytics, Remote Config, Messaging, App Check | Firebase suite |
-| **Analytics** | Product analytics | PostHog |
-| **Connectivity** | Network status monitoring | Connectivity Plus |
+| **Analytics** | Multi-provider analytics abstraction | Firebase Analytics, PostHog |
 | **Permissions** | Runtime permission handling | Permission Handler |
+| **Design System** | Colors, spacing, radius, shadows, typography, durations | Flutter theme extensions |
+| **Extensions** | Shared Dart and Flutter extension methods | Dart extensions |
+| **Utils** | Color, date, string, number, responsive, snackbar, URL helpers | Shared utilities |
+| **Router** | Declarative routing with deep linking | GoRouter, App Links |
 | **Lifecycle** | App lifecycle management | — |
 | **Logger** | Structured logging | Logger |
+| **DI** | Dependency injection with code generation | GetIt, Injectable |
+| **Theme** | Material 3 themes and color schemes | Flutter Material |
+| **Forms** | Validated form inputs | Formz |
 
 ## Quick Start
 
@@ -73,7 +78,10 @@ graph TD
 git clone https://github.com/YOUR_USERNAME/your-app-name.git
 cd your-app-name
 
-# 3. Run first-time setup wizard
+# 3. Install dependencies
+flutter pub get
+
+# 4. Run first-time setup wizard
 dart run project_setup
 
 # Noninteractive setup
@@ -82,12 +90,17 @@ dart run project_setup \
   --dart-package-name acme_app \
   --app-id com.acme.app \
   --organization "Acme" \
+  --skip-firebase \
+  --skip-posthog \
   --yes
 
-# 4. Generate code
-dart run build_runner build
+# Preview setup changes without writing files
+dart run project_setup --dry-run
 
-# 5. Run
+# 5. Generate code
+dart run build_runner build --delete-conflicting-outputs
+
+# 6. Run
 flutter run -t lib/main_staging.dart
 ```
 
@@ -96,16 +109,16 @@ flutter run -t lib/main_staging.dart
 ```
 lib/
 ├── app.dart                    # App widget
-├── main.dart                   # Default entry point
+├── main.dart                   # Development entry point
 ├── main_staging.dart           # Staging flavor entry
 ├── main_production.dart        # Production flavor entry
 ├── core/
 │   ├── analytics/              # Analytics abstraction
 │   ├── assets/                 # Asset constants
-│   ├── auth/                   # Auth management
+│   ├── auth/                   # Auth/session/token management
 │   ├── base/                   # Base classes (BLoC, etc.)
 │   ├── cache/                  # Hive cache layer
-│   ├── connectivity/           # Network monitoring
+│   ├── connectivity/           # Network monitoring + offline queue
 │   ├── design_system/          # Design tokens
 │   ├── di/                     # Injectable DI setup
 │   ├── extensions/             # Dart/Flutter extensions
@@ -121,12 +134,27 @@ lib/
 │   └── home/                   # Home feature (BLoC + UI)
 └── shared/
     ├── blocs/                  # Shared BLoCs
-    ├── data/                   # API, models, repositories
+    ├── data/                   # API clients, DTOs, repositories
     ├── forms/                  # Formz input classes
     ├── i18n/                   # Localization (ARB)
     ├── services/               # Shared services
     └── widgets/                # Reusable widgets
+
+tool/
+└── project_setup/              # Local setup wizard used by dart run project_setup
+
+docs/
+├── README.md                   # Documentation index
+├── quick-start-guide.md
+├── codebase-summary.md
+├── system-architecture.md
+├── code-standards.md
+├── module-guides.md
+├── project-overview-pdr.md
+└── development-roadmap.md
 ```
+
+Generated files such as `*.g.dart`, `*.freezed.dart`, and `lib/core/di/get_it.config.dart` are produced by build_runner. Edit source files, then regenerate.
 
 ## AI Agent Guide
 
@@ -147,6 +175,8 @@ Project skills are included for:
 - `flutter-agentic-starter` — Flutter/BLoC/Clean Architecture rules for this template
 - `caveman` — terse technical reporting mode
 - `frontend-design` — polished frontend/UI implementation guidance
+
+Always invoke `flutter-agentic-starter` first before working in this project. During setup, `--app-name` renames this project skill to the app-name slug and updates agent instructions to invoke that app skill first.
 
 Skill locations:
 
@@ -171,12 +201,49 @@ OpenCode also reads `opencode.json`, which includes the shared rules and docs as
 
 | Flavor | Entry Point | Use Case |
 |--------|-------------|----------|
+| Development | `lib/main.dart` | Local development |
 | Staging | `lib/main_staging.dart` | Development & testing |
 | Production | `lib/main_production.dart` | Release builds |
 
 ### Environment Setup
 
-Each flavor can configure its own API base URL, Firebase project, and feature flags through the DI module.
+Each flavor uses `lib/core/flavor_configurations.dart` for base URL and timeout values. The setup wizard can also create `.env` for PostHog and run `flutterfire configure` when a Firebase project ID is provided.
+
+### Setup Wizard Options
+
+```sh
+dart run project_setup --help
+```
+
+Common options:
+
+- `--app-name` — display name used by platform rename config and project skill rename
+- `--dart-package-name` — Dart package name in `pubspec.yaml` and imports
+- `--app-id` — native app ID / bundle ID
+- `--organization` — organization used for generated platform metadata
+- `--firebase-project-id` — runs FlutterFire configuration when available
+- `--posthog-api-key` and `--posthog-host` — writes `.env` if missing
+- `--skip-firebase`, `--skip-posthog`, `--skip-pub-get`, `--skip-build-runner`
+- `--dry-run` — prints planned changes without writing files
+
+## Development
+
+```sh
+# Analyze
+dart analyze
+
+# Test
+flutter test
+
+# Build staging APK, same target used by CI
+flutter build apk --release -t lib/main_staging.dart
+```
+
+After changing Injectable registrations, Freezed models, or JSON models:
+
+```sh
+dart run build_runner build --delete-conflicting-outputs
+```
 
 ## Showcase
 

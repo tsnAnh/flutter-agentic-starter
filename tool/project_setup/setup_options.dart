@@ -77,6 +77,19 @@ class ProjectSetupOptions {
     return 'com.$middle.$dartPackageName';
   }
 
+  static String deriveSkillName(String appName) {
+    var name = appName
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
+        .replaceAll(RegExp(r'-+'), '-')
+        .replaceAll(RegExp(r'^-|-$'), '');
+    if (name.isEmpty) return 'my-app';
+    if (name.length > 63) {
+      name = name.substring(0, 63).replaceAll(RegExp(r'-+$'), '');
+    }
+    return name.isEmpty ? 'my-app' : name;
+  }
+
   static bool _isValidAppId(String value) {
     final parts = value.split('.');
     if (parts.length < 2 || parts.any((part) => part.isEmpty)) {

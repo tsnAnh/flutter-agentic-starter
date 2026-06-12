@@ -5,6 +5,8 @@ alwaysApply: true
 ---
 # Flutter Agent Rules
 
+Always invoke `flutter-agentic-starter` first before working in this project.
+
 ## Karpathy Guidelines
 
 - Think before coding. State assumptions and ask when requirements are unclear.
