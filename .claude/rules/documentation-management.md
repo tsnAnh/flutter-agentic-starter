@@ -1,6 +1,5 @@
 # Documentation Management
 
-- Keep `README.md`, `docs/`, `AGENTS.md`, `CLAUDE.md`, and `.cursor/rules/` aligned.
+- Keep `README.md`, `docs/`, `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`, and skills aligned.
 - Update docs after feature structure, setup, command, or workflow changes.
-- Prefer short, current examples over long stale walkthroughs.
-- Remove references to files that do not exist.
+- Prefer short current examples.

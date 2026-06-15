@@ -1,8 +1,8 @@
 # Primary Workflow
 
 1. Read `README.md`, `AGENTS.md` or `CLAUDE.md`, and relevant docs.
-2. Define assumptions and success criteria before implementation.
-3. Implement minimal code that satisfies requested behavior.
-4. Update docs when structure, workflow, or public usage changes.
-5. Verify with `flutter analyze` and `flutter test`.
-6. Report changed behavior, verification result, and unresolved questions.
+2. State assumptions and success criteria.
+3. Implement smallest correct change.
+4. Update docs when public structure or commands change.
+5. Verify with relevant Gradle/Xcode checks.
+6. Report changed behavior, verification, unresolved questions.

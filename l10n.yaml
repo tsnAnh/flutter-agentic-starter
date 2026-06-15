@@ -1,5 +1,0 @@
-arb-dir: lib/shared/i18n/arb
-template-arb-file: app_en.arb
-output-localization-file: app_localizations.dart
-output-dir: lib/shared/i18n/generated
-nullable-getter: false

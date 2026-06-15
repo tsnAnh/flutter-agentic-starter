@@ -1,95 +1,33 @@
 # AGENTS.md
 
-This file provides guidance to OpenCode when working with code in this repository.
+Guidance for agents working in this repository.
 
-## Project Overview
+## Project
 
-**Name:** flutter-agentic-starter
-**Type:** Flutter/Dart
-**Description:** Production-ready Flutter BLoC starter template optimized for AI coding agents. Clean architecture, 17 core modules, multi-flavor support. Built for vibe coding with Claude Code, Cursor, and other AI assistants.
+Name: `kmp-agentic-starter`
+Type: Kotlin Multiplatform native app
+Package: `dev.tsnanh.kmpagenticstarter`
 
-## Role & Responsibilities
+Always invoke `kmp-agentic-starter` skill first before working here.
 
-Your role is to analyze user requirements, delegate tasks to appropriate sub-agents, and ensure cohesive delivery of features that meet specifications and architectural standards.
+## Rules
 
-## Workflows
+- Read `README.md`, `AGENTS.md` or `CLAUDE.md`, and relevant docs before implementation.
+- Keep edits minimal and focused. No unrelated rewrites, reorder, or formatting churn.
+- Prefer maintained Kotlin/KMP packages before custom reusable utilities or integrations.
+- Document package-first exceptions in plan/report/PR.
+- Do not edit generated files or build outputs.
+- Keep source files under 300 lines when practical.
+- Never commit `.env`, API keys, Firebase plist/json, signing files, or tokens.
+- Verify Kotlin changes with `./gradlew :shared:allTests`.
+- Verify Android changes with `./gradlew :androidApp:assembleDebug`.
+- Verify iOS bridge changes with `./gradlew :shared:linkDebugFrameworkIosSimulatorArm64` and Xcode build when possible.
 
-- Primary workflow: `./.claude/rules/primary-workflow.md`
-- Development rules: `./.claude/rules/development-rules.md`
-- Orchestration protocols: `./.claude/rules/orchestration-protocol.md`
-- Documentation management: `./.claude/rules/documentation-management.md`
-- And other workflows: `./.claude/rules/*`
+## Architecture
 
-**IMPORTANT:** Analyze the skills catalog and activate the skills that are needed for the task during the process.
-**IMPORTANT:** You must follow strictly the development rules in `./.claude/rules/development-rules.md` file.
-**IMPORTANT:** Before you plan or proceed any implementation, always read the `./README.md` file first to get context.
-**IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
-**IMPORTANT:** In reports, list any unresolved questions at the end, if any.
-
-## Development Principles
-
-- **YAGNI**: You Aren't Gonna Need It - avoid over-engineering
-- **KISS**: Keep It Simple, Stupid - prefer simple solutions
-- **DRY**: Don't Repeat Yourself - eliminate code duplication
-- **Karpathy Guidelines**: Think before coding, keep changes simple, edit surgically, and define verifiable success criteria.
-
-## Coding Agent Rules
-
-- Read `README.md` and relevant docs before implementation.
-- State assumptions when requirements are ambiguous; ask before risky guesses.
-- **Hard rule:** Minimal focused edits only. Touch only files and lines required for requested behavior.
-- **Hard rule:** Do not rewrite, reformat, reorder, regenerate, or clean up unrelated code unless required.
-- **Hard rule:** Never manually edit build_runner generated files, including `*.g.dart`, `*.freezed.dart`, `*.config.dart`, or files marked `GENERATED CODE - DO NOT MODIFY BY HAND`.
-- **Hard rule:** Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
-- **Hard rule:** For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
-- Document any pub.dev package-first exception with reason.
-- Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
-- Respect dirty worktrees. Never revert user changes unless explicitly asked.
-- Verify changes with `flutter analyze` and `flutter test` when code changes.
-- For generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.
-- Treat `.env`, API keys, tokens, and platform secrets as confidential.
-
-## Documentation
-
-Keep all important docs in `./docs` folder:
-
-```
-./docs
-├── project-overview-pdr.md
-├── code-standards.md
-├── codebase-summary.md
-├── design-guidelines.md
-└── system-architecture.md
-```
-
-Root workflow files live in `./.claude/rules/`. Keep `AGENTS.md`,
-`CLAUDE.md`, `.cursor/rules/flutter.mdc`, and docs aligned when structure
-changes.
-
-## External Files
-
-Reference external instruction files in `opencode.json`:
-
-```json
-{
-  "instructions": ["docs/*.md", ".opencode/agents/*.md"]
-}
-```
-
-## Project Skills
-
-Native project skills are provided for Claude Code, Codex, and OpenCode:
-
-- Claude Code: `.claude/skills/`
-- Codex: `.agents/skills/`
-- OpenCode: `.opencode/skills/`
-
-Available skills:
-
-Always invoke `flutter-agentic-starter` first before working in this project.
-
-- `flutter-agentic-starter`: Flutter, BLoC/Cubit, Clean Architecture, DI, routing, models, tests, and design system guidance.
-- `caveman`: terse technical communication mode for concise reports.
-- `frontend-design`: polished UI/frontend design guidance for user-facing surfaces.
-
----
+- Shared Kotlin code owns business logic, core modules, repositories, use cases, and shared ViewModels.
+- Android UI stays in `androidApp/` with Jetpack Compose.
+- iOS UI stays in `iosApp/` with SwiftUI.
+- Feature code goes under `shared/src/commonMain/.../features/<feature>/`.
+- Core reusable modules go under `shared/src/commonMain/.../core/`.
+- DI goes through Koin modules in `di/`.

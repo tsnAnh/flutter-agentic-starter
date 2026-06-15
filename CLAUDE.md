@@ -1,120 +1,22 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Use `AGENTS.md` as primary guidance.
 
-## Role & Responsibilities
+## Hard Rules
 
-Your role is to analyze user requirements, delegate tasks to appropriate sub-agents, and ensure cohesive delivery of features that meet specifications and architectural standards.
+- Invoke `kmp-agentic-starter` skill first.
+- Minimal focused edits only.
+- Prefer maintained KMP libraries before custom reusable code.
+- Do not commit secrets or platform credentials.
+- Do not manually edit generated outputs.
+- Keep KMP shared APIs Swift-friendly when they cross into iOS UI.
 
-## Workflows
+## Verification
 
-- Primary workflow: `./.claude/rules/primary-workflow.md`
-- Development rules: `./.claude/rules/development-rules.md`
-- Orchestration protocols: `./.claude/rules/orchestration-protocol.md`
-- Documentation management: `./.claude/rules/documentation-management.md`
-- And other workflows: `./.claude/rules/*`
+Run relevant checks:
 
-**IMPORTANT:** Analyze the skills catalog and activate the skills that are needed for the task during the process.
-**IMPORTANT:** You must follow strictly the development rules in `./.claude/rules/development-rules.md` file.
-**IMPORTANT:** Before you plan or proceed any implementation, always read the `./README.md` file first to get context.
-**IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
-**IMPORTANT:** In reports, list any unresolved questions at the end, if any.
-
-## Karpathy Guidelines
-
-Behavioral guidelines to reduce common LLM coding mistakes:
-
-- Think before coding. State assumptions, surface tradeoffs, ask when unclear.
-- Simplicity first. Minimum code that solves the requested behavior.
-- Surgical changes. Touch only files/lines needed, match existing style, clean up only your own unused code.
-- Goal-driven execution. Define success criteria and verify with concrete checks.
-
-## Hard Development Rules
-
-- Minimal focused edits are mandatory. Touch only files and lines required for requested behavior.
-- Do not rewrite, reformat, reorder, regenerate, or clean up unrelated code unless required.
-- Never manually edit build_runner generated files, including `*.g.dart`, `*.freezed.dart`, `*.config.dart`, or files marked `GENERATED CODE - DO NOT MODIFY BY HAND`.
-- For generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.
-- Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
-- Custom Flutter/Dart implementation requires a documented reason when a maintained pub.dev package is not used.
-- For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
-- Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
-
-## Project Skills
-
-Claude Code project skills live in `.claude/skills/`.
-
-Available skills:
-
-Always invoke `flutter-agentic-starter` first before working in this project.
-
-- `flutter-agentic-starter`: Flutter, BLoC/Cubit, Clean Architecture, DI, routing, models, tests, and design system guidance.
-- `caveman`: terse technical communication mode for concise reports.
-- `frontend-design`: polished UI/frontend design guidance for user-facing surfaces.
-
-## Hook Response Protocol
-
-### Privacy Block Hook (`@@PRIVACY_PROMPT@@`)
-
-When a tool call is blocked by the privacy-block hook, the output contains a JSON marker between `@@PRIVACY_PROMPT_START@@` and `@@PRIVACY_PROMPT_END@@`. **You MUST use the `AskUserQuestion` tool** to get proper user approval.
-
-**Required Flow:**
-
-1. Parse the JSON from the hook output
-2. Use `AskUserQuestion` with the question data from the JSON
-3. Based on user's selection:
-   - **"Yes, approve access"** → Use `bash cat "filepath"` to read the file (bash is auto-approved)
-   - **"No, skip this file"** → Continue without accessing the file
-
-**Example AskUserQuestion call:**
-```json
-{
-  "questions": [{
-    "question": "I need to read \".env\" which may contain sensitive data. Do you approve?",
-    "header": "File Access",
-    "options": [
-      { "label": "Yes, approve access", "description": "Allow reading .env this time" },
-      { "label": "No, skip this file", "description": "Continue without accessing this file" }
-    ],
-    "multiSelect": false
-  }]
-}
+```sh
+./gradlew :shared:allTests
+./gradlew :androidApp:assembleDebug
+./gradlew :shared:linkDebugFrameworkIosSimulatorArm64
 ```
-
-**IMPORTANT:** Always ask the user via `AskUserQuestion` first. Never try to work around the privacy block without explicit user approval.
-
-## Python Scripts (Skills)
-
-When running Python scripts from `.claude/skills/`, use the venv Python interpreter:
-- **Linux/macOS:** `.claude/skills/.venv/bin/python3 scripts/xxx.py`
-- **Windows:** `.claude\skills\.venv\Scripts\python.exe scripts\xxx.py`
-
-This ensures packages installed by `install.sh` (google-genai, pypdf, etc.) are available.
-
-**IMPORTANT:** When scripts of skills failed, don't stop, try to fix them directly.
-
-## [IMPORTANT] Consider Modularization
-- If a touched source code file exceeds 300 lines, consider modularizing it when it improves readability
-- Check existing modules before creating new
-- Analyze logical separation boundaries (functions, classes, concerns)
-- Use kebab-case naming with long descriptive names, it's fine if the file name is long because this ensures file names are self-documenting for LLM tools (Grep, Glob, Search)
-- Write descriptive code comments
-- After modularization, continue with main task
-- When not to modularize: generated files, Markdown files, plain text files, bash scripts, configuration files, environment variables files, assets, lockfiles, build artifacts, etc.
-
-## Documentation Management
-
-We keep all important docs in `./docs` folder and keep updating them, structure like below:
-
-```
-./docs
-├── project-overview-pdr.md
-├── code-standards.md
-├── codebase-summary.md
-├── design-guidelines.md
-├── deployment-guide.md
-├── system-architecture.md
-└── project-roadmap.md
-```
-
-**IMPORTANT:** *MUST READ* and *MUST COMPLY* all *INSTRUCTIONS* in project `./CLAUDE.md`, especially *WORKFLOWS* section is *CRITICALLY IMPORTANT*, this rule is *MANDATORY. NON-NEGOTIABLE. NO EXCEPTIONS. MUST REMEMBER AT ALL TIMES!!!*
