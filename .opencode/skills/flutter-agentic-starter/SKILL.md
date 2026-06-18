@@ -13,6 +13,7 @@ Follow repo docs first: `README.md`, `AGENTS.md` or `CLAUDE.md`, and relevant fi
 
 ## Core Rules
 
+- Use `.agents/skills/manage-okf-memory` at start/end to maintain `okf-memory/`.
 - Keep edits minimal and focused. Do not rewrite, reformat, reorder, or clean unrelated code.
 - Prefer maintained pub.dev packages before custom reusable Flutter/Dart utilities, widgets, integrations, or helpers.
 - Document package-first exceptions in plan, report, PR, or review summary.
