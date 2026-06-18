@@ -5,9 +5,7 @@ import Shared
 
 struct ListView: View {
     @StateViewModel
-    var viewModel = ListViewModel(
-        museumRepository: KoinDependencies().museumRepository
-    )
+    var viewModel = KoinDependencies().listViewModel
 
     let columns = [
         GridItem(.adaptive(minimum: 120), alignment: .top)
@@ -15,7 +13,9 @@ struct ListView: View {
 
     var body: some View {
         ZStack {
-            if !viewModel.objects.isEmpty {
+            if let message = viewModel.objectsErrorMessage {
+                Text(message)
+            } else if !viewModel.objects.isEmpty {
                 NavigationStack {
                     ScrollView {
                         LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {

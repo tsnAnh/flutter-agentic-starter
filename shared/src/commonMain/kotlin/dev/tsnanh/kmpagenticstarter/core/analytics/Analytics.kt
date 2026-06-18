@@ -1,9 +1,14 @@
 package dev.tsnanh.kmpagenticstarter.core.analytics
 
+import arrow.optics.optics
+
+@optics
 data class AnalyticsEvent(
     val name: String,
     val properties: Map<String, String> = emptyMap(),
-)
+) {
+    companion object
+}
 
 interface AnalyticsProvider {
     fun track(event: AnalyticsEvent)

@@ -3,8 +3,11 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
+    alias(libs.plugins.arrowOptics)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.kmpNativeCoroutines)
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -40,6 +43,10 @@ kotlin {
             implementation(libs.ktor.client.darwin)
         }
         commonMain.dependencies {
+            api(libs.arrow.core)
+            api(libs.arrow.optics)
+            implementation(libs.arrow.fx.coroutines)
+            implementation(libs.arrow.resilience)
             implementation(libs.kermit)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
@@ -49,6 +56,8 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.koin.core)
             implementation(libs.multiplatform.settings)
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
             api(libs.kmp.observable.viewmodel)
         }
         commonTest.dependencies {
@@ -63,4 +72,14 @@ kotlin {
             languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
         }
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }

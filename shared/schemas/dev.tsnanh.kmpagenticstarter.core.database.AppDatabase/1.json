@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "3ad862c462eadff7b44d9ddaab259e92",
+    "entities": [
+      {
+        "tableName": "museum_objects",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`objectID` INTEGER NOT NULL, `title` TEXT NOT NULL, `artistDisplayName` TEXT NOT NULL, `medium` TEXT NOT NULL, `dimensions` TEXT NOT NULL, `objectURL` TEXT NOT NULL, `objectDate` TEXT NOT NULL, `primaryImage` TEXT NOT NULL, `primaryImageSmall` TEXT NOT NULL, `repository` TEXT NOT NULL, `department` TEXT NOT NULL, `creditLine` TEXT NOT NULL, PRIMARY KEY(`objectID`))",
+        "fields": [
+          {
+            "fieldPath": "objectID",
+            "columnName": "objectID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artistDisplayName",
+            "columnName": "artistDisplayName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "medium",
+            "columnName": "medium",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dimensions",
+            "columnName": "dimensions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "objectURL",
+            "columnName": "objectURL",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "objectDate",
+            "columnName": "objectDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "primaryImage",
+            "columnName": "primaryImage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "primaryImageSmall",
+            "columnName": "primaryImageSmall",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repository",
+            "columnName": "repository",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "department",
+            "columnName": "department",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creditLine",
+            "columnName": "creditLine",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "objectID"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3ad862c462eadff7b44d9ddaab259e92')"
+    ]
+  }
+}

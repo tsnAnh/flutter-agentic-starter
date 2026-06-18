@@ -35,7 +35,10 @@ class KtorHttpClientFactory(
         }
         defaultRequest {
             contentType(ContentType.Application.Json)
-            tokenManager.currentAccessToken()?.let { bearerAuth(it) }
+            tokenManager.currentAccessToken().fold(
+                ifEmpty = {},
+                ifSome = { bearerAuth(it) },
+            )
         }
     }
 }

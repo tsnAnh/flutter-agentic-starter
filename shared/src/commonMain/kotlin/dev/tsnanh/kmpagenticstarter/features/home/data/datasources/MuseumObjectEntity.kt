@@ -1,10 +1,11 @@
-package dev.tsnanh.kmpagenticstarter.features.home.domain.models
+package dev.tsnanh.kmpagenticstarter.features.home.data.datasources
 
-import arrow.optics.optics
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@optics
-data class MuseumObject(
-    val objectID: Int,
+@Entity(tableName = "museum_objects")
+data class MuseumObjectEntity(
+    @PrimaryKey val objectID: Int,
     val title: String,
     val artistDisplayName: String,
     val medium: String,
@@ -16,6 +17,4 @@ data class MuseumObject(
     val repository: String,
     val department: String,
     val creditLine: String,
-) {
-    companion object
-}
+)

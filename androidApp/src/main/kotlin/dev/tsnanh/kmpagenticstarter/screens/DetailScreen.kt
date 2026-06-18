@@ -1,5 +1,8 @@
 package dev.tsnanh.kmpagenticstarter.screens
 
+import arrow.core.Either
+import arrow.core.None
+import arrow.core.Some
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -38,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import dev.tsnanh.kmpagenticstarter.R
-import dev.tsnanh.kmpagenticstarter.core.base.DataState
 import dev.tsnanh.kmpagenticstarter.features.home.domain.models.MuseumObject
 import dev.tsnanh.kmpagenticstarter.features.home.presentation.DetailViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -46,7 +48,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun DetailScreen(objectId: Int, navigateBack: () -> Unit) {
     val viewModel: DetailViewModel = koinViewModel()
-    val obj by viewModel.museumObjectState.collectAsStateWithLifecycle()
+    val obj by viewModel.museumObjectResult.collectAsStateWithLifecycle()
 
     LaunchedEffect(objectId) {
         viewModel.setId(objectId)
@@ -54,10 +56,17 @@ fun DetailScreen(objectId: Int, navigateBack: () -> Unit) {
 
     AnimatedContent(obj) { currentState ->
         when (currentState) {
-            is DataState.Loaded -> currentState.data?.let {
-                ObjectDetails(it, onBackClick = navigateBack)
-            } ?: EmptyScreenContent(Modifier.fillMaxSize())
-            else -> EmptyScreenContent(Modifier.fillMaxSize())
+            None -> EmptyScreenContent(Modifier.fillMaxSize())
+            is Some -> when (val result = currentState.value) {
+                is Either.Left -> EmptyScreenContent(
+                    modifier = Modifier.fillMaxSize(),
+                    message = result.value.message,
+                )
+                is Either.Right -> when (val objectOption = result.value) {
+                    None -> EmptyScreenContent(Modifier.fillMaxSize())
+                    is Some -> ObjectDetails(objectOption.value, onBackClick = navigateBack)
+                }
+            }
         }
     }
 }

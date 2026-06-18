@@ -1,9 +1,9 @@
-package dev.tsnanh.kmpagenticstarter.features.home.domain.models
+package dev.tsnanh.kmpagenticstarter.features.home.data.datasources
 
-import arrow.optics.optics
+import kotlinx.serialization.Serializable
 
-@optics
-data class MuseumObject(
+@Serializable
+data class MuseumObjectDto(
     val objectID: Int,
     val title: String,
     val artistDisplayName: String,
@@ -16,6 +16,4 @@ data class MuseumObject(
     val repository: String,
     val department: String,
     val creditLine: String,
-) {
-    companion object
-}
+)

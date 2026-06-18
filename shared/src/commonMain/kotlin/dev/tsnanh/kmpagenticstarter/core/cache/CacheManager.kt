@@ -1,5 +1,8 @@
 package dev.tsnanh.kmpagenticstarter.core.cache
 
+import arrow.core.Option
+import arrow.core.none
+import arrow.core.toOption
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.TimeSource
@@ -24,13 +27,13 @@ class CacheManager {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> get(key: String): T? {
-        val entry = entries[key] ?: return null
+    fun <T : Any> get(key: String): Option<T> {
+        val entry = entries[key] ?: return none()
         if (entry.expiresAt.hasPassedNow()) {
             entries.remove(key)
-            return null
+            return none()
         }
-        return entry.value as? T
+        return (entry.value as? T).toOption()
     }
 
     fun invalidate(key: String) {

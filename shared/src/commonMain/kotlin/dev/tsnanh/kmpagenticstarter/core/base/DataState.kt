@@ -1,13 +1,9 @@
 package dev.tsnanh.kmpagenticstarter.core.base
 
+import arrow.core.Either
+import arrow.core.Option
 import dev.tsnanh.kmpagenticstarter.core.error.AppError
 
-sealed interface DataState<out T> {
-    data object Initial : DataState<Nothing>
-    data object Loading : DataState<Nothing>
-    data class Loaded<T>(val data: T) : DataState<T>
-    data class Error(val error: AppError) : DataState<Nothing>
-}
-
-val <T> DataState<T>.dataOrNull: T?
-    get() = (this as? DataState.Loaded<T>)?.data
+typealias AppResult<T> = Either<AppError, T>
+typealias AsyncResult<T> = Option<AppResult<T>>
+typealias OptionalResult<T> = AppResult<Option<T>>

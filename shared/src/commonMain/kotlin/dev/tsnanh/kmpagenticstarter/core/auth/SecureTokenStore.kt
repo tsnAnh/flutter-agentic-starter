@@ -1,22 +1,32 @@
 package dev.tsnanh.kmpagenticstarter.core.auth
 
+import arrow.core.Option
+import arrow.core.none
+import arrow.core.some
+import arrow.core.toOption
 import com.russhwolf.settings.Settings
 
 interface SecureTokenStore {
-    fun read(): TokenSet?
+    fun read(): Option<TokenSet>
     fun write(tokens: TokenSet)
     fun clear()
 }
 
 class SettingsTokenStore(private val settings: Settings) : SecureTokenStore {
-    override fun read(): TokenSet? {
-        val access = settings.getStringOrNull(accessKey) ?: return null
-        return TokenSet(accessToken = access, refreshToken = settings.getStringOrNull(refreshKey))
+    override fun read(): Option<TokenSet> {
+        val access = settings.getStringOrNull(accessKey) ?: return none()
+        return TokenSet(
+            accessToken = access,
+            refreshToken = settings.getStringOrNull(refreshKey).toOption(),
+        ).some()
     }
 
     override fun write(tokens: TokenSet) {
         settings.putString(accessKey, tokens.accessToken)
-        tokens.refreshToken?.let { settings.putString(refreshKey, it) } ?: settings.remove(refreshKey)
+        tokens.refreshToken.fold(
+            ifEmpty = { settings.remove(refreshKey) },
+            ifSome = { settings.putString(refreshKey, it) },
+        )
     }
 
     override fun clear() {
@@ -31,15 +41,15 @@ class SettingsTokenStore(private val settings: Settings) : SecureTokenStore {
 }
 
 class InMemoryTokenStore : SecureTokenStore {
-    private var tokens: TokenSet? = null
+    private var tokens: Option<TokenSet> = none()
 
-    override fun read(): TokenSet? = tokens
+    override fun read(): Option<TokenSet> = tokens
 
     override fun write(tokens: TokenSet) {
-        this.tokens = tokens
+        this.tokens = tokens.some()
     }
 
     override fun clear() {
-        tokens = null
+        tokens = none()
     }
 }

@@ -1,5 +1,8 @@
 package dev.tsnanh.kmpagenticstarter.core.firebase
 
+import arrow.core.Option
+import arrow.core.none
+
 interface FirebaseInitializer {
     suspend fun initialize()
 }
@@ -14,7 +17,7 @@ interface RemoteConfigService {
 }
 
 interface PushNotificationService {
-    suspend fun token(): String?
+    suspend fun token(): Option<String>
 }
 
 class NoopFirebaseInitializer : FirebaseInitializer {
@@ -31,5 +34,5 @@ class NoopRemoteConfigService : RemoteConfigService {
 }
 
 class NoopPushNotificationService : PushNotificationService {
-    override suspend fun token(): String? = null
+    override suspend fun token(): Option<String> = none()
 }

@@ -11,11 +11,12 @@ import dev.tsnanh.kmpagenticstarter.R
 @Composable
 fun EmptyScreenContent(
     modifier: Modifier = Modifier,
+    message: String? = null,
 ) {
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        Text(stringResource(R.string.no_data_available))
+        Text(message ?: stringResource(R.string.no_data_available))
     }
 }

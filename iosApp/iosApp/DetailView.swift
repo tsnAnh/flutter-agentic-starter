@@ -6,9 +6,7 @@ import KMPObservableViewModelSwiftUI
 
 struct DetailView: View {
     @StateViewModel
-    var viewModel = DetailViewModel(
-        museumRepository: KoinDependencies().museumRepository
-    )
+    var viewModel = KoinDependencies().detailViewModel
 
     let objectId: Int32
 
@@ -16,6 +14,8 @@ struct DetailView: View {
         VStack {
             if let obj = viewModel.museumObject {
                 ObjectDetails(obj: obj)
+            } else if let message = viewModel.museumObjectErrorMessage {
+                Text(message)
             }
         }
         .onAppear {

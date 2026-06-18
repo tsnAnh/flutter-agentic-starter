@@ -1,5 +1,8 @@
 package dev.tsnanh.kmpagenticstarter.screens
 
+import arrow.core.Either
+import arrow.core.None
+import arrow.core.Some
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,7 +29,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import dev.tsnanh.kmpagenticstarter.core.base.DataState
 import dev.tsnanh.kmpagenticstarter.features.home.domain.models.MuseumObject
 import dev.tsnanh.kmpagenticstarter.features.home.presentation.ListViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -34,15 +36,21 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun ListScreen(navigateToDetails: (objectId: Int) -> Unit) {
     val viewModel: ListViewModel = koinViewModel()
-    val state by viewModel.objectsState.collectAsStateWithLifecycle()
+    val state by viewModel.objectsResult.collectAsStateWithLifecycle()
 
     AnimatedContent(state) { currentState ->
         when (currentState) {
-            is DataState.Loaded -> ObjectGrid(
-                objects = currentState.data,
-                onObjectClick = navigateToDetails,
-            )
-            else -> EmptyScreenContent(Modifier.fillMaxSize())
+            None -> EmptyScreenContent(Modifier.fillMaxSize())
+            is Some -> when (val result = currentState.value) {
+                is Either.Left -> EmptyScreenContent(
+                    modifier = Modifier.fillMaxSize(),
+                    message = result.value.message,
+                )
+                is Either.Right -> ObjectGrid(
+                    objects = result.value,
+                    onObjectClick = navigateToDetails,
+                )
+            }
         }
     }
 }
