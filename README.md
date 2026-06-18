@@ -1,14 +1,14 @@
 # kmp-agentic-starter
 
-Production-ready Kotlin Multiplatform starter for AI coding agents. Built from JetBrains' native KMP app template, then adapted with Clean Architecture, shared Kotlin core modules, Android Jetpack Compose, SwiftUI, Koin DI, Ktor networking, and agent-ready project rules.
+Production-ready Kotlin Multiplatform starter for AI coding agents. Built from JetBrains' native KMP app template, then adapted with Clean Architecture, shared Kotlin core modules, Android Jetpack Compose, SwiftUI, Koin DI, Ktor networking, Room KMP storage, and agent-ready project rules.
 
 Package and platform ID: `dev.tsnanh.kmpagenticstarter`.
 
 ## Features
 
 - Native UI: Android Compose and iOS SwiftUI.
-- Shared architecture: `core/`, `features/`, Koin DI, repositories, use cases, `DataState`.
-- Core modules: network, cache, auth/session, connectivity, offline queue, analytics, Firebase facades, permissions, lifecycle, routing, forms, logger, design tokens, utilities.
+- Shared architecture: `core/`, `features/`, Koin DI, repositories, use cases, Arrow typed errors/options.
+- Core modules: network, Room database, cache, auth/session, connectivity, offline queue, analytics, Firebase facades, permissions, lifecycle, routing, forms, logger, design tokens, utilities.
 - Sample feature: Museum object list/detail ported into `features/home`.
 - Agent context: `AGENTS.md`, `CLAUDE.md`, `.claude/rules/`, `.cursor/rules/kmp.mdc`, `opencode.json`, and local skills.
 
@@ -44,7 +44,7 @@ The script creates `.env` only if missing. `.env`, `google-services.json`, and `
 ```text
 shared/src/commonMain/kotlin/dev/tsnanh/kmpagenticstarter/
   core/                  Shared infrastructure modules
-  features/home/         Example feature with domain/data/presentation folders
+  features/home/         Feature template with domain/data/presentation folders
   di/                    Koin modules
 androidApp/              Android Compose shell
 iosApp/                  SwiftUI shell
