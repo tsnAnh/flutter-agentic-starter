@@ -13,6 +13,7 @@ Read repo docs first: `README.md`, `AGENTS.md` or `CLAUDE.md`, and relevant file
 
 ## Core Rules
 
+- Use `manage-okf-memory` at the start and end of work to read or update `okf-memory/`.
 - Keep edits minimal and focused.
 - Prefer maintained Kotlin/KMP packages before custom reusable utilities or integrations.
 - Document package-first exceptions.
