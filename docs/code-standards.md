@@ -505,6 +505,51 @@ class User {
 }
 ```
 
+### Type Safety & Primitive Obsession
+
+Avoid primitive obsession for domain concepts. Prefer typed values over raw
+`String`, raw `int`, raw `bool`, and magic constants when the value is finite,
+validated, unit-based, or behavior-bearing.
+
+```dart
+// ✓ Good: closed set with explicit wire values and fallback
+enum SubscriptionStatus {
+  active('active'),
+  paused('paused'),
+  canceled('canceled'),
+  unknown('unknown');
+
+  const SubscriptionStatus(this.wireValue);
+
+  final String wireValue;
+
+  static SubscriptionStatus fromWire(String? value) => values.firstWhere(
+        (status) => status.wireValue == value,
+        orElse: () => SubscriptionStatus.unknown,
+      );
+}
+
+// ✗ Bad: status string can drift across the app
+if (json['status'] == 'active') {
+  // ...
+}
+```
+
+Use the smallest type that buys real safety:
+
+- Use SDK/package types first: `Duration`, `Uri`, `DateTime`, `Locale`, `Color`, Flutter enums.
+- Use `enum` for finite choices: modes, policies, statuses, tabs, validation errors, sort orders.
+- Use enhanced enums with wire values for JSON, config, API codes, and analytics dimensions.
+- Use a `sealed class` when cases carry payloads or need exhaustive state/event/result handling.
+- Use small value objects for high-risk primitives: money, units, validated inputs, and repeated domain IDs with behavior.
+- Parse raw strings/ints at API, config, route, storage, and JSON boundaries; keep typed values inside app code.
+- Add `unknown` or nullable parse fallback for external enum values so backend additions do not crash the app.
+
+Do not over-type open-ended data:
+
+- Keep raw primitives for user text, names, emails, arbitrary descriptions, raw JSON, generated/localized strings, and simple IDs with no behavior.
+- Use constants, not enums, for storage keys, analytics keys, route names, and protocol strings unless code branches on the closed set.
+
 ### Immutability
 
 Use `final` and const classes:

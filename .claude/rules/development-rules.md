@@ -11,6 +11,7 @@
 - Do not rewrite, reformat, reorder, regenerate, or clean up unrelated code unless required by the task.
 - Do not create enhanced replacement files; update existing files directly.
 - Never manually edit build_runner generated files, including `*.g.dart`, `*.freezed.dart`, `*.config.dart`, or files marked `GENERATED CODE - DO NOT MODIFY BY HAND`.
+- Avoid primitive obsession: prefer existing SDK/package types, enums/enhanced enums, sealed classes, or small value objects over raw `String`, raw `int`, raw `bool`, and magic constants for finite or high-risk domain concepts. Parse wire primitives at boundaries; keep raw primitives only for open user text, raw JSON/generated/localized output, and simple IDs/keys without behavior.
 - Package-first is mandatory for Flutter/Dart: check and prefer maintained pub.dev packages before implementing reusable utilities, widgets, integrations, or helpers yourself.
 - Custom Flutter/Dart implementation is allowed only when no suitable package exists, or when packages fail security, privacy, license, platform, size, performance, or architecture requirements.
 - Document any package-first exception in the plan, report, PR, or code review summary.

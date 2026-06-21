@@ -40,6 +40,7 @@ Your role is to analyze user requirements, delegate tasks to appropriate sub-age
 - **Hard rule:** Minimal focused edits only. Touch only files and lines required for requested behavior.
 - **Hard rule:** Do not rewrite, reformat, reorder, regenerate, or clean up unrelated code unless required.
 - **Hard rule:** Never manually edit build_runner generated files, including `*.g.dart`, `*.freezed.dart`, `*.config.dart`, or files marked `GENERATED CODE - DO NOT MODIFY BY HAND`.
+- **Hard rule:** Avoid primitive obsession. Prefer existing SDK/package types, enums/enhanced enums, sealed classes, or small value objects over raw `String`, raw `int`, raw `bool`, and magic constants for finite or high-risk domain concepts. Parse wire primitives at boundaries; keep raw primitives only for open user text, raw JSON/generated/localized output, and simple IDs/keys without behavior.
 - **Hard rule:** Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
 - **Hard rule:** For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
 - Document any pub.dev package-first exception with reason.

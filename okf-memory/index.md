@@ -16,6 +16,7 @@ okf_version: "0.1"
 # Daily Logs
 
 * [2026-06-18](daily/2026-06-18.md) - Initial OKF project memory log.
+* [2026-06-21](daily/2026-06-21.md) - Current daily memory log.
 
 # Sources
 

@@ -15,6 +15,7 @@ Follow repo docs first: `README.md`, `AGENTS.md` or `CLAUDE.md`, and relevant fi
 
 - Use `manage-okf-memory` at the start and end of work to read or update `okf-memory/`.
 - Keep edits minimal and focused. Do not rewrite, reformat, reorder, or clean unrelated code.
+- Avoid primitive obsession. Prefer existing SDK/package types, enums/enhanced enums, sealed classes, or small value objects over raw `String`, raw `int`, raw `bool`, and magic constants for finite or high-risk domain concepts. Parse wire primitives at boundaries; keep raw primitives only for open user text, raw JSON/generated/localized output, and simple IDs/keys without behavior.
 - Prefer maintained pub.dev packages before custom reusable Flutter/Dart utilities, widgets, integrations, or helpers.
 - Document package-first exceptions in plan, report, PR, or review summary.
 - For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
