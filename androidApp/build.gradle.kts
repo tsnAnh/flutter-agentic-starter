@@ -23,11 +23,11 @@ dependencies {
 }
 
 android {
-    namespace = "dev.tsnanh.kmpagenticstarter"
+    namespace = "dev.tsnanh.creativenote"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "dev.tsnanh.kmpagenticstarter"
+        applicationId = "dev.tsnanh.creativenote"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1

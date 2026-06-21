@@ -11,6 +11,20 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ListView.swift */; };
+		A10000000000000000000011 /* VoiceNoteTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000001 /* VoiceNoteTheme.swift */; };
+		A10000000000000000000012 /* AudioRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* AudioRecorderService.swift */; };
+		A10000000000000000000013 /* MLXVoiceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000003 /* MLXVoiceModels.swift */; };
+		A10000000000000000000014 /* VoiceNotePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000004 /* VoiceNotePipeline.swift */; };
+		A10000000000000000000015 /* VoiceNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000005 /* VoiceNotesView.swift */; };
+		A10000000000000000000016 /* VoiceNotesComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000006 /* VoiceNotesComponents.swift */; };
+		A10000000000000000000017 /* RecordingChamber.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000007 /* RecordingChamber.swift */; };
+		A10000000000000000000021 /* MLXAudioCore in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000041 /* MLXAudioCore */; };
+		A10000000000000000000022 /* MLXAudioSTT in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000042 /* MLXAudioSTT */; };
+		A10000000000000000000023 /* MLXLLM in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000043 /* MLXLLM */; };
+		A10000000000000000000024 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000044 /* MLXLMCommon */; };
+		A10000000000000000000025 /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000045 /* MLXHuggingFace */; };
+		A10000000000000000000026 /* HuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000046 /* HuggingFace */; };
+		A10000000000000000000027 /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000047 /* Tokenizers */; };
 		EB049AFF2C1AEB680032A688 /* KMPObservableViewModelCore in Frameworks */ = {isa = PBXBuildFile; productRef = EB049AFE2C1AEB680032A688 /* KMPObservableViewModelCore */; };
 		EB049B012C1AEB680032A688 /* KMPObservableViewModelSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = EB049B002C1AEB680032A688 /* KMPObservableViewModelSwiftUI */; };
 		EB1C5CC72AE06906002852BE /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C5CC62AE06906002852BE /* DetailView.swift */; };
@@ -23,9 +37,16 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
-		7555FF7B242A565900829871 /* KMP Agentic Starter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KMP Agentic Starter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7555FF7B242A565900829871 /* Creative Note.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Creative Note.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A10000000000000000000001 /* VoiceNoteTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNoteTheme.swift; sourceTree = "<group>"; };
+		A10000000000000000000002 /* AudioRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderService.swift; sourceTree = "<group>"; };
+		A10000000000000000000003 /* MLXVoiceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLXVoiceModels.swift; sourceTree = "<group>"; };
+		A10000000000000000000004 /* VoiceNotePipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNotePipeline.swift; sourceTree = "<group>"; };
+		A10000000000000000000005 /* VoiceNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNotesView.swift; sourceTree = "<group>"; };
+		A10000000000000000000006 /* VoiceNotesComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceNotesComponents.swift; sourceTree = "<group>"; };
+		A10000000000000000000007 /* RecordingChamber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingChamber.swift; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		EB1C5CC62AE06906002852BE /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		EB50C4932BE0F0D8005DE781 /* KMPObservableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPObservableViewModel.swift; sourceTree = "<group>"; };
@@ -38,6 +59,13 @@
 			files = (
 				EB049AFF2C1AEB680032A688 /* KMPObservableViewModelCore in Frameworks */,
 				EB049B012C1AEB680032A688 /* KMPObservableViewModelSwiftUI in Frameworks */,
+				A10000000000000000000021 /* MLXAudioCore in Frameworks */,
+				A10000000000000000000022 /* MLXAudioSTT in Frameworks */,
+				A10000000000000000000023 /* MLXLLM in Frameworks */,
+				A10000000000000000000024 /* MLXLMCommon in Frameworks */,
+				A10000000000000000000025 /* MLXHuggingFace in Frameworks */,
+				A10000000000000000000026 /* HuggingFace in Frameworks */,
+				A10000000000000000000027 /* Tokenizers in Frameworks */,
 				EB50C4922BE0EB69005DE781 /* KMPNativeCoroutinesCore in Frameworks */,
 				EB50C4902BE0EB69005DE781 /* KMPNativeCoroutinesAsync in Frameworks */,
 			);
@@ -74,7 +102,7 @@
 		7555FF7C242A565900829871 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7555FF7B242A565900829871 /* KMP Agentic Starter.app */,
+				7555FF7B242A565900829871 /* Creative Note.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,6 +112,13 @@
 			children = (
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ListView.swift */,
+				A10000000000000000000005 /* VoiceNotesView.swift */,
+				A10000000000000000000006 /* VoiceNotesComponents.swift */,
+				A10000000000000000000007 /* RecordingChamber.swift */,
+				A10000000000000000000001 /* VoiceNoteTheme.swift */,
+				A10000000000000000000004 /* VoiceNotePipeline.swift */,
+				A10000000000000000000002 /* AudioRecorderService.swift */,
+				A10000000000000000000003 /* MLXVoiceModels.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
@@ -123,9 +158,16 @@
 				EB50C4912BE0EB69005DE781 /* KMPNativeCoroutinesCore */,
 				EB049AFE2C1AEB680032A688 /* KMPObservableViewModelCore */,
 				EB049B002C1AEB680032A688 /* KMPObservableViewModelSwiftUI */,
+				A10000000000000000000041 /* MLXAudioCore */,
+				A10000000000000000000042 /* MLXAudioSTT */,
+				A10000000000000000000043 /* MLXLLM */,
+				A10000000000000000000044 /* MLXLMCommon */,
+				A10000000000000000000045 /* MLXHuggingFace */,
+				A10000000000000000000046 /* HuggingFace */,
+				A10000000000000000000047 /* Tokenizers */,
 			);
 			productName = iosApp;
-			productReference = 7555FF7B242A565900829871 /* KMP Agentic Starter.app */;
+			productReference = 7555FF7B242A565900829871 /* Creative Note.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -136,7 +178,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2650;
 				ORGANIZATIONNAME = orgName;
 				TargetAttributes = {
 					7555FF7A242A565900829871 = {
@@ -156,6 +198,10 @@
 			packageReferences = (
 				EB50C48E2BE0EB69005DE781 /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */,
 				EB049AFD2C1AEB680032A688 /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */,
+				A10000000000000000000031 /* XCRemoteSwiftPackageReference "mlx-audio-swift" */,
+				A10000000000000000000032 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */,
+				A10000000000000000000033 /* XCRemoteSwiftPackageReference "swift-huggingface" */,
+				A10000000000000000000034 /* XCRemoteSwiftPackageReference "swift-transformers" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -205,6 +251,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB1C5CC72AE06906002852BE /* DetailView.swift in Sources */,
+				A10000000000000000000015 /* VoiceNotesView.swift in Sources */,
+				A10000000000000000000016 /* VoiceNotesComponents.swift in Sources */,
+				A10000000000000000000017 /* RecordingChamber.swift in Sources */,
+				A10000000000000000000011 /* VoiceNoteTheme.swift in Sources */,
+				A10000000000000000000014 /* VoiceNotePipeline.swift in Sources */,
+				A10000000000000000000012 /* AudioRecorderService.swift in Sources */,
+				A10000000000000000000013 /* MLXVoiceModels.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				EB50C4942BE0F0D8005DE781 /* KMPObservableViewModel.swift in Sources */,
 				7555FF83242A565900829871 /* ListView.swift in Sources */,
@@ -250,6 +303,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = G94PJ7VQBJ;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -267,11 +321,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -313,6 +368,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = G94PJ7VQBJ;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -324,10 +380,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -341,7 +398,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -349,7 +405,7 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -369,7 +425,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -377,7 +432,7 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -414,6 +469,38 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A10000000000000000000031 /* XCRemoteSwiftPackageReference "mlx-audio-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Blaizzy/mlx-audio-swift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A10000000000000000000032 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ml-explore/mlx-swift-lm.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.31.3;
+			};
+		};
+		A10000000000000000000033 /* XCRemoteSwiftPackageReference "swift-huggingface" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huggingface/swift-huggingface.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+		A10000000000000000000034 /* XCRemoteSwiftPackageReference "swift-transformers" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huggingface/swift-transformers.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 		EB049AFD2C1AEB680032A688 /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rickclephas/KMP-ObservableViewModel";
@@ -433,6 +520,41 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A10000000000000000000041 /* MLXAudioCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000000031 /* XCRemoteSwiftPackageReference "mlx-audio-swift" */;
+			productName = MLXAudioCore;
+		};
+		A10000000000000000000042 /* MLXAudioSTT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000000031 /* XCRemoteSwiftPackageReference "mlx-audio-swift" */;
+			productName = MLXAudioSTT;
+		};
+		A10000000000000000000043 /* MLXLLM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000000032 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLLM;
+		};
+		A10000000000000000000044 /* MLXLMCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000000032 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLMCommon;
+		};
+		A10000000000000000000045 /* MLXHuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000000032 /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXHuggingFace;
+		};
+		A10000000000000000000046 /* HuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000000033 /* XCRemoteSwiftPackageReference "swift-huggingface" */;
+			productName = HuggingFace;
+		};
+		A10000000000000000000047 /* Tokenizers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000000000000000000034 /* XCRemoteSwiftPackageReference "swift-transformers" */;
+			productName = Tokenizers;
+		};
 		EB049AFE2C1AEB680032A688 /* KMPObservableViewModelCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EB049AFD2C1AEB680032A688 /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */;

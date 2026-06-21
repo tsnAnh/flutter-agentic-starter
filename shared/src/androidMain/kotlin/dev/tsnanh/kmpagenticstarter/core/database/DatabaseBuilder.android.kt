@@ -1,4 +1,4 @@
-package dev.tsnanh.kmpagenticstarter.core.database
+package dev.tsnanh.creativenote.core.database
 
 import android.content.Context
 import androidx.room.Room

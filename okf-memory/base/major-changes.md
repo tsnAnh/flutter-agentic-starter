@@ -2,7 +2,7 @@
 type: Project Memory
 title: Major Changes
 description: Significant repository changes agents should know before editing.
-tags: [okf-memory, kmp-agentic-starter, major-changes]
+tags: [okf-memory, creative-note, major-changes]
 timestamp: 2026-06-21T11:55:21+07:00
 memory_category: major-changes
 merged_through: 2026-06-18

@@ -1,6 +1,6 @@
 ---
 name: manage-okf-memory
-description: Manage this repository's OKF project memory bundle. Use at the start and end of work in kmp-agentic-starter, when maintaining okf-memory daily logs, rolling daily logs into base knowledge, or recording durable agent knowledge such as coding patterns, human style, requirements, decisions, major changes, and roadmap changes.
+description: Manage this repository's OKF project memory bundle. Use at the start and end of work in creative-note, when maintaining okf-memory daily logs, rolling daily logs into base knowledge, or recording durable agent knowledge such as coding patterns, human style, requirements, decisions, major changes, and roadmap changes.
 ---
 
 # Manage OKF Memory

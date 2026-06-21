@@ -2,7 +2,7 @@
 type: Project Memory
 title: Human Style
 description: Communication and report style preferences for this project.
-tags: [okf-memory, kmp-agentic-starter, human-style]
+tags: [okf-memory, creative-note, human-style]
 timestamp: 2026-06-21T11:55:21+07:00
 memory_category: human-style
 merged_through: 2026-06-18

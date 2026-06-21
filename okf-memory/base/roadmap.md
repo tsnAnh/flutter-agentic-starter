@@ -2,7 +2,7 @@
 type: Project Memory
 title: Roadmap
 description: Current roadmap facts and future direction.
-tags: [okf-memory, kmp-agentic-starter, roadmap]
+tags: [okf-memory, creative-note, roadmap]
 timestamp: 2026-06-21T11:55:21+07:00
 memory_category: roadmap
 merged_through: 2026-06-18

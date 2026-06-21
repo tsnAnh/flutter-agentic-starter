@@ -4,7 +4,7 @@ Use `AGENTS.md` as primary guidance.
 
 ## Hard Rules
 
-- Invoke `kmp-agentic-starter` skill first.
+- Invoke `creative-note` skill first.
 - Minimal focused edits only.
 - Prefer maintained KMP libraries before custom reusable code.
 - Avoid primitive obsession with platform/library types, `enum class`, sealed types, `@JvmInline value class`, and Arrow `Either`/`Option`; parse raw strings/ints at boundaries and never persist enum `ordinal`.

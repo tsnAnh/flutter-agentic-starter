@@ -2,7 +2,7 @@
 type: Project Memory
 title: Coding Patterns
 description: Durable coding and architecture patterns agents should preserve in this KMP starter.
-tags: [okf-memory, kmp-agentic-starter, coding-patterns]
+tags: [okf-memory, creative-note, coding-patterns]
 timestamp: 2026-06-21T11:55:21+07:00
 memory_category: coding-patterns
 merged_through: 2026-06-18

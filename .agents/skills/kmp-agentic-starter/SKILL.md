@@ -1,13 +1,13 @@
 ---
-name: kmp-agentic-starter
+name: creative-note
 description: >
-  Project-specific Kotlin Multiplatform guidance for kmp-agentic-starter.
+  Project-specific Kotlin Multiplatform guidance for creative-note.
   Invoke first before working in this project.
   Use when editing shared Kotlin, Android Compose, SwiftUI, Koin DI, Ktor,
   Arrow typed errors/options, models, tests, docs, or project setup in this repository.
 ---
 
-# KMP Agentic Starter
+# Creative Note
 
 Read repo docs first: `README.md`, `AGENTS.md` or `CLAUDE.md`, and relevant files in `docs/`.
 

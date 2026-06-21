@@ -4,5 +4,5 @@ plugins {
 }
 
 application {
-    mainClass.set("dev.tsnanh.kmpagenticstarter.projectsetup.ProjectSetupKt")
+    mainClass.set("dev.tsnanh.creativenote.projectsetup.ProjectSetupKt")
 }

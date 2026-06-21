@@ -1,4 +1,4 @@
-rootProject.name = "kmp-agentic-starter"
+rootProject.name = "creative-note"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

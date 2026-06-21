@@ -1,9 +1,9 @@
 ---
-name: kmp-agentic-starter
-description: Project-specific Kotlin Multiplatform guidance for kmp-agentic-starter.
+name: creative-note
+description: Project-specific Kotlin Multiplatform guidance for creative-note.
 ---
 
-# KMP Agentic Starter
+# Creative Note
 
 Follow `README.md`, `AGENTS.md`, `CLAUDE.md`, and `docs/`.
 

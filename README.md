@@ -1,16 +1,20 @@
-# kmp-agentic-starter
+# creative-note
 
-Production-ready Kotlin Multiplatform starter for AI coding agents. Built from JetBrains' native KMP app template, then adapted with Clean Architecture, shared Kotlin core modules, Android Jetpack Compose, SwiftUI, Koin DI, Ktor networking, Room KMP storage, and agent-ready project rules.
+Kotlin Multiplatform voice-notes app. Built from JetBrains' native KMP app template, then adapted with Clean Architecture, shared Kotlin core modules, Android Jetpack Compose, SwiftUI, Koin DI, Room KMP storage, and an iOS-first local voice pipeline.
 
-Package and platform ID: `dev.tsnanh.kmpagenticstarter`.
+Package and platform ID: `dev.tsnanh.creativenote`.
 
 ## Features
 
 - Native UI: Android Compose and iOS SwiftUI.
 - Shared architecture: `core/`, `features/`, Koin DI, repositories, use cases, Arrow typed errors/options.
-- Core modules: network, Room database, cache, auth/session, connectivity, offline queue, analytics, Firebase facades, permissions, lifecycle, routing, forms, logger, design tokens, utilities.
-- Sample feature: Museum object list/detail ported into `features/home`.
+- Core modules: Room database, cache, auth/session, connectivity, offline queue, analytics, Firebase facades, permissions, lifecycle, routing, forms, logger, design tokens, utilities.
+- Voice notes: shared note domain, generated checklists, repository, use cases, Room `voice_notes` storage, and Swift-friendly `NotesViewModel`.
+- iOS recording: pull-to-record SwiftUI UI, detail backstack/editing, AVFoundation mic capture, first-use local MLX model setup, Qwen3-ASR transcription, and Qwen note drafting.
+- Android v1: compile-ready notes list wired to shared storage; Android voice capture/model UI is intentionally deferred.
 - Agent context: `AGENTS.md`, `CLAUDE.md`, `.claude/rules/`, `.cursor/rules/kmp.mdc`, `opencode.json`, and local skills.
+
+The iOS app targets iOS 17+ because `mlx-audio-swift` requires it. Liquid Glass styling is gated behind iOS 26 availability with native material fallback below iOS 26.
 
 ## Quick Start
 
@@ -42,12 +46,12 @@ The script creates `.env` only if missing. `.env`, `google-services.json`, and `
 ## Structure
 
 ```text
-shared/src/commonMain/kotlin/dev/tsnanh/kmpagenticstarter/
+shared/src/commonMain/kotlin/dev/tsnanh/creativenote/
   core/                  Shared infrastructure modules
-  features/home/         Feature template with domain/data/presentation folders
+  features/notes/        Voice-note domain/data/presentation folders
   di/                    Koin modules
 androidApp/              Android Compose shell
-iosApp/                  SwiftUI shell
+iosApp/                  SwiftUI voice UI and local MLX pipeline
 docs/                    Architecture and standards
 ```
 
@@ -57,8 +61,12 @@ docs/                    Architecture and standards
 ./gradlew :shared:allTests
 ./gradlew :androidApp:assembleDebug
 ./gradlew :shared:linkDebugFrameworkIosSimulatorArm64
-xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -destination 'generic/platform=iOS Simulator' build
+./iosApp/patch-mlx-swift-gather-metal-validation.sh
+xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -destination 'generic/platform=iOS Simulator' -skipMacroValidation -skipPackagePluginValidation build
 ```
+
+The Xcode flags skip local SwiftPM macro/plugin trust prompts for CI-style command-line builds.
+The MLX patch script reapplies the same scalar-index Gather workaround that MLX already uses in Scatter; rerun it after resetting Swift packages or DerivedData.
 
 ## Attribution
 

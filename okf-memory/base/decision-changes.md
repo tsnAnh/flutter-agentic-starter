@@ -2,7 +2,7 @@
 type: Project Memory
 title: Decision Changes
 description: Accepted or superseded decisions that change future implementation choices.
-tags: [okf-memory, kmp-agentic-starter, decisions]
+tags: [okf-memory, creative-note, decisions]
 timestamp: 2026-06-21T11:55:21+07:00
 memory_category: decision-changes
 merged_through: 2026-06-18

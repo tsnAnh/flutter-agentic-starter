@@ -1,4 +1,4 @@
-package dev.tsnanh.kmpagenticstarter.core.database
+package dev.tsnanh.creativenote.core.database
 
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext

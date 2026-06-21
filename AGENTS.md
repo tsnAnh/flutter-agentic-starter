@@ -4,11 +4,11 @@ Guidance for agents working in this repository.
 
 ## Project
 
-Name: `kmp-agentic-starter`
+Name: `creative-note`
 Type: Kotlin Multiplatform native app
-Package: `dev.tsnanh.kmpagenticstarter`
+Package: `dev.tsnanh.creativenote`
 
-Always invoke `kmp-agentic-starter` skill first before working here.
+Always invoke `creative-note` skill first before working here.
 
 ## Rules
 

@@ -1,4 +1,4 @@
-package dev.tsnanh.kmpagenticstarter.projectsetup
+package dev.tsnanh.creativenote.projectsetup
 
 import java.io.File
 
@@ -16,12 +16,12 @@ fun main(args: Array<String>) {
     val root = File(System.getProperty("user.dir")).canonicalFile
         .takeIf { it.resolve("settings.gradle.kts").exists() }
         ?: File(System.getProperty("user.dir")).canonicalFile.parentFile.parentFile
-    val oldPackage = "dev.tsnanh.kmpagenticstarter"
+    val oldPackage = "dev.tsnanh.creativenote"
     val replacements = listOf(
-        "KMP Agentic Starter" to options.appName,
-        "kmp-agentic-starter" to options.appName.slug(),
+        "Creative Note" to options.appName,
+        "creative-note" to options.appName.slug(),
         oldPackage to options.packageName,
-        "dev.tsnanh.kmpagenticstarter.shared" to "${options.packageName}.shared",
+        "dev.tsnanh.creativenote.shared" to "${options.packageName}.shared",
     )
     val changed = mutableListOf<String>()
 
@@ -65,9 +65,9 @@ private fun parseOptions(args: Array<String>): SetupOptions {
     fun value(name: String): String? =
         args.indexOf(name).takeIf { it >= 0 && it + 1 < args.size }?.let { args[it + 1] }
 
-    val packageName = value("--kotlin-package-name") ?: value("--package-name") ?: "dev.tsnanh.kmpagenticstarter"
+    val packageName = value("--kotlin-package-name") ?: value("--package-name") ?: "dev.tsnanh.creativenote"
     return SetupOptions(
-        appName = value("--app-name") ?: "KMP Agentic Starter",
+        appName = value("--app-name") ?: "Creative Note",
         packageName = packageName,
         appId = value("--app-id") ?: packageName,
         dryRun = "--dry-run" in args,
@@ -77,10 +77,10 @@ private fun parseOptions(args: Array<String>): SetupOptions {
 private fun validate(options: SetupOptions) {
     val packagePattern = Regex("^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$")
     require(packagePattern.matches(options.packageName)) {
-        "Package must be reverse-domain lowercase, e.g. dev.tsnanh.kmpagenticstarter"
+        "Package must be reverse-domain lowercase, e.g. dev.tsnanh.creativenote"
     }
     require(packagePattern.matches(options.appId)) {
-        "App ID must be reverse-domain lowercase, e.g. dev.tsnanh.kmpagenticstarter"
+        "App ID must be reverse-domain lowercase, e.g. dev.tsnanh.creativenote"
     }
 }
 
