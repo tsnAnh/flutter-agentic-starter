@@ -12,6 +12,7 @@ Always invoke `kmp-agentic-starter` first before working in this project.
 
 - Minimal focused edits only.
 - Prefer maintained KMP packages before custom reusable code.
+- Avoid primitive obsession: use platform/library types, `enum class`, sealed types, `@JvmInline value class`, and Arrow `Either`/`Option`; parse raw strings/ints at boundaries and never persist enum `ordinal`.
 - Keep shared business logic in `shared`.
 - Keep Android Compose UI in `androidApp`.
 - Keep iOS SwiftUI UI in `iosApp`.

@@ -17,6 +17,7 @@ Read repo docs first: `README.md`, `AGENTS.md` or `CLAUDE.md`, and relevant file
 - Keep edits minimal and focused.
 - Prefer maintained Kotlin/KMP packages before custom reusable utilities or integrations.
 - Document package-first exceptions.
+- Avoid primitive obsession: use platform/library types, `enum class`, sealed types, `@JvmInline value class`, and Arrow `Either`/`Option` for finite or high-risk domain concepts. Parse raw strings/ints at API, config, route, storage, and serialization boundaries; never persist enum `ordinal`.
 - Keep shared APIs Swift-friendly when consumed by iOS.
 - Use Arrow Kotlin for shared result/null/validation boundaries.
 - Keep source files under 300 lines when practical.

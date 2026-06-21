@@ -15,6 +15,7 @@ Always invoke `kmp-agentic-starter` skill first before working here.
 - Read `README.md`, `AGENTS.md` or `CLAUDE.md`, and relevant docs before implementation.
 - Keep edits minimal and focused. No unrelated rewrites, reorder, or formatting churn.
 - Prefer maintained Kotlin/KMP packages before custom reusable utilities or integrations.
+- Avoid primitive obsession: use platform/library types, `enum class`, sealed types, `@JvmInline value class`, and Arrow `Either`/`Option` for finite or high-risk domain concepts. Parse raw strings/ints at API, config, route, storage, and serialization boundaries; never persist enum `ordinal`.
 - Document package-first exceptions in plan/report/PR.
 - Do not edit generated files or build outputs.
 - Keep source files under 300 lines when practical.

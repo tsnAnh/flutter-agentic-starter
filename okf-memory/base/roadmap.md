@@ -3,9 +3,9 @@ type: Project Memory
 title: Roadmap
 description: Current roadmap facts and future direction.
 tags: [okf-memory, kmp-agentic-starter, roadmap]
-timestamp: 2026-06-18T15:59:05+07:00
+timestamp: 2026-06-21T11:55:21+07:00
 memory_category: roadmap
-merged_through: null
+merged_through: 2026-06-18
 ---
 
 # Current Roadmap
@@ -15,3 +15,4 @@ merged_through: null
 * Add real Firebase and PostHog providers.
 * Expand setup wizard tests.
 * Keep agent docs, rules, skills, and OKF memory aligned as the repository evolves.
+* Future agents should merge unmerged daily logs into base category files when the latest daily file is not today's date.

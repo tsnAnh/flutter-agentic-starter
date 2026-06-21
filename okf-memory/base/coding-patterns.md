@@ -3,9 +3,9 @@ type: Project Memory
 title: Coding Patterns
 description: Durable coding and architecture patterns agents should preserve in this KMP starter.
 tags: [okf-memory, kmp-agentic-starter, coding-patterns]
-timestamp: 2026-06-18T15:59:05+07:00
+timestamp: 2026-06-21T11:55:21+07:00
 memory_category: coding-patterns
-merged_through: null
+merged_through: 2026-06-18
 ---
 
 # Current Patterns
@@ -20,3 +20,4 @@ merged_through: null
 * Keep domain models plain Kotlin. Keep DTOs, Room entities, DAOs, and mappers in data layers.
 * Use Arrow `Either`, `Option`, `AppResult`, `AsyncResult`, and `OptionalResult` at shared boundaries.
 * Prefer maintained KMP packages before custom reusable framework code.
+* OKF memory uses plain markdown concept files with YAML frontmatter and reserved `index.md` and `log.md` files.
