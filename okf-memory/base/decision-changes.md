@@ -3,9 +3,9 @@ type: Project Memory
 title: Decision Changes
 description: Accepted or superseded decisions that change future implementation choices.
 tags: [okf-memory, flutter-agentic-starter, decisions]
-timestamp: 2026-06-21T11:34:45+07:00
+timestamp: 2026-07-01T10:58:15+07:00
 memory_category: decision-changes
-merged_through: 2026-06-18
+merged_through: 2026-06-21
 ---
 
 # Current Decisions
@@ -14,3 +14,4 @@ merged_through: 2026-06-18
 * Organize consolidated long-term memory by category files under [base](/base/), not one monolithic base file.
 * Manage daily rollover through agent skill instructions, not an app runtime change or automation script.
 * Keep OKF memory docs-only: no Flutter app runtime or package dependency changes.
+* Aggressive typing is a future-code guardrail first, not a retroactive app-wide refactor unless explicitly requested.

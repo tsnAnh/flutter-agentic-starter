@@ -282,6 +282,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 }
 ```
 
+### State Ownership & Rebuild Boundaries
+
+- Keep ephemeral widget-only UI state local with `StatefulWidget` and `setState` when no other widget needs it and it does not need persistence.
+- Use Cubit/BLoC for shared, persisted, business-critical, asynchronous, or complex state.
+- Use `BlocSelector`, `context.select`, `buildWhen`, and `listenWhen` when only a subset of state should rebuild or trigger a listener.
+- Use `BlocListener` or a `BlocConsumer` listener for one-shot side effects such as navigation, dialogs, snackbars, and analytics events.
+
 ### 6. Dependency Injection
 
 Register services in a single location:
@@ -417,6 +424,23 @@ class _UserCardState extends State<UserCard> {
   }
 }
 ```
+
+### Adaptive UI, Accessibility & Restoration
+
+- Wrap screen bodies or vulnerable regions in `SafeArea` so content is not obscured by system UI, cutouts, rounded corners, or new device shapes.
+- Use `LayoutBuilder` for parent constraints and `MediaQuery.sizeOf(context)` for app-window size. Avoid `MediaQuery.orientationOf`, `OrientationBuilder`, and hardware type checks for top-level layout decisions.
+- Do not lock orientation for foldables. If a strict product/platform requirement forces orientation lock, use Flutter's `Display` API for physical display dimensions to avoid letterboxed `MediaQuery` mistakes.
+- Do not stretch forms, text, or list rows full-width on tablet, foldable, ChromeOS, web, iPad, or desktop-window layouts; center and constrain them with `ConstrainedBox`/max widths.
+- Use `GridView.builder` or `SliverGridDelegateWithMaxCrossAxisExtent` for large feeds instead of wider list rows.
+- Prefer width-adaptive navigation: compact widths use `NavigationBar`/bottom navigation; larger widths use `NavigationRail`, drawer, or split shell when the information architecture fits.
+- Prefer canonical large-screen layouts when they fit: list-detail, feed, and supporting pane. For list-detail/supporting-pane, preserve selected item and pane state across resize, rotation, fold, and unfold; compact widths show one pane with back behavior, expanded widths show panes together.
+- Use `MediaQuery.displayFeatures` or `DisplayFeatureSubScreen` when foldable content must avoid hinges, folds, or cutouts.
+- Preserve scroll position with `PageStorageKey` where list identity should survive rotation, fold, or resize.
+- Honor text scaling, contrast, high-contrast, and other accessibility values exposed by `MediaQuery`; avoid fixed heights that clip large text.
+- Custom controls need meaningful semantics, labels, focus traversal, keyboard activation, hover, and pointer behavior where relevant.
+- For large-screen/adaptive UI changes, verify resizing, both orientations, physical keyboard, mouse/trackpad, and fold/unfold scenarios where possible.
+- Add `restorationScopeId`/`restorationId` to `MaterialApp.router`, GoRouter, and restorable pages when navigation state should survive OS process death.
+- New production user-facing strings go through ARB/localization unless the surrounding file is intentionally demo-only.
 
 ## Code Quality Standards
 
@@ -615,6 +639,11 @@ void main() {
 }
 ```
 
+Prefer simple fakes over broad mocks for repositories, services, and use cases.
+Test Cubit/BLoC/use-case logic separately from widget rendering, then add widget
+tests for user-facing flows. For non-trivial UI, add accessibility guideline
+checks for tap target size, labels, and text contrast.
+
 ## Async/Await Best Practices
 
 ```dart
@@ -766,13 +795,15 @@ Future<User> getUser(String id) async {
 
 ## Performance Guidelines
 
-1. **Avoid rebuilds**: Use `const` constructors
+1. **Avoid rebuilds**: Use `const` constructors plus `BlocSelector`, `context.select`, `buildWhen`, and `listenWhen` where state changes are broader than the widget needs
 2. **Lazy load**: Use GetIt lazy singletons
 3. **Cache results**: Use CachedRepositoryMixin
 4. **Debounce input**: Use Debouncer for search
 5. **Image optimization**: Cache images with flutter_cache_manager
 6. **Pagination**: Use BasePaginatedCubit
 7. **Memory**: Dispose controllers in dispose()
+8. **Lists/grids**: Use lazy builders for long scrolling surfaces and avoid `IntrinsicWidth`/`IntrinsicHeight` there
+9. **Isolates**: Use isolates/`compute` only for measured UI jank or clearly heavy JSON, media, database, or list-processing work
 
 ## Security Practices
 
