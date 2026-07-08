@@ -4,87 +4,148 @@
 [![Dart](https://img.shields.io/badge/Dart-3.8+-blue.svg)](https://dart.dev)
 [![style: flutter_lints](https://img.shields.io/badge/style-flutter__lints-blue.svg)](https://pub.dev/packages/flutter_lints)
 
-# flutter-agentic-starter
+# Flutter Agentic Starter
 
-> Production-ready Flutter BLoC template built for AI coding agents to scaffold features fast.
+Production-ready Flutter starter optimized for AI coding agents.
 
-## Why This Template?
+Scaffold production features with Claude Code, Cursor and Codex — not just Flutter apps.
 
-- **Built for Vibe Coding** — `CLAUDE.md`, `AGENTS.md`, clean DI patterns. AI agents scaffold features on day one. Perfect for vibe coding sessions.
-- **18 Infrastructure Modules** — Networking, auth, cache, offline queue, Firebase, analytics, permissions, forms, lifecycle, and more.
-- **Multi-Flavor Support** — Development, staging, and production entry points.
-- **Production Architecture** — BLoC/Cubit, Injectable + GetIt DI, GoRouter, Freezed DTOs, fpdart, Material 3, and generated localization.
-- **Template Setup Wizard** — Rename package/app IDs, configure Firebase/PostHog, refresh imports, and run codegen from one command.
+Build production-ready Flutter applications faster with **Claude Code**, **Cursor**, **Codex**, **GitHub Copilot**, **OpenCode**, **Windsurf**, and any modern AI coding assistant.
 
-## Architecture
+Instead of spending prompts explaining your architecture, start shipping features immediately.
 
-```mermaid
-graph TD
-    subgraph Presentation
-        F[Features] --> W[Widgets]
-        F --> B[BLoCs / Cubits]
-    end
+---
 
-    subgraph Domain
-        R[Repositories] --> M[Models / DTOs]
-    end
+## Why this starter?
 
-    subgraph Data
-        A[API Client] --> N[Network / Dio]
-        C[Cache / Hive] --> TS[Token Store]
-    end
+| | Agentic Starter | Typical Starter |
+|---------------------------|:---------------:|:--------------:|
+| AI instruction files | ✅ | ❌ |
+| Project skills | ✅ | ❌ |
+| Setup wizard | ✅ | ❌ |
+| Firebase ready | ✅ | ⚠️ |
+| Offline queue | ✅ | ❌ |
+| Analytics | ✅ | ❌ |
+| Multi Flavor | ✅ | ⚠️ |
 
-    subgraph Core
-        DI[DI / Injectable] --> RO[Router / GoRouter]
-        TH[Theme] --> DS[Design System]
-        U[Utils] --> EX[Extensions]
-    end
+### 🚀 Built for Production
 
-    B --> R
-    R --> A
-    R --> C
-    F --> RO
-    B --> DI
+- Clean Architecture
+- BLoC / Cubit
+- Injectable + GetIt
+- GoRouter
+- Material 3
+- Freezed
+- Dio
+- fpdart
+- Generated localization
+- Multi-flavor support
+
+### 🤖 Built for AI Coding
+
+Unlike generic Flutter templates, this project includes:
+
+- Predictable project structure
+- Stable naming conventions
+- AI instruction files
+- Project skills
+- Consistent dependency injection
+- Feature-first architecture
+- Documentation optimized for AI understanding
+
+This reduces the amount of context AI assistants need before generating useful code.
+
+---
+
+## 🔥 Key Features
+
+### AI-Friendly Architecture
+
+Spend tokens building features instead of explaining your project.
+
+- Predictable folder structure
+- Explicit architecture boundaries
+- Consistent naming conventions
+- Feature-first organization
+- Ready-to-use project skills
+
+---
+
+### Production Infrastructure
+
+Everything needed for a modern Flutter application.
+
+- Networking
+- Authentication
+- Cache
+- Offline queue
+- Firebase
+- Analytics
+- Router
+- Permissions
+- Design System
+- Forms
+- Lifecycle
+- Logging
+- Theme
+- Dependency Injection
+- Utilities
+
+---
+
+### Developer Experience
+
+Focus on building products.
+
+Included out of the box:
+
+- Setup wizard
+- Code generation
+- Multi-flavor support
+- Firebase configuration
+- PostHog integration
+- Localization
+- Build runner
+- Generated DI
+- Generated models
+
+---
+
+## ⚡ Quick Start
+
+### 1. Create your project
+
+Click **Use this template** on GitHub.
+
+Clone your new repository.
+
+```bash
+git clone https://github.com/YOUR_USERNAME/your-app.git
+
+cd your-app
 ```
 
-## Features
+---
 
-| Module | Description | Key Packages |
-|--------|-------------|--------------|
-| **DataState** | Type-safe async state lifecycle | Dart sealed classes |
-| **Base** | Base cubits, repositories, pagination, use cases | BLoC, fpdart |
-| **Network** | HTTP client with auth, cache, retry, connectivity, logging interceptors | Dio |
-| **Cache** | Memory and disk cache with repository mixins | Hive, Hive Flutter |
-| **Connectivity** | Network monitoring and offline request queue | Connectivity Plus, Hive |
-| **Auth** | Session and token management | In-memory token store |
-| **Firebase** | Analytics, Crashlytics, Remote Config, Messaging, App Check | Firebase suite |
-| **Analytics** | Multi-provider analytics abstraction | Firebase Analytics, PostHog |
-| **Permissions** | Runtime permission handling | Permission Handler |
-| **Design System** | Colors, spacing, radius, shadows, typography, durations | Flutter theme extensions |
-| **Extensions** | Shared Dart and Flutter extension methods | Dart extensions |
-| **Utils** | Color, date, string, number, responsive, snackbar, URL helpers | Shared utilities |
-| **Router** | Declarative routing with deep linking | GoRouter, App Links |
-| **Lifecycle** | App lifecycle management | — |
-| **Logger** | Structured logging | Logger |
-| **DI** | Dependency injection with code generation | GetIt, Injectable |
-| **Theme** | Material 3 themes and color schemes | Flutter Material |
-| **Forms** | Validated form inputs | Formz |
+### 2. Install dependencies
 
-## Quick Start
-
-```sh
-# 1. Use this template (click "Use this template" on GitHub)
-# 2. Clone your new repo
-git clone https://github.com/YOUR_USERNAME/your-app-name.git
-cd your-app-name
-
-# 3. Install dependencies
+```bash
 flutter pub get
+```
 
-# 4. Run first-time setup wizard
+---
+
+### 3. Configure the project
+
+Run the setup wizard.
+
+```bash
 dart run project_setup
+```
 
-# Noninteractive setup
+Or configure everything automatically.
+
+```bash
 dart run project_setup \
   --app-name "Acme App" \
   --dart-package-name acme_app \
@@ -93,171 +154,502 @@ dart run project_setup \
   --skip-firebase \
   --skip-posthog \
   --yes
+```
 
-# Preview setup changes without writing files
+Preview changes.
+
+```bash
 dart run project_setup --dry-run
+```
 
-# 5. Generate code
+---
+
+### 4. Generate code
+
+```bash
 dart run build_runner build --delete-conflicting-outputs
+```
 
-# 6. Run
+---
+
+### 5. Run
+
+```bash
 flutter run -t lib/main_staging.dart
 ```
 
-## Project Structure
+---
 
+## 🎯 Perfect For
+
+- Startup MVPs
+- Enterprise Flutter applications
+- Solo developers
+- Product teams
+- AI-assisted development
+- Teams using Claude Code
+- Teams using Cursor
+- Teams using Codex
+- Developers who want a production-ready starting point
+
+---
+
+# 🏛 Architecture
+
+Flutter Agentic Starter follows a layered **Clean Architecture** with clear boundaries and predictable conventions.
+
+This structure helps teams scale large applications while making it easier for AI coding assistants to generate consistent code.
+
+```mermaid
+graph TD
+
+    subgraph Presentation
+        UI[Widgets]
+        Cubit[BLoCs / Cubits]
+    end
+
+    subgraph Domain
+        Repo[Repositories]
+        Model[Models]
+    end
+
+    subgraph Data
+        API[Dio Client]
+        Cache[Hive Cache]
+    end
+
+    subgraph Core
+        DI[Injectable]
+        Router[GoRouter]
+        Theme[Theme]
+        Utils[Utilities]
+    end
+
+    UI --> Cubit
+    Cubit --> Repo
+    Repo --> API
+    Repo --> Cache
+
+    Cubit --> DI
+    UI --> Router
 ```
+
+The architecture intentionally favors convention over configuration.
+
+Whether a feature is created manually or generated by an AI coding assistant, every module follows the same predictable structure.
+
+---
+
+# 📦 Infrastructure Modules
+
+Flutter Agentic Starter ships with **18 production-ready modules** already wired together.
+
+| Module | Description |
+|----------|-------------|
+| **DataState** | Type-safe async state lifecycle |
+| **Base** | Base Cubits, repositories, pagination, use cases |
+| **Network** | Dio client, interceptors, retry, authentication |
+| **Cache** | Memory + persistent storage using Hive |
+| **Connectivity** | Network monitoring and offline request queue |
+| **Auth** | Session & token management |
+| **Firebase** | Analytics, Crashlytics, Messaging, Remote Config, App Check |
+| **Analytics** | Firebase Analytics + PostHog abstraction |
+| **Permissions** | Runtime permission handling |
+| **Router** | Declarative routing with GoRouter |
+| **Theme** | Material 3 themes |
+| **Design System** | Colors, typography, spacing, radius, shadows |
+| **Logger** | Structured application logging |
+| **Lifecycle** | Application lifecycle handling |
+| **Forms** | Form validation with Formz |
+| **Extensions** | Shared Dart & Flutter extensions |
+| **Utilities** | Date, string, responsive, snackbar helpers |
+| **Dependency Injection** | Injectable + GetIt |
+
+Everything is configured and connected out of the box.
+
+No repetitive setup.
+
+No copy-pasting infrastructure between projects.
+
+---
+
+# 🧠 AI Coding Workflow
+
+The template is designed so AI assistants can understand your project with minimal context.
+
+Instead of asking:
+
+> Where should this file go?
+
+or
+
+> Which repository pattern should I follow?
+
+AI can immediately start implementing features.
+
+Typical workflow:
+
+```text
+Prompt
+
+↓
+
+Claude Code
+
+↓
+
+Reads Project Skills
+
+↓
+
+Generates
+
+Repository
+Cubit
+DTO
+DI
+Route
+
+↓
+
+flutter run
+```
+
+This reduces architectural drift and keeps generated code consistent across the project.
+
+---
+
+# 📂 Project Structure
+
+```text
 lib/
-├── app.dart                    # App widget
-├── main.dart                   # Development entry point
-├── main_staging.dart           # Staging flavor entry
-├── main_production.dart        # Production flavor entry
+├── app.dart
+├── main.dart
+├── main_staging.dart
+├── main_production.dart
 ├── core/
-│   ├── analytics/              # Analytics abstraction
-│   ├── assets/                 # Asset constants
-│   ├── auth/                   # Auth/session/token management
-│   ├── base/                   # Base classes (BLoC, etc.)
-│   ├── cache/                  # Hive cache layer
-│   ├── connectivity/           # Network monitoring + offline queue
-│   ├── design_system/          # Design tokens
-│   ├── di/                     # Injectable DI setup
-│   ├── extensions/             # Dart/Flutter extensions
-│   ├── firebase/               # Firebase initialization
-│   ├── lifecycle/              # App lifecycle
-│   ├── logger/                 # Logging utilities
-│   ├── network/                # Dio client + interceptors
-│   ├── permissions/            # Permission handling
-│   ├── router/                 # GoRouter config
-│   ├── theme/                  # ThemeData + colors
-│   └── utils/                  # Shared utilities
+    ├── analytics/
+    ├── assets/
+    ├── auth/
+    ├── base/
+    ├── cache/
+    ├── connectivity/
+    ├── design_system/
+    ├── di/
+    ├── extensions/
+    ├── firebase/
+    ├── lifecycle/
+    ├── logger/
+    ├── network/
+    ├── permissions/
+    ├── router/
+    ├── theme/
+    └── utils/
 ├── features/
-│   └── home/                   # Home feature (BLoC + UI)
+    └── home/
 └── shared/
-    ├── blocs/                  # Shared BLoCs
-    ├── data/                   # API clients, DTOs, repositories
-    ├── forms/                  # Formz input classes
-    ├── i18n/                   # Localization (ARB)
-    ├── services/               # Shared services
-    └── widgets/                # Reusable widgets
+    ├── blocs/
+    ├── data/
+    ├── forms/
+    ├── i18n/
+    ├── services/
+    └── widgets/
+```
 
+Supporting tools:
+
+```text
 tool/
-└── project_setup/              # Local setup wizard used by dart run project_setup
+└── project_setup/
+```
 
+Documentation:
+
+```text
 docs/
-├── README.md                   # Documentation index
+├── README.md
 ├── quick-start-guide.md
-├── codebase-summary.md
 ├── system-architecture.md
-├── code-standards.md
 ├── module-guides.md
-├── project-overview-pdr.md
-└── development-roadmap.md
+├── code-standards.md
+├── development-roadmap.md
+└── ...
 ```
 
-Generated files such as `*.g.dart`, `*.freezed.dart`, and `lib/core/di/get_it.config.dart` are produced by build_runner. Edit source files, then regenerate.
+---
 
-## AI Agent Guide
+# 📁 Typical Feature Structure
 
-### What Makes This Vibe-Coding-Ready
+Every feature follows the same predictable layout.
 
-- **Clean separation** — features, core, shared layers with barrel exports
-- **Injectable DI** — add `@injectable` and it's auto-registered
-- **Consistent naming** — predictable file/class naming for AI discovery
-- **Pre-configured guidance** — `CLAUDE.md`, `AGENTS.md`, `opencode.json`, `.claude/rules/`, project skills, and Cursor rules for AI context
-- **Karpathy-style guardrails** — think first, keep simple, edit surgically, verify with concrete checks
-- **Asset sourcing rules** — Flutter icons/images should come from suitable internet assets, using SVG for icons and PNG/JPG for raster or photo use cases
-
-### Supported Tools
-
-Works with **Claude Code**, **Codex**, **OpenCode**, **Cursor**, **GitHub Copilot**, **Windsurf**, and any AI coding assistant.
-
-Project skills are included for:
-
-- `flutter-agentic-starter` — Flutter/BLoC/Clean Architecture rules for this template
-- `caveman` — terse technical reporting mode
-- `frontend-design` — polished frontend/UI implementation guidance
-
-Always invoke `flutter-agentic-starter` first before working in this project. During setup, `--app-name` renames this project skill to the app-name slug and updates agent instructions to invoke that app skill first.
-
-Skill locations:
-
-- Claude Code: `.claude/skills/`
-- Codex: `.agents/skills/`
-- OpenCode: `.opencode/skills/`
-
-OpenCode also reads `opencode.json`, which includes the shared rules and docs as extra instructions.
-
-### Example Prompts
-
-```
-"Add a new feature called 'profile' with BLoC, screen, and API integration"
-"Create a new data model for 'Order' with Freezed"
-"Add a new API endpoint for '/users' with Dio"
-"Add Firebase Remote Config flag for 'enable_dark_mode'"
+```text
+features/
+└── profile/
+    ├── data/
+    │   ├── datasource/
+    │   ├── dto/
+    │   └── repository/
+    ├── domain/
+    │   ├── models/
+    │   └── repository/
+    ├── presentation/
+    │   ├── cubit/
+    │   ├── pages/
+    │   └── widgets/
+    └── di/
 ```
 
-## Configuration
+Keeping every feature consistent makes onboarding easier, improves maintainability, and allows AI coding assistants to generate higher-quality code with fewer prompts.
 
-### Flavors
+---
 
-| Flavor | Entry Point | Use Case |
-|--------|-------------|----------|
+# ⚙️ Configuration
+
+Flutter Agentic Starter includes a setup wizard and sensible defaults so you can start building immediately instead of manually configuring every service.
+
+## Build Flavors
+
+Three build flavors are included by default.
+
+| Flavor | Entry Point | Purpose |
+|---------|-------------|---------|
 | Development | `lib/main.dart` | Local development |
-| Staging | `lib/main_staging.dart` | Development & testing |
+| Staging | `lib/main_staging.dart` | QA & internal testing |
 | Production | `lib/main_production.dart` | Release builds |
 
-### Environment Setup
+Each flavor can define its own:
 
-Each flavor uses `lib/core/flavor_configurations.dart` for base URL and timeout values. The setup wizard can also create `.env` for PostHog, run `flutterfire configure` when a Firebase project ID is provided, and install Claude Code/Codex hooks that warn when touched source files exceed 300 lines.
+- Base URL
+- API timeout
+- Firebase project
+- Analytics configuration
+- Feature flags
+- App icon
+- Bundle identifier
 
-### Setup Wizard Options
+---
 
-```sh
+## Environment Configuration
+
+Application configuration is centralized in:
+
+```text
+lib/core/flavor_configurations.dart
+```
+
+The setup wizard can automatically configure:
+
+- FlutterFire
+- PostHog
+- Application IDs
+- Package name
+- Organization
+- Environment variables
+
+---
+
+## Project Setup Wizard
+
+Initialize a brand-new project in minutes.
+
+```bash
+dart run project_setup
+```
+
+Preview changes without modifying files.
+
+```bash
+dart run project_setup --dry-run
+```
+
+Show all available options.
+
+```bash
 dart run project_setup --help
 ```
 
 Common options:
 
-- `--app-name` — display name used by platform rename config and project skill rename
-- `--dart-package-name` — Dart package name in `pubspec.yaml` and imports
-- `--app-id` — native app ID / bundle ID
-- `--organization` — organization used for generated platform metadata
-- `--firebase-project-id` — runs FlutterFire configuration when available
-- `--posthog-api-key` and `--posthog-host` — writes `.env` if missing
-- `--skip-firebase`, `--skip-posthog`, `--skip-agent-hooks`, `--skip-pub-get`, `--skip-build-runner`
-- `--dry-run` — prints planned changes without writing files
+| Option | Description |
+|---------|-------------|
+| `--app-name` | Display name |
+| `--dart-package-name` | Dart package |
+| `--app-id` | Android package / iOS bundle ID |
+| `--organization` | Organization name |
+| `--firebase-project-id` | Configure FlutterFire |
+| `--posthog-api-key` | Configure PostHog |
+| `--posthog-host` | Custom PostHog endpoint |
+| `--skip-firebase` | Skip Firebase |
+| `--skip-posthog` | Skip PostHog |
+| `--skip-agent-hooks` | Skip AI hooks |
+| `--skip-pub-get` | Skip dependency install |
+| `--skip-build-runner` | Skip code generation |
 
-## Development
+---
 
-```sh
-# Analyze
-dart analyze
+# 🤖 AI Agent Integration
 
-# Test
-flutter test
+Flutter Agentic Starter includes project context for modern AI coding assistants.
 
-# Build staging APK, same target used by CI
-flutter build apk --release -t lib/main_staging.dart
+Supported tools:
+
+| Tool | Support |
+|------|---------|
+| Claude Code | ✅ |
+| Cursor | ✅ |
+| Codex | ✅ |
+| GitHub Copilot | ✅ |
+| OpenCode | ✅ |
+| Windsurf | ✅ |
+
+Included project skills:
+
+- flutter-agentic-starter
+- frontend-design
+- caveman
+
+AI instruction files:
+
+```text
+CLAUDE.md
+AGENTS.md
+.claude/
+.agents/
+.opencode/
+.cursor/
 ```
 
-After changing Injectable registrations, Freezed models, or JSON models:
+These files help AI assistants understand your architecture before generating code.
 
-```sh
+---
+
+# 💻 Development
+
+Install dependencies.
+
+```bash
+flutter pub get
+```
+
+Generate code.
+
+```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-## Showcase
+Analyze the project.
 
-Projects built with this template:
+```bash
+dart analyze
+```
 
-- [bit](https://github.com/tsnAnh/bit) — A Flutter app to view Medium articles with integration token
+Run tests.
 
-> Built something with this template? [Open a PR](./CONTRIBUTING.md) to add it here!
+```bash
+flutter test
+```
 
-## Contributing
+Run staging.
 
-Contributions welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md).
+```bash
+flutter run -t lib/main_staging.dart
+```
 
-## License
+Build release APK.
 
-[MIT](./LICENSE) — tsnAnh
+```bash
+flutter build apk --release -t lib/main_production.dart
+```
+
+---
+
+# 🔄 Code Generation
+
+The following files are automatically generated:
+
+- `*.g.dart`
+- `*.freezed.dart`
+- `get_it.config.dart`
+
+Whenever you change:
+
+- Injectable services
+- Freezed models
+- JSON models
+
+run:
+
+```bash
+dart run build_runner build --delete-conflicting-outputs
+```
+
+Generated files should not be edited manually.
+
+---
+
+# 🤝 Contributing
+
+Contributions of every size are welcome.
+
+You can help by:
+
+- Reporting bugs
+- Improving documentation
+- Adding infrastructure modules
+- Creating example applications
+- Improving developer experience
+- Optimizing performance
+- Suggesting new features
+
+Please read:
+
+```text
+CONTRIBUTING.md
+```
+
+before opening a Pull Request.
+
+---
+
+# 🌟 Support the Project
+
+If Flutter Agentic Starter saves you time, consider giving the repository a ⭐.
+
+It helps more developers discover the project and motivates future development.
+
+You can also contribute by:
+
+- Sharing the project
+- Reporting issues
+- Opening pull requests
+- Suggesting improvements
+
+Every contribution is appreciated.
+
+---
+
+# 📄 License
+
+Distributed under the MIT License.
+
+See the [LICENSE](LICENSE) file for more information.
+
+---
+
+<div align="center">
+
+# Flutter Agentic Starter
+
+### Production-ready Flutter architecture built for the AI coding era.
+
+Build faster.
+
+Ship confidently.
+
+Let AI handle the repetitive work.
+
+⭐ **If this project helps you, consider starring the repository.**
+
+Made with ❤️ for the Flutter community.
+
+</div>
