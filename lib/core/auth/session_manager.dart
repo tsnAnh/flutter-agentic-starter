@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:signals/signals.dart';
+
 /// Events emitted by [SessionManager].
 enum SessionEvent {
   /// The user's session has expired due to inactivity.
@@ -25,19 +27,22 @@ enum SessionEvent {
 /// injectable trying to inject the optional [Duration] typed param.
 class SessionManager {
   SessionManager({Duration? inactivityTimeout})
-      : _inactivityTimeout = inactivityTimeout ?? const Duration(minutes: 30);
+    : _inactivityTimeout = inactivityTimeout ?? const Duration(minutes: 30);
 
   final Duration _inactivityTimeout;
 
   final _controller = StreamController<SessionEvent>.broadcast();
+  final _active = signal(false);
   Timer? _inactivityTimer;
-  bool _active = false;
 
   /// Stream of [SessionEvent]s — subscribe before calling [startSession].
   Stream<SessionEvent> get events => _controller.stream;
 
+  /// Reactive session state. New app launches always start signed out.
+  ReadonlySignal<bool> get active => _active;
+
   /// Whether a session is currently active.
-  bool get isActive => _active;
+  bool get isActive => _active.value;
 
   // ---------------------------------------------------------------------------
   // Session lifecycle
@@ -49,11 +54,11 @@ class SessionManager {
   ///
   /// TOCTOU note: the check-then-set pattern on [_active] is safe here because
   /// Dart's event loop is single-threaded. No other microtask or event can
-  /// interleave between the `if (_active)` check and `_active = true`, so
+  /// interleave between reading and updating the signal, so
   /// there is no observable race condition.
   void startSession() {
-    if (_active) return;
-    _active = true;
+    if (_active.value) return;
+    _active.value = true;
     _resetTimer();
   }
 
@@ -61,21 +66,22 @@ class SessionManager {
   ///
   /// No-op when no session is active.
   void recordActivity() {
-    if (!_active) return;
+    if (!_active.value) return;
     _resetTimer();
   }
 
   /// Ends the session explicitly (e.g. user logout) and emits [SessionEvent.sessionEnded].
   void endSession() {
-    if (!_active) return;
+    if (!_active.value) return;
     _cancelTimer();
-    _active = false;
+    _active.value = false;
     _emit(SessionEvent.sessionEnded);
   }
 
   /// Releases all resources. Call once when the app is disposed.
   void dispose() {
     _cancelTimer();
+    _active.dispose();
     _controller.close();
   }
 
@@ -94,7 +100,7 @@ class SessionManager {
   }
 
   void _onInactivityTimeout() {
-    _active = false;
+    _active.value = false;
     _emit(SessionEvent.sessionExpired);
   }
 

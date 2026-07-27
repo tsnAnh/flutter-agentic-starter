@@ -4,10 +4,11 @@ import 'app_error_widget.dart';
 import 'app_empty_widget.dart';
 import 'app_loading_widget.dart';
 
-/// BLoC-agnostic paginated list view backed by [infinite_scroll_pagination] v5.
+/// State-manager-agnostic paginated list view backed by
+/// [infinite_scroll_pagination] v5.
 ///
 /// Pagination is driven by a [fetchPage] callback — no state management
-/// coupling. Works equally with BLoC, Riverpod, or plain Futures.
+/// coupling. Works with Signals or plain Futures.
 ///
 /// The page key is always an [int] (1-based page number).
 class PaginatedListView<T> extends StatefulWidget {
@@ -85,8 +86,7 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>> {
       newPageProgressIndicatorBuilder: (_) =>
           const Center(child: CircularProgressIndicator.adaptive()),
       noItemsFoundIndicatorBuilder: (_) =>
-          widget.emptyWidget ??
-          const AppEmptyWidget(message: 'No items found'),
+          widget.emptyWidget ?? const AppEmptyWidget(message: 'No items found'),
       firstPageErrorIndicatorBuilder: (ctx) =>
           widget.errorWidget ??
           AppErrorWidget(
@@ -99,25 +99,30 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>> {
       ),
     );
 
-    if (widget.separatorBuilder != null) {
-      return PagedListView<int, T>.separated(
-        state: _controller.value,
-        fetchNextPage: _controller.fetchNextPage,
-        builderDelegate: delegate,
-        separatorBuilder: widget.separatorBuilder!,
-        padding: widget.padding,
-        shrinkWrap: widget.shrinkWrap,
-        physics: widget.physics,
-      );
-    }
+    return PagingListener<int, T>(
+      controller: _controller,
+      builder: (context, state, fetchNextPage) {
+        if (widget.separatorBuilder != null) {
+          return PagedListView<int, T>.separated(
+            state: state,
+            fetchNextPage: fetchNextPage,
+            builderDelegate: delegate,
+            separatorBuilder: widget.separatorBuilder!,
+            padding: widget.padding,
+            shrinkWrap: widget.shrinkWrap,
+            physics: widget.physics,
+          );
+        }
 
-    return PagedListView<int, T>(
-      state: _controller.value,
-      fetchNextPage: _controller.fetchNextPage,
-      builderDelegate: delegate,
-      padding: widget.padding,
-      shrinkWrap: widget.shrinkWrap,
-      physics: widget.physics,
+        return PagedListView<int, T>(
+          state: state,
+          fetchNextPage: fetchNextPage,
+          builderDelegate: delegate,
+          padding: widget.padding,
+          shrinkWrap: widget.shrinkWrap,
+          physics: widget.physics,
+        );
+      },
     );
   }
 }

@@ -1,88 +1,41 @@
-# Contributing to flutter-agentic-starter
+# Contributing
 
-Thanks for your interest in contributing! This guide will help you get started.
+## Before editing
 
-## Getting Started
+Read `README.md`, the relevant file in `docs/`, and the repository agent
+instructions. Preserve unrelated work in dirty worktrees.
 
-```sh
-# Fork and clone
-git clone https://github.com/YOUR_USERNAME/flutter-agentic-starter.git
-cd flutter-agentic-starter
+## Architecture rules
 
-# Install dependencies
-flutter pub get
-dart run build_runner build
+- Keep feature code in `data/domain/presentation`.
+- Put business rules in use cases and data access behind repositories.
+- Use injectable `*ViewModel` classes for feature presentation state.
+- Keep mutable `Signal` fields private; expose `ReadonlySignal`.
+- Use `AsyncState<T>` for loading, data, and error.
+- Keep ephemeral widget-only state in the widget.
+- Pass view models at the route boundary.
+- Localize every production user-facing string.
+- Never show raw exceptions to users.
+- Dispose owned effects, subscriptions, connections, timers, and lifecycle
+  observers.
 
-# Run (staging)
-flutter run -t lib/main_staging.dart
-```
+Do not use `.watch(context)` or `SignalsMixin`.
 
-## Development
+## Generated code
 
-### Prerequisites
-
-- Flutter SDK 3.8+
-- Dart SDK 3.8+
-- Java 17+ (for Android builds)
-
-### Code Generation
-
-After modifying Freezed models or Injectable modules:
+Never edit `*.g.dart`, `*.freezed.dart`, or `*.config.dart` manually. Edit the
+source and run:
 
 ```sh
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-### Running Tests
+## Checks
 
 ```sh
+flutter analyze
 flutter test
 ```
 
-## Code Style
-
-- Follow existing patterns in the codebase
-- Use [flutter_lints](https://pub.dev/packages/flutter_lints) rules (configured in `analysis_options.yaml`)
-- BLoC pattern for state management
-- Injectable for dependency injection
-- Freezed for immutable data classes
-
-## Pull Requests
-
-### Branch Naming
-
-- `feat/short-description` — new features
-- `fix/short-description` — bug fixes
-- `refactor/short-description` — refactoring
-- `docs/short-description` — documentation
-
-### Commit Messages
-
-Use [conventional commits](https://www.conventionalcommits.org/):
-
-```
-feat: add user profile screen
-fix: resolve login state persistence
-refactor: extract network error handling
-docs: update README quick start
-```
-
-### PR Checklist
-
-- [ ] Code compiles without errors (`dart analyze`)
-- [ ] Tests pass (`flutter test`)
-- [ ] Follows existing architecture patterns
-- [ ] Updated docs if needed
-
-## Issues
-
-- **Bug reports**: Use the [bug report template](.github/ISSUE_TEMPLATE/bug_report.md)
-- **Feature requests**: Use the [feature request template](.github/ISSUE_TEMPLATE/feature_request.md)
-
-## Code of Conduct
-
-Be respectful, constructive, and inclusive. We're all here to build great software together.
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the [MIT License](./LICENSE).
+Run the relevant platform build for platform or release changes. Keep commits
+focused and use conventional commit messages when a commit is requested.

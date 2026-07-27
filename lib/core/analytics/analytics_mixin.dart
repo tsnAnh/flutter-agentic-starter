@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import 'analytics_service.dart';
 
-/// Mixin for Cubits and BLoCs that need analytics tracking.
+/// Mixin for view models that need analytics tracking.
 ///
 /// Implementing class must provide an [analyticsService] instance (typically
 /// injected via constructor). Tracking calls are fire-and-forget — they never
@@ -10,8 +10,8 @@ import 'analytics_service.dart';
 ///
 /// Usage:
 /// ```dart
-/// class ProductCubit extends Cubit<ProductState> with AnalyticsMixin {
-///   ProductCubit(this.analyticsService) : super(ProductInitial());
+/// class ProductViewModel with AnalyticsMixin {
+///   ProductViewModel(this.analyticsService);
 ///
 ///   @override
 ///   final AnalyticsService analyticsService;
@@ -37,20 +37,22 @@ mixin AnalyticsMixin {
   /// [action] must be snake_case (e.g. `button_tapped`).
   /// [props] must not contain PII.
   void trackAction(String action, {Map<String, dynamic>? props}) {
-    analyticsService.trackEvent(action, properties: props).catchError((Object e) {
+    analyticsService.trackEvent(action, properties: props).catchError((
+      Object e,
+    ) {
       debugPrint('[AnalyticsMixin] trackAction "$action" error: $e');
     });
   }
 
   /// Tracks a screen view.
   ///
-  /// Call this on screen mount (e.g. in the Cubit constructor or a
+  /// Call this on screen mount (e.g. in the view-model constructor or a
   /// dedicated `onScreenMounted` method).
   /// [screenName] must be snake_case (e.g. `product_detail`).
   void trackScreenView(String screenName, {Map<String, dynamic>? props}) {
-    analyticsService
-        .trackScreen(screenName, properties: props)
-        .catchError((Object e) {
+    analyticsService.trackScreen(screenName, properties: props).catchError((
+      Object e,
+    ) {
       debugPrint('[AnalyticsMixin] trackScreenView "$screenName" error: $e');
     });
   }
@@ -62,10 +64,10 @@ mixin AnalyticsMixin {
   void trackStateChange(String stateName, {Map<String, dynamic>? props}) {
     if (!enableStateTracking) return;
     analyticsService
-        .trackEvent('state_changed', properties: {
-          'state': stateName,
-          ...?props,
-        })
+        .trackEvent(
+          'state_changed',
+          properties: {'state': stateName, ...?props},
+        )
         .catchError((Object e) {
           debugPrint('[AnalyticsMixin] trackStateChange error: $e');
         });

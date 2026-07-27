@@ -105,6 +105,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Display some text!'**
   String get displaySomeText;
+
+  /// No description provided for @homeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get homeTitle;
+
+  /// No description provided for @homeLoadCities.
+  ///
+  /// In en, this message translates to:
+  /// **'Load cities'**
+  String get homeLoadCities;
+
+  /// No description provided for @homeLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t load the cities. Please try again.'**
+  String get homeLoadError;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
 }
 
 class _AppLocalizationsDelegate

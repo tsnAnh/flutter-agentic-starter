@@ -6,7 +6,7 @@ This file provides guidance to OpenCode when working with code in this repositor
 
 **Name:** flutter-agentic-starter
 **Type:** Flutter/Dart
-**Description:** Production-ready Flutter BLoC starter template optimized for AI coding agents. Clean architecture, 17 core modules, multi-flavor support. Built for vibe coding with Claude Code, Cursor, and other AI assistants.
+**Description:** Production-ready Flutter Signals starter template optimized for AI coding agents. Clean architecture, core modules, multi-flavor support. Built for vibe coding with Claude Code, Cursor, and other AI assistants.
 
 ## Role & Responsibilities
 
@@ -43,8 +43,9 @@ Your role is to analyze user requirements, delegate tasks to appropriate sub-age
 - **Hard rule:** Avoid primitive obsession. Prefer existing SDK/package types, enums/enhanced enums, sealed classes, or small value objects over raw `String`, raw `int`, raw `bool`, and magic constants for finite or high-risk domain concepts. Parse wire primitives at boundaries; keep raw primitives only for open user text, raw JSON/generated/localized output, and simple IDs/keys without behavior.
 - **Hard rule:** Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
 - **Hard rule:** For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
-- Keep ephemeral widget-only UI state local with `StatefulWidget`/`setState`; use Cubit/BLoC for shared, persisted, business-critical, or complex state.
-- Use `BlocSelector`, `context.select`, `buildWhen`, and `listenWhen` to limit rebuilds/listener calls. Use `BlocListener` or a `BlocConsumer` listener for one-shot effects like navigation, dialogs, and snackbars.
+- Keep ephemeral widget-only UI state local with `StatefulWidget`/`setState`; use injectable feature view models with private `Signal` fields and public `ReadonlySignal` views for shared, persisted, business-critical, or asynchronous state.
+- Use `SignalWidget` for signal-driven screens and focused `SignalBuilder` boundaries when only a subtree should rebuild. Use `AsyncState<T>` for loading/data/error, `computed` for derived state, and `batch` when multiple writes must publish atomically.
+- Keep navigation, dialogs, and snackbars at the widget boundary. Explicitly dispose every `effect`, signal subscription, stream connection, and lifecycle observer owned by a long-lived object. Do not use `.watch(context)` or `SignalsMixin`.
 - Use `SafeArea`; honor text scaling and accessibility-aware `MediaQuery`.
 - Use `LayoutBuilder` for parent constraints and `MediaQuery.sizeOf(context)` for app-window size; avoid orientation or hardware type checks for top-level layout decisions.
 - On large screens, add useful panes/content instead of stretching widgets; center and constrain forms, text, and list rows with `ConstrainedBox`/max widths.
@@ -103,9 +104,12 @@ Native project skills are provided for Claude Code, Codex, and OpenCode:
 
 Available skills:
 
-Always invoke `flutter-agentic-starter` first before working in this project.
+Use `flutter-agentic-starter` only when implementing Flutter application code
+under `lib/`, Flutter tests, or platform integration required by that code. Do
+not activate it for documentation, setup tooling, repository automation, or
+other non-app maintenance.
 
-- `flutter-agentic-starter`: Flutter, BLoC/Cubit, Clean Architecture, DI, routing, models, tests, and design system guidance.
+- `flutter-agentic-starter`: Flutter, Signals/ViewModel, Clean Architecture, DI, routing, models, tests, and design system guidance.
 - `caveman`: terse technical communication mode for concise reports.
 - `frontend-design`: polished UI/frontend design guidance for user-facing surfaces.
 

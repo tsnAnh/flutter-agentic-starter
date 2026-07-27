@@ -13,6 +13,8 @@ code-style:
    format: true
 
 analyzer:
+   plugins:
+      - signals_lint
    language:
       strict-inference: true
       strict-casts: true

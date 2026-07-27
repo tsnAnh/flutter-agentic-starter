@@ -4,7 +4,8 @@ import 'app_error_widget.dart';
 import 'app_empty_widget.dart';
 import 'app_loading_widget.dart';
 
-/// BLoC-agnostic paginated grid view backed by [infinite_scroll_pagination] v5.
+/// State-manager-agnostic paginated grid view backed by
+/// [infinite_scroll_pagination] v5.
 ///
 /// Same callback pattern as [PaginatedListView] — no state management coupling.
 class PaginatedGridView<T> extends StatefulWidget {
@@ -76,39 +77,43 @@ class _PaginatedGridViewState<T> extends State<PaginatedGridView<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return PagedGridView<int, T>(
-      state: _controller.value,
-      fetchNextPage: _controller.fetchNextPage,
-      padding: widget.padding,
-      shrinkWrap: widget.shrinkWrap,
-      physics: widget.physics,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: widget.crossAxisCount,
-        mainAxisSpacing: widget.mainAxisSpacing,
-        crossAxisSpacing: widget.crossAxisSpacing,
-        childAspectRatio: widget.childAspectRatio,
-      ),
-      builderDelegate: PagedChildBuilderDelegate<T>(
-        itemBuilder: widget.itemBuilder,
-        firstPageProgressIndicatorBuilder: (_) =>
-            widget.loadingWidget ?? const AppLoadingWidget(),
-        newPageProgressIndicatorBuilder: (_) =>
-            const Center(child: CircularProgressIndicator.adaptive()),
-        noItemsFoundIndicatorBuilder: (_) =>
-            widget.emptyWidget ??
-            const AppEmptyWidget(message: 'No items found'),
-        firstPageErrorIndicatorBuilder: (_) =>
-            widget.errorWidget ??
-            AppErrorWidget(
-              message:
-                  _controller.value.error?.toString() ?? 'An error occurred',
-              onRetry: _controller.refresh,
+    return PagingListener<int, T>(
+      controller: _controller,
+      builder: (context, state, fetchNextPage) {
+        return PagedGridView<int, T>(
+          state: state,
+          fetchNextPage: fetchNextPage,
+          padding: widget.padding,
+          shrinkWrap: widget.shrinkWrap,
+          physics: widget.physics,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: widget.crossAxisCount,
+            mainAxisSpacing: widget.mainAxisSpacing,
+            crossAxisSpacing: widget.crossAxisSpacing,
+            childAspectRatio: widget.childAspectRatio,
+          ),
+          builderDelegate: PagedChildBuilderDelegate<T>(
+            itemBuilder: widget.itemBuilder,
+            firstPageProgressIndicatorBuilder: (_) =>
+                widget.loadingWidget ?? const AppLoadingWidget(),
+            newPageProgressIndicatorBuilder: (_) =>
+                const Center(child: CircularProgressIndicator.adaptive()),
+            noItemsFoundIndicatorBuilder: (_) =>
+                widget.emptyWidget ??
+                const AppEmptyWidget(message: 'No items found'),
+            firstPageErrorIndicatorBuilder: (_) =>
+                widget.errorWidget ??
+                AppErrorWidget(
+                  message: state.error?.toString() ?? 'An error occurred',
+                  onRetry: _controller.refresh,
+                ),
+            newPageErrorIndicatorBuilder: (_) => AppErrorWidget(
+              message: 'Failed to load more',
+              onRetry: fetchNextPage,
             ),
-        newPageErrorIndicatorBuilder: (_) => AppErrorWidget(
-          message: 'Failed to load more',
-          onRetry: _controller.fetchNextPage,
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

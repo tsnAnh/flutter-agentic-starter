@@ -13,19 +13,18 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../../features/home/bloc/home_bloc.dart' as _i854;
-import '../../features/home/cubit/home_cubit.dart' as _i1032;
-import '../../shared/data/api/city.dart' as _i737;
-import '../../shared/data/repositories/city_repository.dart' as _i288;
-import '../../shared/data/repositories/city_repository_impl.dart' as _i841;
+import '../../features/home/data/repositories/city_repository_impl.dart'
+    as _i702;
+import '../../features/home/data/sources/city_api.dart' as _i443;
+import '../../features/home/domain/repositories/city_repository.dart' as _i968;
+import '../../features/home/domain/use_cases/get_cities.dart' as _i221;
+import '../../features/home/presentation/home_view_model.dart' as _i738;
 import '../analytics/firebase_analytics_provider.dart' as _i506;
 import '../analytics/posthog_analytics_provider.dart' as _i382;
-import '../app_bloc_observer.dart' as _i744;
 import '../auth/secure_storage_service.dart' as _i921;
 import '../auth/session_manager.dart' as _i287;
 import '../auth/token_manager.dart' as _i428;
 import '../cache/cache_manager.dart' as _i326;
-import '../connectivity/connectivity_cubit.dart' as _i690;
 import '../connectivity/connectivity_service.dart' as _i528;
 import '../connectivity/offline_queue_service.dart' as _i1052;
 import '../firebase/app_check_service.dart' as _i399;
@@ -38,9 +37,9 @@ import '../logger/impl/debug_logger.dart' as _i803;
 import '../logger/impl/production_logger.dart' as _i67;
 import '../logger/logger.dart' as _i512;
 import '../network/remote.dart' as _i612;
-import '../permissions/permission_cubit.dart' as _i835;
 import '../permissions/permission_handler_impl.dart' as _i440;
 import '../permissions/permission_service.dart' as _i271;
+import '../permissions/permission_view_model.dart' as _i1030;
 import '../router/deep_link_handler.dart' as _i605;
 import 'get_it.dart' as _i241;
 
@@ -86,6 +85,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i947.AppLifecycleObserver>(
       () => _i947.AppLifecycleObserver(),
     );
+    gh.lazySingleton<_i271.PermissionService>(
+      () => _i440.PermissionHandlerImpl(),
+    );
     gh.factory<_i361.Dio>(
       () => registerModule.dioAuth,
       instanceName: 'AuthDio',
@@ -94,50 +96,41 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.dioNonAuth,
       instanceName: 'NonAuthDio',
     );
-    gh.lazySingleton<_i866.AppUpdateChecker>(
-      () => _i866.AppUpdateChecker(gh<_i130.RemoteConfigService>()),
-    );
-    gh.lazySingleton<_i271.PermissionService>(
-      () => _i440.PermissionHandlerImpl(),
-    );
-    gh.factory<_i835.PermissionCubit>(
-      () => _i835.PermissionCubit(gh<_i271.PermissionService>()),
+    gh.lazySingleton<_i443.CityApi>(
+      () => _i443.CityApiImpl(gh<_i361.Dio>(instanceName: 'NonAuthDio')),
     );
     gh.lazySingleton<_i428.TokenManager>(
       () => _i428.TokenManager(gh<_i921.SecureStorageService>()),
     );
-    gh.lazySingleton<_i690.ConnectivityCubit>(
-      () => _i690.ConnectivityCubit(gh<_i528.ConnectivityService>()),
+    gh.lazySingleton<_i1052.OfflineQueueService>(
+      () => _i1052.OfflineQueueService(
+        gh<_i428.TokenManager>(),
+        gh<_i528.ConnectivityService>(),
+        gh<_i361.Dio>(instanceName: 'NonAuthDio'),
+      ),
     );
     gh.singleton<_i512.Logger>(
       () => _i803.DebugLogger(),
       registerFor: {_development},
     );
-    gh.lazySingleton<_i1052.OfflineQueueService>(
-      () => _i1052.OfflineQueueService(
-        gh<_i428.TokenManager>(),
-        gh<_i690.ConnectivityCubit>(),
-        gh<_i361.Dio>(instanceName: 'NonAuthDio'),
-      ),
-    );
-    gh.lazySingleton<_i737.CityApi>(
-      () => _i737.CityApiImpl(gh<_i361.Dio>(instanceName: 'NonAuthDio')),
-    );
-    gh.lazySingleton<_i288.CityRepository>(
-      () => _i841.CityRepositoryImpl(gh<_i737.CityApi>()),
+    gh.lazySingleton<_i866.AppUpdateChecker>(
+      () => _i866.AppUpdateChecker(gh<_i130.RemoteConfigService>()),
     );
     gh.singleton<_i512.Logger>(
       () => _i67.ProductionLogger(),
       registerFor: {_production},
     );
-    gh.factory<_i854.HomeBloc>(
-      () => _i854.HomeBloc(gh<_i288.CityRepository>()),
+    gh.factory<_i1030.PermissionViewModel>(
+      () => _i1030.PermissionViewModel(gh<_i271.PermissionService>()),
     );
-    gh.factory<_i1032.HomeCubit>(
-      () => _i1032.HomeCubit(gh<_i288.CityRepository>()),
+    gh.lazySingleton<_i968.CityRepository>(
+      () => _i702.CityRepositoryImpl(gh<_i443.CityApi>()),
     );
-    gh.lazySingleton<_i744.AppBlocObserver>(
-      () => _i744.AppBlocObserver(logger: gh<_i512.Logger>()),
+    gh.factory<_i221.GetCities>(
+      () => _i221.GetCities(gh<_i968.CityRepository>()),
+    );
+    gh.factory<_i738.HomeViewModel>(
+      () => _i738.HomeViewModel(gh<_i221.GetCities>()),
     );
     return this;
   }

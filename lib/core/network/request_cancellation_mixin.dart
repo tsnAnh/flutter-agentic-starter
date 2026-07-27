@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/foundation.dart';
 
-/// Mixin for BLoCs/Cubits that fire Dio requests and need clean cancellation.
+/// Mixin for view models that fire Dio requests and need clean cancellation.
 ///
-/// Cancels all in-flight requests when the BLoC/Cubit is closed, preventing
+/// Cancels all in-flight requests when the view model is disposed, preventing
 /// state emissions after disposal.
 ///
 /// Usage:
 /// ```dart
-/// class UserCubit extends Cubit<UserState> with RequestCancellationMixin {
-///   UserCubit(this._userApi) : super(UserInitial());
+/// class UserViewModel with RequestCancellationMixin {
+///   UserViewModel(this._userApi);
 ///
 ///   Future<void> loadUser(String id) async {
 ///     final result = await _userApi.getUser(id, cancelToken: cancelToken);
@@ -17,10 +17,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 ///   }
 /// }
 /// ```
-mixin RequestCancellationMixin<S> on BlocBase<S> {
+mixin RequestCancellationMixin {
   CancelToken? _cancelToken;
 
-  /// A [CancelToken] scoped to this BLoC/Cubit's lifetime.
+  /// A [CancelToken] scoped to this view model's lifetime.
   /// Pass this to every Dio request to enable automatic cancellation on close.
   CancelToken get cancelToken {
     if (_cancelToken == null || _cancelToken!.isCancelled) {
@@ -31,13 +31,10 @@ mixin RequestCancellationMixin<S> on BlocBase<S> {
 
   /// Cancels all in-flight requests associated with this instance.
   void cancelRequests([String? reason]) {
-    _cancelToken?.cancel(reason ?? 'BLoC closed');
+    _cancelToken?.cancel(reason ?? 'View model disposed');
     _cancelToken = null;
   }
 
-  @override
-  Future<void> close() {
-    cancelRequests();
-    return super.close();
-  }
+  @mustCallSuper
+  void dispose() => cancelRequests();
 }
