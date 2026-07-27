@@ -1,7 +1,24 @@
+[![CI](https://github.com/tsnAnh/flutter-agentic-starter/actions/workflows/dart.yml/badge.svg)](https://github.com/tsnAnh/flutter-agentic-starter/actions/workflows/dart.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Flutter](https://img.shields.io/badge/Flutter-3.44+-blue.svg)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-3.10+-blue.svg)](https://dart.dev)
+
 # Flutter Agentic Starter
 
-Production-ready Flutter starter for AI coding agents, built with Signals and
-Clean Architecture.
+Production-ready Flutter starter built for AI-assisted development with Signals
+and Clean Architecture. Its predictable feature structure, project skills,
+setup wizard, and generated catalog let coding agents start shipping without
+repeated architecture prompts.
+
+## Why this starter?
+
+| Capability | Included |
+| --- | :---: |
+| AI instruction files and project skills | ✅ |
+| Signals-based Clean Architecture | ✅ |
+| Setup wizard and multi-flavor entry points | ✅ |
+| Firebase, analytics, cache, and offline queue | ✅ |
+| Generated Widgetbook catalog | ✅ |
 
 ## Stack
 
