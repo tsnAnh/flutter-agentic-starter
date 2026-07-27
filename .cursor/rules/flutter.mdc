@@ -1,11 +1,13 @@
 ---
 description: Flutter and coding-agent rules for flutter-agentic-starter.
-globs: 
-alwaysApply: true
+globs: ["lib/**/*.dart", "test/**/*.dart", "android/**/*", "ios/**/*", "macos/**/*", "linux/**/*", "windows/**/*", "web/**/*"]
+alwaysApply: false
 ---
 # Flutter Agent Rules
 
-Always invoke `flutter-agentic-starter` first before working in this project.
+Use `flutter-agentic-starter` only while implementing Flutter application code
+or its Flutter tests. It does not apply to documentation, setup tooling,
+repository automation, or other non-app maintenance.
 
 ## Karpathy Guidelines
 
@@ -23,8 +25,9 @@ Always invoke `flutter-agentic-starter` first before working in this project.
 - Prefer maintained pub.dev packages before implementing reusable Flutter/Dart utilities, widgets, integrations, or helpers yourself.
 - Document any pub.dev package-first exception with reason.
 - For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
-- Keep ephemeral widget-only UI state local with `StatefulWidget`/`setState`; use Cubit/BLoC for shared, persisted, business-critical, or complex state.
-- Use `BlocSelector`, `context.select`, `buildWhen`, and `listenWhen` to limit rebuilds/listener calls. Use `BlocListener` or a `BlocConsumer` listener for one-shot effects like navigation, dialogs, and snackbars.
+- Keep ephemeral widget-only state local with `StatefulWidget`/`setState`; use injectable feature view models with private `Signal` and public `ReadonlySignal` state for shared or asynchronous state.
+- Use `SignalWidget` for signal-driven screens and focused `SignalBuilder` boundaries for surgical rebuilds. Use `AsyncState<T>`, `computed`, and `batch` where their semantics fit.
+- Keep one-shot UI effects at the widget boundary. Explicitly dispose owned effects, subscriptions, connections, and lifecycle observers. Do not use `.watch(context)` or `SignalsMixin`.
 - Use `SafeArea`; honor text scaling and accessibility-aware `MediaQuery`.
 - Use `LayoutBuilder` for parent constraints and `MediaQuery.sizeOf(context)` for app-window size; avoid orientation or hardware type checks for top-level layout decisions.
 - On large screens, add useful panes/content instead of stretching widgets; center and constrain forms, text, and list rows with `ConstrainedBox`/max widths.
@@ -43,7 +46,7 @@ Always invoke `flutter-agentic-starter` first before working in this project.
 ## Flutter Rules
 
 - Read `README.md`, `AGENTS.md`, and relevant docs before implementation.
-- Use existing Clean Architecture + BLoC patterns.
+- Use existing Clean Architecture + Signals view-model patterns.
 - Use `injectable`/GetIt for dependencies. For DI/model generated code changes, edit source files only, then run `dart run build_runner build --delete-conflicting-outputs`.
 - Keep code compilable: run `flutter analyze` and `flutter test`.
 - Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.

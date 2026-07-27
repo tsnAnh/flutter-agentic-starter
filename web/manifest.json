@@ -1,11 +1,11 @@
 {
-    "name": "flutter_bloc_base_source_code",
-    "short_name": "flutter_bloc_base_source_code",
+    "name": "Flutter Agentic Starter",
+    "short_name": "Flutter Agentic Starter",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Production-ready Flutter Signals starter template optimized for AI coding agents.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

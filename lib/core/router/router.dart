@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../error_screen.dart';
@@ -14,10 +13,7 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (_, _) => BlocProvider(
-          create: (_) => getIt<HomeBloc>(),
-          child: const HomeScreen(),
-        ),
+        builder: (_, _) => HomeScreen(viewModel: getIt<HomeViewModel>()),
       ),
     ],
     errorBuilder: (_, _) => const ErrorScreen(),

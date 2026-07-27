@@ -2,7 +2,7 @@
 ///
 /// Import this file to access all Firebase services:
 /// ```dart
-/// import 'package:flutter_bloc_base_source_code/core/firebase/firebase.dart';
+/// import 'package:flutter_agentic_starter/core/firebase/firebase.dart';
 /// ```
 library;
 

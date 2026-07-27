@@ -1,4 +1,8 @@
 {
     "helloWorld": "Hello World!",
-    "displaySomeText": "Display some text!"
+    "displaySomeText": "Display some text!",
+    "homeTitle": "Home",
+    "homeLoadCities": "Load cities",
+    "homeLoadError": "We couldn't load the cities. Please try again.",
+    "retry": "Retry"
 }

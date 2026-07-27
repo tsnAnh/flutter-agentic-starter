@@ -13,4 +13,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get displaySomeText => 'Display some text!';
+
+  @override
+  String get homeTitle => 'Home';
+
+  @override
+  String get homeLoadCities => 'Load cities';
+
+  @override
+  String get homeLoadError => 'We couldn\'t load the cities. Please try again.';
+
+  @override
+  String get retry => 'Retry';
 }

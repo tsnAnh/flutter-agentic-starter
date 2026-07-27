@@ -16,8 +16,9 @@
 - Custom Flutter/Dart implementation is allowed only when no suitable package exists, or when packages fail security, privacy, license, platform, size, performance, or architecture requirements.
 - Document any package-first exception in the plan, report, PR, or code review summary.
 - For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
-- Keep ephemeral widget-only UI state local with `StatefulWidget`/`setState`; use Cubit/BLoC for shared, persisted, business-critical, or complex state.
-- Use `BlocSelector`, `context.select`, `buildWhen`, and `listenWhen` to limit rebuilds/listener calls. Use `BlocListener` or a `BlocConsumer` listener for one-shot effects like navigation, dialogs, and snackbars.
+- Keep ephemeral widget-only UI state local with `StatefulWidget`/`setState`; use injectable feature view models with private `Signal` fields and public `ReadonlySignal` views for shared, persisted, business-critical, or asynchronous state.
+- Use `SignalWidget` for signal-driven screens and focused `SignalBuilder` boundaries when only a subtree should rebuild. Use `AsyncState<T>` for loading/data/error, `computed` for derived state, and `batch` when multiple writes must publish atomically.
+- Keep navigation, dialogs, and snackbars at the widget boundary. Explicitly dispose every owned `effect`, signal subscription, stream connection, and lifecycle observer. Do not use `.watch(context)` or `SignalsMixin`.
 - Use `SafeArea`; honor text scaling and accessibility-aware `MediaQuery`.
 - Use `LayoutBuilder` for parent constraints and `MediaQuery.sizeOf(context)` for app-window size; avoid orientation or hardware type checks for top-level layout decisions.
 - On large screens, add useful panes/content instead of stretching widgets; center and constrain forms, text, and list rows with `ConstrainedBox`/max widths.

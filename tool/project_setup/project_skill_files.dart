@@ -69,17 +69,18 @@ class ProjectSkillFiles {
       'name: $skillName',
     );
     content = content.replaceFirst(
-      RegExp(
-        r'  Project-specific Flutter/Dart implementation guidance for .+\n',
-      ),
-      '  Project-specific Flutter/Dart implementation guidance for '
+      RegExp(r'  Project-specific .+ implementation guidance for .+\n'),
+      '  Project-specific Signals and Flutter implementation guidance for '
       '${options.appName}.\n',
     );
-    if (!content.contains(_skillInvocationLine)) {
+    content = content.replaceAll(
+      '  Invoke this app-named skill first before working in this project.\n',
+      '',
+    );
+    if (!content.contains(_skillScopeLine)) {
       content = content.replaceFirst(
-        '  Use when working on Flutter code,',
-        '  $_skillInvocationLine\n'
-            '  Use when working on Flutter code,',
+        '\n---\n\n#',
+        '\n  $_skillScopeLine\n---\n\n#',
       );
     }
     content = content.replaceFirst(
@@ -95,7 +96,10 @@ class ProjectSkillFiles {
       if (!file.existsSync()) continue;
       var content = file.readAsStringSync();
       content = _replaceSkillNames(content, skillName);
-      content = _ensureInvocationRule(content, skillName);
+      content = _ensureScopedActivationRule(content, skillName);
+      if (path == '.cursor/rules/flutter.mdc') {
+        content = _scopeCursorRule(content);
+      }
       file.writeAsStringSync(content);
     }
   }
@@ -103,11 +107,11 @@ class ProjectSkillFiles {
   String _replaceSkillNames(String content, String skillName) {
     return content
         .replaceAll(
-          RegExp(r'- `[^`]+`(?= — Flutter/BLoC/Clean Architecture rules)'),
+          RegExp(r'- `[^`]+`(?= — Flutter/Signals/Clean Architecture rules)'),
           '- `$skillName`',
         )
         .replaceAll(
-          RegExp(r'- `[^`]+`(?=: Flutter, BLoC/Cubit)'),
+          RegExp(r'- `[^`]+`(?=: Flutter, Signals/ViewModel)'),
           '- `$skillName`',
         )
         .replaceAll(
@@ -118,12 +122,14 @@ class ProjectSkillFiles {
         );
   }
 
-  String _ensureInvocationRule(String content, String skillName) {
+  String _ensureScopedActivationRule(String content, String skillName) {
     final rule =
-        'Always invoke `$skillName` first before working in this '
-        'project.';
+        'Use `$skillName` only when implementing Flutter application code or '
+        'Flutter tests.';
     final existingRule = RegExp(
-      r'Always invoke `[^`]+` first before working in this project\.',
+      r'(?:Always invoke `[^`]+` first before working in this project\.|'
+      r'Use `[^`]+` only when implementing Flutter application code[\s\S]*?'
+      r'(?=\n\n(?:Available skills:|##|#)|$))',
     );
     if (existingRule.hasMatch(content)) {
       return content.replaceAll(existingRule, rule);
@@ -143,11 +149,25 @@ class ProjectSkillFiles {
     return '$content\n$rule\n';
   }
 
+  String _scopeCursorRule(String content) {
+    content = content.replaceFirst(
+      RegExp(r'^globs:.*$', multiLine: true),
+      'globs: ["lib/**/*.dart", "test/**/*.dart", "android/**/*", '
+      '"ios/**/*", "macos/**/*", "linux/**/*", "windows/**/*", '
+      '"web/**/*"]',
+    );
+    return content.replaceFirst(
+      RegExp(r'^alwaysApply:.*$', multiLine: true),
+      'alwaysApply: false',
+    );
+  }
+
   File _file(String relativePath) => File('${root.path}/$relativePath');
 
   Directory _directory(String relativePath) =>
       Directory('${root.path}/$relativePath');
 
-  static const _skillInvocationLine =
-      'Invoke this app-named skill first before working in this project.';
+  static const _skillScopeLine =
+      'Use only when implementing Flutter application code, Flutter tests, or '
+      'app-platform integration.';
 }

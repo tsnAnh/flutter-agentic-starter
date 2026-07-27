@@ -42,21 +42,27 @@ void main() {
       final content = skillFile.readAsStringSync();
       expect(content, contains('name: acme-crm'));
       expect(content, contains('guidance for Acme CRM.'));
-      expect(content, contains('Invoke this app-named skill first'));
+      expect(
+        content,
+        contains('Use only when implementing Flutter application code'),
+      );
+      expect(content, isNot(contains('Invoke this app-named skill first')));
       expect(content, contains('# Acme CRM'));
     }
 
     expect(
       File('${root.path}/README.md').readAsStringSync(),
-      contains('- `acme-crm` — Flutter/BLoC/Clean Architecture rules'),
+      contains('- `acme-crm` — Flutter/Signals/Clean Architecture rules'),
     );
     expect(
       File('${root.path}/AGENTS.md').readAsStringSync(),
-      contains('- `acme-crm`: Flutter, BLoC/Cubit'),
+      contains('- `acme-crm`: Flutter, Signals/ViewModel'),
     );
     expect(
       File('${root.path}/CLAUDE.md').readAsStringSync(),
-      contains('Always invoke `acme-crm` first'),
+      contains(
+        'Use `acme-crm` only when implementing Flutter application code',
+      ),
     );
     expect(
       File('${root.path}/docs/README.md').readAsStringSync(),
@@ -66,8 +72,15 @@ void main() {
     );
     expect(
       File('${root.path}/.cursor/rules/flutter.mdc').readAsStringSync(),
-      contains('Always invoke `acme-crm` first'),
+      contains(
+        'Use `acme-crm` only when implementing Flutter application code',
+      ),
     );
+    final cursorRules = File(
+      '${root.path}/.cursor/rules/flutter.mdc',
+    ).readAsStringSync();
+    expect(cursorRules, contains('alwaysApply: false'));
+    expect(cursorRules, contains('"lib/**/*.dart"'));
   });
 
   test('reports strict rename conflict', () {
@@ -101,17 +114,17 @@ void _writeInstructionFiles(Directory root) {
   _writeFile(root, 'README.md', '''
 Available skills:
 
-- `flutter-agentic-starter` — Flutter/BLoC/Clean Architecture rules
+- `flutter-agentic-starter` — Flutter/Signals/Clean Architecture rules
 ''');
   _writeFile(root, 'AGENTS.md', '''
 Available skills:
 
-- `flutter-agentic-starter`: Flutter, BLoC/Cubit guidance.
+- `flutter-agentic-starter`: Flutter, Signals/ViewModel guidance.
 ''');
   _writeFile(root, 'CLAUDE.md', '''
 Available skills:
 
-- `flutter-agentic-starter`: Flutter, BLoC/Cubit guidance.
+- `flutter-agentic-starter`: Flutter, Signals/ViewModel guidance.
 ''');
   _writeFile(
     root,
@@ -120,6 +133,10 @@ Available skills:
         '`frontend-design`.\n',
   );
   _writeFile(root, '.cursor/rules/flutter.mdc', '''
+---
+globs:
+alwaysApply: true
+---
 # Flutter Agent Rules
 
 ## Flutter Rules
@@ -146,8 +163,8 @@ const _skillContent = '''
 name: flutter-agentic-starter
 description: >
   Project-specific Flutter/Dart implementation guidance for flutter-agentic-starter.
-  Use when working on Flutter code, BLoC/Cubit state, clean architecture features,
-  DI, routing, models, tests, design system UI, or project setup in this repository.
+  Use only when implementing Flutter application code, Flutter tests, or app-platform
+  integration. Do not use for docs, setup tooling, or repository maintenance.
 ---
 
 # Flutter Agentic Starter

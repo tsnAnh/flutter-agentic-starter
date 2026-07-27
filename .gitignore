@@ -32,6 +32,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/.gradle/
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -68,6 +69,7 @@ doc/api/
 
 *.freezed.dart
 *.g.dart
+!/lib/widgetbook/widgetbook.directories.g.dart
 /ios/Podfile.lock
 pubspec.lock
 /.idea/

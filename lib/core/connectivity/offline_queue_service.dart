@@ -4,10 +4,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
+import 'package:signals/signals.dart';
 
 import '../auth/token_manager.dart';
 import '../network/dio.dart';
-import 'connectivity_cubit.dart';
+import 'connectivity_service.dart';
 import 'offline_queue_config.dart';
 import 'offline_queue_replayer.dart';
 import 'queued_request.dart';
@@ -26,20 +27,19 @@ import 'queued_request.dart';
 class OfflineQueueService {
   OfflineQueueService(
     TokenManager tokenManager,
-    this._connectivityCubit,
+    this._connectivityService,
     @nonAuthDio Dio replayDio,
   ) : _replayer = OfflineQueueReplayer(
         tokenManager: tokenManager,
         dio: replayDio,
       );
 
-  final ConnectivityCubit _connectivityCubit;
+  final ConnectivityService _connectivityService;
   final OfflineQueueReplayer _replayer;
 
   Box<String>? _box;
-  StreamSubscription<ConnectivityState>? _connectivitySub;
-  final StreamController<int> _countController =
-      StreamController<int>.broadcast();
+  EffectCleanup? _connectivityCleanup;
+  final _pendingCount = signal(0);
 
   // ---------------------------------------------------------------------------
   // Initialisation
@@ -60,10 +60,7 @@ class OfflineQueueService {
   // ---------------------------------------------------------------------------
 
   /// Reactive count of pending queue entries.
-  Stream<int> get queueCount => _countController.stream;
-
-  /// Synchronous snapshot of pending queue length.
-  int get pendingCount => _box?.length ?? 0;
+  ReadonlySignal<int> get pendingCount => _pendingCount;
 
   /// Adds [request] to the end of the queue.
   ///
@@ -103,9 +100,9 @@ class OfflineQueueService {
 
   /// Cancels connectivity subscription and closes the Hive box.
   Future<void> dispose() async {
-    await _connectivitySub?.cancel();
+    _connectivityCleanup?.call();
     await _box?.close();
-    await _countController.close();
+    _pendingCount.dispose();
   }
 
   // ---------------------------------------------------------------------------
@@ -113,17 +110,16 @@ class OfflineQueueService {
   // ---------------------------------------------------------------------------
 
   void _startConnectivityListener() {
-    _connectivitySub = _connectivityCubit.stream.listen((state) {
-      if (state is ConnectivityOnline) {
+    _connectivityCleanup?.call();
+    _connectivityCleanup = _connectivityService.online.subscribe((online) {
+      if (online) {
         processQueueOnReconnect().ignore();
       }
     });
   }
 
   void _emitCount() {
-    if (!_countController.isClosed) {
-      _countController.add(_box?.length ?? 0);
-    }
+    _pendingCount.value = _box?.length ?? 0;
   }
 
   Box<String> _requireBox() {

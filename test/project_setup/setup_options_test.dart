@@ -7,8 +7,8 @@ void main() {
   group('ProjectSetupOptions defaults', () {
     test('derives readable app name from package name', () {
       expect(
-        ProjectSetupOptions.deriveAppName('flutter_bloc_base_source_code'),
-        'Flutter Bloc Base Source Code',
+        ProjectSetupOptions.deriveAppName('flutter_agentic_starter'),
+        'Flutter Agentic Starter',
       );
     });
 

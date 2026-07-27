@@ -1,63 +1,224 @@
 ---
 name: flutter-agentic-starter
 description: >
-  Project-specific Flutter/Dart implementation guidance for flutter-agentic-starter.
-  Invoke this app-named skill first before working in this project.
-  Use when working on Flutter code, BLoC/Cubit state, clean architecture features,
-  DI, routing, models, tests, design system UI, or project setup in this repository.
+  Project-specific Signals and Flutter implementation guidance for Flutter Agentic Starter.
+  Use only when implementing Flutter application code, Flutter tests, or app-platform integration.
+  Do not use for documentation,
+  project setup tooling, repository automation, dependency-only maintenance, or agent configuration.
 ---
 
-# Flutter Agentic Starter
+# Flutter Agentic Starter — Signals guide
 
-Follow repo docs first: `README.md`, `AGENTS.md` or `CLAUDE.md`, and relevant files in `docs/`.
+## Scope and entry conditions
 
-## Core Rules
+Use this skill for Flutter application implementation: screens, widgets, view
+models, feature/domain/data code, app services, router changes, Flutter tests,
+or platform integration required by those changes.
 
-- Use `.agents/skills/manage-okf-memory` at start/end to maintain `okf-memory/`.
-- Keep edits minimal and focused. Do not rewrite, reformat, reorder, or clean unrelated code.
-- Avoid primitive obsession. Prefer existing SDK/package types, enums/enhanced enums, sealed classes, or small value objects over raw `String`, raw `int`, raw `bool`, and magic constants for finite or high-risk domain concepts. Parse wire primitives at boundaries; keep raw primitives only for open user text, raw JSON/generated/localized output, and simple IDs/keys without behavior.
-- Prefer maintained pub.dev packages before custom reusable Flutter/Dart utilities, widgets, integrations, or helpers.
-- Document package-first exceptions in plan, report, PR, or review summary.
-- For Flutter source icons/images, find suitable existing internet assets instead of creating them yourself. Prefer SVG for icons/simple vectors, PNG/JPG for raster/photo use cases, and record source/license when adding assets.
-- Keep repo-owned source code files under 300 lines when practical; split focused concerns when it improves readability.
-- Preserve dirty worktrees. Never revert user changes unless explicitly asked.
-- Treat `.env`, API keys, tokens, and platform secrets as confidential.
+Do not use it for Markdown-only edits, project-setup code, CI/release work,
+agent configuration, or a dependency-only change. Read `README.md`, the
+relevant architecture guide, and nearby code before editing. Preserve unrelated
+dirty-worktree changes.
 
-## Architecture
+## Architecture boundary
 
-- Use existing Clean Architecture + BLoC/Cubit patterns.
-- Place infrastructure in `lib/core/`, shared app code in `lib/shared/`, and feature code in `lib/features/<feature>/`.
-- Use `DataState<T>` for async state and exhaustive state handling.
-- Use repositories for data access, use cases for business logic, and BLoC/Cubit for presentation state.
-- Keep ephemeral widget-only UI state local with `StatefulWidget`/`setState`; use Cubit/BLoC for shared, persisted, business-critical, or complex state.
-- Use `BlocSelector`, `context.select`, `buildWhen`, and `listenWhen` to limit rebuilds/listener calls. Put one-shot effects in `BlocListener` or a `BlocConsumer` listener.
-- Use GetIt + Injectable for dependencies. Run code generation after DI/model changes.
-- Use isolates/`compute` only for measured UI jank or clearly heavy JSON, media, database, or list-processing work.
-- Add `restorationScopeId`/`restorationId` for `MaterialApp.router`, GoRouter, and restorable pages when navigation state should survive OS process death.
+Use the existing feature shape:
 
-## UI
+```text
+lib/features/<feature>/
+├── data/           # API/local sources and repository implementations
+├── domain/         # models, repository contracts, use cases
+└── presentation/   # screens and injectable view models
+```
 
-- Reuse `core/design_system` tokens and existing theme extensions.
-- Keep app screens work-focused, accessible, responsive, and consistent with current Material 3 design.
-- Use `SafeArea`; honor text scaling and accessibility-aware `MediaQuery`.
-- Use `LayoutBuilder` for parent constraints and `MediaQuery.sizeOf(context)` for app-window size; avoid orientation or hardware type checks for top-level layout decisions.
-- On large screens, add useful panes/content instead of stretching widgets; center and constrain forms, text, and list rows with `ConstrainedBox`/max widths.
-- Use lazy builders for long lists/grids. Use `GridView.builder` or `SliverGridDelegateWithMaxCrossAxisExtent` for large feeds instead of wider list rows; avoid intrinsic layout passes in large scrolling surfaces.
-- Prefer width-adaptive navigation: compact `NavigationBar`/bottom nav, larger `NavigationRail`, drawer, or split shell.
-- Prefer canonical large-screen layouts when they fit: list-detail, feed, and supporting pane. Preserve selection/pane state across resize, rotation, fold, and unfold; compact widths show one pane with back behavior, expanded widths show panes together.
-- For foldables, do not lock orientation; use `MediaQuery.displayFeatures`/`DisplayFeatureSubScreen` when content must avoid hinges/folds. Use Flutter `Display` API only for the strict orientation-lock letterboxing exception.
-- Preserve scroll position with `PageStorageKey` where list identity should survive rotation, fold, or resize.
-- Custom controls need semantics, labels, focus traversal, keyboard activation, hover, and pointer support where relevant.
-- Route new production user-facing strings through ARB/localization unless the surrounding file is intentionally demo-only.
-- Extract widgets only when it reduces real duplication or keeps files below practical size.
-- For polished web-style surfaces, use the `frontend-design` skill before implementing UI.
+- Presentation depends on domain, never Dio, Hive, or platform plugins.
+- Data implements domain repository contracts and converts wire failures to
+  typed domain errors.
+- Use cases hold business operations; do not create an abstraction merely to
+  forward a one-line call unless it is an actual domain boundary.
+- Route constructors receive their view model at the GoRouter boundary through
+  GetIt. Do not introduce inherited state providers for feature view models.
 
-## Verification
+## State ownership
 
-- Run `flutter analyze` after Dart code changes.
-- Run `flutter test` after behavior or test changes.
-- Prefer simple fakes over broad mocks; test Cubit/BLoC/use-case logic separately from widgets.
-- Add widget/accessibility guideline tests for non-trivial UI, especially custom controls and new flows.
-- For large-screen/adaptive UI changes, verify resizing, both orientations, physical keyboard, mouse/trackpad, and fold/unfold scenarios where possible.
-- Run `dart run build_runner build --delete-conflicting-outputs` after Injectable, Freezed, or JSON model changes.
-- Report changed behavior, verification results, and unresolved questions.
+Choose the narrowest owner:
+
+| State | Owner |
+| --- | --- |
+| Focus, controller text, expansion, one-screen animation | `StatefulWidget` + `setState` |
+| Feature/shared async or business state | Injectable `*ViewModel` |
+| App-lifetime cross-feature state | Focused lazy-singleton service |
+| Derived state | `computed`, never duplicated mutable state |
+
+Do not add a base view-model hierarchy. A concrete owner gets a `dispose` only
+when it owns a resource that needs release.
+
+## Signals API rules
+
+Private mutable signals; public read-only signals:
+
+```dart
+@injectable
+final class ProfileViewModel {
+  ProfileViewModel(this._loadProfile);
+
+  final LoadProfile _loadProfile;
+  final _profile = signal<AsyncState<Profile>?>(null);
+
+  ReadonlySignal<AsyncState<Profile>?> get profile => _profile;
+}
+```
+
+- Never expose `Signal<T>` from a view model or service unless callers are the
+  deliberate owner of writes.
+- Use `computed` for a pure value derived from signals. Dispose it only when it
+  has an independent finite lifetime.
+- Use `batch` only when several writes are one observable transaction. Do not
+  wrap ordinary single writes or async work in `batch`.
+- Read `.value` only inside `SignalWidget`, `SignalBuilder`, `computed`, or a
+  deliberate effect/subscription when reactive tracking is desired.
+- Do not use `.watch(context)`, `.unwatch()`, or `SignalsMixin`.
+- Do not create signals in a widget `build` method. `signals_lint` enforces
+  these constraints during `flutter analyze`.
+
+## Async state
+
+Use `AsyncState<T>` for presentation-facing request lifecycle. Nullable
+`AsyncState<T>` is valid when an intentional not-yet-requested state needs a
+different UI from loading.
+
+```dart
+Future<void> load() async {
+  if (_items.value is AsyncLoading<List<Item>>) return;
+
+  _items.value = AsyncState.loading();
+  final result = await _getItems();
+  result.fold(
+    (error) => _items.value = AsyncState.error(error),
+    (items) => _items.value = AsyncState.data(items),
+  );
+}
+```
+
+- Guard duplicate loads unless concurrent requests are part of the requirement.
+- Preserve a typed `NetworkError` in `AsyncState`; the UI shows a localized
+  generic message, never `error.toString()`.
+- When matching state, match `AsyncData` and `AsyncError` before `AsyncLoading`.
+  Refreshing/reloading states also implement loading and can retain a value or
+  error.
+- A request that can be cancelled uses `RequestCancellationMixin` in the
+  concrete view model and calls `cancelRequests()` from its own `dispose`.
+
+## Widgets and rebuilds
+
+Use `SignalWidget` when a small screen is signal-driven. Use `SignalBuilder`
+around the smallest useful subtree when the shell is static:
+
+```dart
+SignalBuilder(
+  builder: (context, _) {
+    final state = viewModel.items.value;
+    return switch (state) {
+      AsyncData<List<Item>>(:final value) => ItemList(items: value),
+      AsyncError<List<Item>>() => RetryPanel(onRetry: viewModel.load),
+      AsyncLoading<List<Item>>() => const AppLoadingWidget(),
+      null => LoadButton(onPressed: viewModel.load),
+    };
+  },
+)
+```
+
+- Signal reads define rebuild dependencies. Keep them close to the leaf that
+  needs them.
+- Keep navigation, dialogs, snackbars, focus requests, and other one-shot UI
+  effects at the widget boundary. View models expose state or an action result;
+  they do not receive `BuildContext`.
+- Prefer `const`, lazy `ListView.builder`/`GridView.builder`, `SafeArea`, ARB
+  localization, semantic labels, and keyboard/focus support for custom controls.
+- Build width-adaptive layouts from constraints; do not infer layout from device
+  type or lock orientation.
+
+## Effects, subscriptions, and lifecycle
+
+Effects are exceptional. Prefer a direct action result or a computed value.
+When an owner must subscribe, retain and release its cleanup:
+
+```dart
+EffectCleanup? _cleanup;
+
+void start() {
+  _cleanup = service.online.subscribe((online) {
+    if (online) unawaited(replay());
+  });
+}
+
+Future<void> dispose() async {
+  _cleanup?.call();
+  await _subscription?.cancel();
+  _signal.dispose();
+}
+```
+
+- The creator owns cleanup for effects, signal subscriptions, stream
+  subscriptions, timers, computed values with a finite lifetime, Hive boxes,
+  and `WidgetsBindingObserver` registrations.
+- Make initialization idempotent where a service can be initialized more than
+  once in tests or app startup paths.
+- Do not retain a `BuildContext`, widget, or route in a service/view model.
+
+## DI, routing, and app services
+
+- Annotate view models, use cases, repositories, and data sources with
+  Injectable according to their intended lifetime.
+- Use lazy singletons for app-lifetime services; use factories for feature view
+  models unless a scoped lifetime is explicitly required.
+- Edit source annotations only, then run build runner; never edit
+  `get_it.config.dart`, `*.g.dart`, or `*.freezed.dart` manually.
+- Register a view model at the route boundary:
+
+```dart
+GoRoute(
+  path: '/profile',
+  builder: (_, _) => ProfileScreen(viewModel: getIt<ProfileViewModel>()),
+)
+```
+
+- App services expose read-only signals just like view models. Their initial
+  values must be safe before asynchronous initialization completes.
+
+## Data, errors, and security
+
+- Keep transport primitives at data boundaries. Map JSON and Dio failures to
+  domain models and typed errors.
+- Use repository results such as `Either<NetworkError, T>`; do not throw raw
+  transport exceptions through presentation.
+- Never log tokens, credentials, or full sensitive payloads. Do not put secrets
+  in source, tests, generated files, or reports.
+- Validate untrusted input at the boundary. Keep identifiers/value objects typed
+  when they carry finite or high-risk domain meaning.
+
+## Testing and verification
+
+- Unit-test each non-trivial view-model transition: initial, loading, success,
+  error, duplicate request behavior, and disposal when applicable.
+- Use small fakes for repositories and platform services. Avoid broad mocks.
+- Add widget tests for the visible user flow and localized error/retry behavior.
+- Test lifecycle rechecks, reconnect replay, and cleanup for long-lived
+  reactive services.
+- Run the smallest relevant checks, then at minimum after Flutter code changes:
+
+```sh
+dart run build_runner build --delete-conflicting-outputs # DI/model source changed
+flutter analyze
+flutter test
+```
+
+## Review checklist
+
+- Is state owned by the narrowest correct object?
+- Are mutable signals private and public signals read-only?
+- Is async work represented by `AsyncState` and errors localized?
+- Are rebuilds limited to the signal-consuming subtree?
+- Are one-shot effects outside the view model?
+- Are every owned effect, subscription, connection, timer, and observer disposed?
+- Are generated files untouched and required checks passing?

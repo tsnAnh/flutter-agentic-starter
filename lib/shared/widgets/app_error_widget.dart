@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../../core/design_system/app_spacing.dart';
 import '../../core/design_system/app_colors.dart';
+import '../i18n/i18n.dart';
 
 /// Displays an error state with icon, message, and optional retry action.
 class AppErrorWidget extends StatelessWidget {
@@ -23,17 +25,13 @@ class AppErrorWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              size: 48,
-              color: Theme.of(context).colorScheme.error,
-            ),
+            Icon(icon, size: 48, color: Theme.of(context).colorScheme.error),
             const SizedBox(height: AppSpacing.md),
             Text(
               message,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textMuted,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
               textAlign: TextAlign.center,
             ),
             if (onRetry != null) ...[
@@ -41,7 +39,7 @@ class AppErrorWidget extends StatelessWidget {
               FilledButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh),
-                label: const Text('Retry'),
+                label: Text(context.l10n.retry),
               ),
             ],
           ],
