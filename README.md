@@ -2,6 +2,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Flutter](https://img.shields.io/badge/Flutter-3.44+-blue.svg)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.10+-blue.svg)](https://dart.dev)
+[![style: flutter_lints](https://img.shields.io/badge/style-flutter__lints-blue.svg)](https://pub.dev/packages/flutter_lints)
 
 # Flutter Agentic Starter
 
@@ -32,6 +33,36 @@ repeated architecture prompts.
 
 ## Architecture
 
+```mermaid
+graph TD
+    subgraph Presentation
+        W[Widgets] --> VM[Signals ViewModels]
+    end
+
+    subgraph Domain
+        VM --> U[Use Cases]
+        U --> R[Repository Contracts]
+        R --> M[Domain Models]
+    end
+
+    subgraph Data
+        RI[Repository Implementations] --> A[API / Dio]
+        RI --> C[Cache / Hive]
+    end
+
+    subgraph Core
+        DI[GetIt / Injectable]
+        RO[GoRouter]
+        DS[Theme / Design System]
+    end
+
+    R --> RI
+    DI --> VM
+    DI --> RI
+    W --> RO
+    W --> DS
+```
+
 Features use `data/domain/presentation` boundaries:
 
 ```text
@@ -49,17 +80,50 @@ such as `SessionManager.active`, `ConnectivityService.online`, and
 See [System architecture](docs/system-architecture.md) and
 [Code standards](docs/code-standards.md).
 
-## Get started
+## Features
+
+| Module | Description | Key packages |
+| --- | --- | --- |
+| **State** | Reactive presentation and service state | Signals |
+| **Network** | HTTP client, authentication, caching, retry, and connectivity interceptors | Dio |
+| **Auth** | Session and in-memory token state | Signals, Dart SDK |
+| **Cache** | Memory and persistent cache policies | Hive, Hive Flutter |
+| **Connectivity** | Network monitoring and offline request replay | Connectivity Plus, Hive |
+| **DI** | Generated dependency injection | GetIt, Injectable |
+| **Router** | Declarative routing and deep links | GoRouter, App Links |
+| **Models** | Immutable wire and domain models | Freezed, json_serializable |
+| **Widgets** | Responsive shared widgets and generated component catalog | ScreenUtil, Widgetbook |
+| **Firebase** | Analytics, Crashlytics, Remote Config, Messaging, and App Check | Firebase |
+| **Analytics** | Composite analytics providers | Firebase Analytics, PostHog |
+| **Permissions** | Runtime permission handling | Permission Handler |
+| **Forms** | Validated reusable form inputs | Formz |
+| **Lifecycle** | App lifecycle and update checks | Flutter SDK |
+| **Logger** | Debug and production logging | Logger |
+| **Localization** | Generated localized strings | Flutter localization, intl |
+
+## Quick Start
 
 ```sh
+# 1. Use this template, then clone your repository
+git clone https://github.com/YOUR_USERNAME/your-app-name.git
+cd your-app-name
+
+# 2. Install dependencies
 flutter pub get
+
+# 3. Configure the template
+dart run project_setup
+
+# 4. Generate code
 dart run build_runner build --delete-conflicting-outputs
-flutter run -t lib/main_development.dart
+
+# 5. Run the development entry point
+flutter run -t lib/main.dart
 ```
 
 Available entry points:
 
-- `lib/main_development.dart`
+- `lib/main.dart`
 - `lib/main_staging.dart`
 - `lib/main_production.dart`
 
@@ -75,6 +139,48 @@ Run Widgetbook locally in Chrome:
 
 ```sh
 flutter run -t lib/widgetbook/widgetbook.dart -d chrome
+```
+
+## Project Structure
+
+```text
+lib/
+├── app.dart
+├── main.dart
+├── main_staging.dart
+├── main_production.dart
+├── core/
+│   ├── analytics/
+│   ├── assets/
+│   ├── auth/
+│   ├── cache/
+│   ├── connectivity/
+│   ├── design_system/
+│   ├── di/
+│   ├── extensions/
+│   ├── firebase/
+│   ├── lifecycle/
+│   ├── logger/
+│   ├── network/
+│   ├── permissions/
+│   ├── router/
+│   ├── theme/
+│   └── utils/
+├── features/
+│   └── home/
+│       ├── data/
+│       ├── domain/
+│       └── presentation/
+├── shared/
+│   ├── data/
+│   ├── forms/
+│   ├── i18n/
+│   ├── services/
+│   └── widgets/
+└── widgetbook/
+    ├── use_cases/
+    ├── widgetbook.dart
+    └── widgetbook.directories.g.dart
 ```
 
 ## Create a feature
@@ -115,17 +221,69 @@ flutter test
 flutter build apk --release -t lib/main_staging.dart
 ```
 
-## Agent guidance
+## AI Agent Guide
+
+### What Makes This Agent-Ready
 
 Use `flutter-agentic-starter` only when implementing Flutter application code
 under `lib/`, Flutter tests, or platform integration required by that code. It
 does not apply to documentation, setup tooling, repository automation, or other
 non-app maintenance.
 
-Available skills:
+- **Clean separation** — predictable `data/domain/presentation` boundaries
+- **Signals conventions** — private mutable signals and public read-only state
+- **Generated DI** — add Injectable annotations and regenerate
+- **Preconfigured guidance** — `CLAUDE.md`, `AGENTS.md`, Cursor rules, and project skills
+
+### Available Skills
 
 - `flutter-agentic-starter` — Flutter/Signals/Clean Architecture rules
 - `caveman` — concise technical communication
 - `frontend-design` — polished user-facing Flutter UI
 
-See [Documentation index](docs/README.md) and [Contributing](CONTRIBUTING.md).
+### Supported Tools
+
+Works with Claude Code, Codex, OpenCode, Cursor, GitHub Copilot, Windsurf, and
+other coding assistants that can read repository instructions.
+
+### Example Prompts
+
+```text
+"Add a profile feature with a Signals ViewModel, use case, repository, and screen"
+"Create an immutable Order model with Freezed and JSON serialization"
+"Add a typed /users API flow with Dio and fpdart"
+"Add a shared widget and cover its states in Widgetbook"
+```
+
+## Configuration
+
+### Flavors
+
+| Flavor | Entry point | Use case |
+| --- | --- | --- |
+| Development | `lib/main.dart` | Local development |
+| Staging | `lib/main_staging.dart` | QA and internal testing |
+| Production | `lib/main_production.dart` | Release builds |
+
+### Environment Setup
+
+Each flavor can configure its API, Firebase project, analytics, and feature
+flags through `lib/core/flavor_configurations.dart` and generated DI.
+
+## Showcase
+
+Projects built with this template:
+
+- [bit](https://github.com/tsnAnh/bit) — Flutter reader for Medium articles
+
+Built something with this template? Open a pull request to add it here.
+
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+[MIT](LICENSE) — tsnAnh
+
+See the [documentation index](docs/README.md) for detailed guides.
